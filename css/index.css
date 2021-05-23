@@ -25,11 +25,13 @@ p:last-child {
   margin-bottom: 0;
 }
 p,
+.tmpl-page li,
 .tmpl-post li,
 img {
   max-width: 37.5em; /* 600px /16 */
 }
 p,
+.tmpl-page li,
 .tmpl-post li {
   line-height: 1.45;
 }
@@ -156,23 +158,17 @@ code {
 }
 .postlist-item {
   display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
   flex-wrap: wrap;
   align-items: baseline;
-  counter-increment: start-from -1;
   line-height: 1.8;
 }
-.postlist-item:before {
-  display: inline-block;
-  pointer-events: none;
-  content: "" counter(start-from, decimal-leading-zero) ". ";
-  line-height: 100%;
-  text-align: right;
+.postlist-metadata {
+  font-size: .8em;
+  margin-left: .5em;
 }
 .postlist-date,
-.postlist-item:before {
-  font-size: 0.8125em; /* 13px /16 */
-  color: var(--darkgray);
-}
 .postlist-date {
   word-spacing: -0.5px;
 }
@@ -194,7 +190,7 @@ code {
 
 /* Tags */
 .post-tag {
-  display: inline-flex;
+  display: block-flex;
   align-items: center;
   justify-content: center;
   text-transform: uppercase;

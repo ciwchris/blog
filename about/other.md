@@ -3,8 +3,8 @@ layout: layouts/page.njk
 title: About Me
 templateClass: tmpl-page
 eleventyNavigation:
-  key: About Me
-  order: 3
+  key: Other
+  order: 4
 ---
 
 Software developer professional. Dog lover. Pacific Northwest explorer.
