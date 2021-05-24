@@ -5,7 +5,7 @@
 	
 	<link href="https://ciwchris.github.io/blog/feed/feed.xml" rel="self"/>
 	<link href="https://ciwchris.github.io/blog"/>
-	<updated>2018-09-30T00:00:00Z</updated>
+	<updated>2021-05-24T00:00:00Z</updated>
 	<id>https://ciwchris.github.io/blog</id>
 	<author>
 		<name>Christopher Lopes</name>
@@ -13,54 +13,16 @@
 	</author>
 	
 	<entry>
-		<title>This is my fourth post</title>
-		<link href="https://ciwchris.github.io/blog/posts/fourthpost/"/>
-		<updated>2018-09-30T00:00:00Z</updated>
-		<id>https://ciwchris.github.io/blog/posts/fourthpost/</id>
-		<content type="html">&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-&lt;h2 id=&quot;section-header&quot;&gt;Section Header &lt;a class=&quot;direct-link&quot; href=&quot;https://ciwchris.github.io/blog/posts/fourthpost/#section-header&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-</content>
-	</entry>
-	
-	<entry>
-		<title>This is my third post</title>
-		<link href="https://ciwchris.github.io/blog/posts/thirdpost/"/>
-		<updated>2018-08-24T00:00:00Z</updated>
-		<id>https://ciwchris.github.io/blog/posts/thirdpost/</id>
-		<content type="html">&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;highlight-line&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// this is a command&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;myCommand&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;ins class=&quot;highlight-line highlight-line-add&quot;&gt;	&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; counter &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/ins&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;&lt;/span&gt;&lt;br /&gt;&lt;del class=&quot;highlight-line highlight-line-remove&quot;&gt;	counter&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/del&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Test with a line break above this line.&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;Test&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-&lt;h2 id=&quot;section-header&quot;&gt;Section Header &lt;a class=&quot;direct-link&quot; href=&quot;https://ciwchris.github.io/blog/posts/thirdpost/#section-header&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-</content>
-	</entry>
-	
-	<entry>
-		<title>This is my second post</title>
-		<link href="https://ciwchris.github.io/blog/posts/secondpost/"/>
-		<updated>2018-07-04T00:00:00Z</updated>
-		<id>https://ciwchris.github.io/blog/posts/secondpost/</id>
-		<content type="html">&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-&lt;h2 id=&quot;section-header&quot;&gt;Section Header &lt;a class=&quot;direct-link&quot; href=&quot;https://ciwchris.github.io/blog/posts/secondpost/#section-header&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://ciwchris.github.io/blog/posts/firstpost/&quot;&gt;First post&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://ciwchris.github.io/blog/posts/thirdpost/&quot;&gt;Third post&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-</content>
-	</entry>
-	
-	<entry>
-		<title>This is my first post</title>
-		<link href="https://ciwchris.github.io/blog/posts/firstpost/"/>
-		<updated>2018-05-01T00:00:00Z</updated>
-		<id>https://ciwchris.github.io/blog/posts/firstpost/</id>
-		<content type="html">&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-&lt;h2 id=&quot;section-header&quot;&gt;Section Header &lt;a class=&quot;direct-link&quot; href=&quot;https://ciwchris.github.io/blog/posts/firstpost/#section-header&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&lt;span class=&quot;highlight-line&quot;&gt;// this is a command&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;function myCommand() {&lt;/span&gt;&lt;br /&gt;&lt;mark class=&quot;highlight-line highlight-line-active&quot;&gt;	let counter = 0;&lt;/mark&gt;&lt;br /&gt;&lt;mark class=&quot;highlight-line highlight-line-active&quot;&gt;	counter++;&lt;/mark&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;}&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;// Test with a line break above this line.&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;highlight-line&quot;&gt;console.log(&#39;Test&#39;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+		<title>Absent mindedness. Lost in thought. Automatic processing.</title>
+		<link href="https://ciwchris.github.io/blog/posts/absent-mindedness-automatic-processing/"/>
+		<updated>2021-05-24T00:00:00Z</updated>
+		<id>https://ciwchris.github.io/blog/posts/absent-mindedness-automatic-processing/</id>
+		<content type="html">&lt;p&gt;As I was driving back from a social engagement with my girl friend to her house I was reflecting on our time there. We were driving down neighborhood streets in an area I hadn&#39;t been previously. When we got to her street I kept going straight, after which she alerted me I missed the turn. This brought about a new set of questions for my mind to consider such as: why didn&#39;t recognize her street? How many other things was as oblivious to as I drove that night? What is the threat of danger while thinking? What is she thinking about me that I didn&#39;t recognize her street? How much do I care about each of these questions? And so on.&lt;/p&gt;
+&lt;p&gt;When we got back to her place I started to collect my things to head home. I felt I had less things than when I arrived so I started to survey my list of items. I realized why I had less items, prepared my dog for leaving and was ready to depart, at which time she asked if I had grabbed the items she picked up for me at Costco earlier that day. No. No I had not.&lt;/p&gt;
+&lt;p&gt;I experienced a number of memory misses that day. It felt defeating. Why was this? They seem to occur more frequently these recent years in mid life. When I was young I took pride in my memory. I unfortunately relied on it through my school years to get me through most classes without putting in much effort and learning the material. About two years I started experiencing sleep difficulties. All areas of my life were impacted, including my mind. I began noticing memory issues at that time. While trying to determine the reason for my sleep issues I took a number of psychological in an attempt to better understand how my brain was functioning. The results revealed that in all areas my brain functioned very well, except for my working memory. The results confirmed what I was already thinking. It was a question in my mind whether this decline was due to lack of sleep or a natural occurrence of age.&lt;/p&gt;
+&lt;p&gt;As I was driving home another thought occurred to me. What if these memories issues aren&#39;t always issues. Maybe we chalk it up to absent mindedness but that&#39;s not really what&#39;s going on. Being lost in thought and not devoting your attention to the present surroundings must account for some of this. Someone who spends much time in thought this felt comforting. But I always lived in my head. Perhaps when I was young I was able to devote mental resources to both my internal world and the external world. That I had the mental flexibility to quickly jump back and forth between them. This is perhaps a result of having reduced working memory capabilities. But the more intriguing possibility for apparent absent mindedness is automatic processing. Automatic pilot. As we age has our brain able to shift more everyday items to automatic processing, which has the undesirable consequence of causing us to miss all those little things which are not a part of this processing.&lt;/p&gt;
+&lt;p&gt;I listen to a couple neroscience podcasts and have read a couple pop-neroscience books but have not devoted study to the topic. My understanding is that our brains attempt to make its processing efficient. When it faces something new it takes place in one part of the brain and we need to devote our attention. But once we become familiar with the task our brains shift it over to an automatic processing area. And thankfully so! If we had to devote attention to all the things we&#39;ve learned in life we would quickly be at our functioning limit. As we age we build up more and more of this automatic routines. But these routines are not perfect. Since we are not focusing our attention things will be missed. Mistakes will be made. Items will be forgotten. Therefore maybe our apparent absent mindedness is not a memory issue but an indication of the beauty of our mind. And instead of the feeling of embarrassment and discouragement we can proudly trumpet these experiences show casing the number of routines we have amassed into automatic processing.&lt;/p&gt;
+&lt;p&gt;&lt;strike&gt;Absent mindedness&lt;/strike&gt; Automatic processing&lt;/p&gt;
 </content>
 	</entry>
 </feed>

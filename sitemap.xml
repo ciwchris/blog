@@ -2,67 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ciwchris.github.io/blog/posts/firstpost/</loc>
-    <lastmod>2018-05-01</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ciwchris.github.io/blog/posts/secondpost/</loc>
-    <lastmod>2018-07-04</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ciwchris.github.io/blog/posts/thirdpost/</loc>
-    <lastmod>2018-08-24</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ciwchris.github.io/blog/posts/fourthpost/</loc>
-    <lastmod>2018-09-30</lastmod>
+    <loc>https://ciwchris.github.io/blog/posts/absent-mindedness-automatic-processing/</loc>
+    <lastmod>2021-05-24</lastmod>
   </url>
   
   <url>
     <loc>https://ciwchris.github.io/blog/about/</loc>
-    <lastmod>2021-05-23</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ciwchris.github.io/blog/about/other/</loc>
-    <lastmod>2021-05-23</lastmod>
+    <lastmod>2021-05-24</lastmod>
   </url>
   
   <url>
     <loc>https://ciwchris.github.io/blog/posts/</loc>
-    <lastmod>2021-05-23</lastmod>
+    <lastmod>2021-05-24</lastmod>
   </url>
   
   <url>
     <loc>https://ciwchris.github.io/blog/</loc>
-    <lastmod>2021-05-23</lastmod>
+    <lastmod>2021-05-24</lastmod>
   </url>
   
   <url>
     <loc>https://ciwchris.github.io/blog/page-list/</loc>
-    <lastmod>2021-05-23</lastmod>
+    <lastmod>2021-05-24</lastmod>
   </url>
   
   <url>
     <loc>https://ciwchris.github.io/blog/tags/</loc>
-    <lastmod>2021-05-23</lastmod>
+    <lastmod>2021-05-24</lastmod>
   </url>
   
   <url>
-    <loc>https://ciwchris.github.io/blog/tags/another-tag/</loc>
-    <lastmod>2021-05-23</lastmod>
+    <loc>https://ciwchris.github.io/blog/tags/neroscience/</loc>
+    <lastmod>2021-05-24</lastmod>
   </url>
   
   <url>
-    <loc>https://ciwchris.github.io/blog/tags/second-tag/</loc>
-    <lastmod>2021-05-23</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ciwchris.github.io/blog/tags/number-2/</loc>
-    <lastmod>2021-05-23</lastmod>
+    <loc>https://ciwchris.github.io/blog/tags/memory/</loc>
+    <lastmod>2021-05-24</lastmod>
   </url>
 </urlset>
