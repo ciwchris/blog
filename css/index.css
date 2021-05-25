@@ -17,15 +17,10 @@ html,
 body {
   padding: 0;
   margin: 0 auto 0 auto;
-  max-width: 100em;
+  max-width: 60em;
   font-family: -apple-system, system-ui, sans-serif;
   color: var(--darkgray);
   background-color: var(--white);
-}
-body div {
-  margin: 0 auto 0 auto;
-  width: fit-content;
-  width: -moz-fit-content;
 }
 p:last-child {
   margin-bottom: 0;
