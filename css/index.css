@@ -16,10 +16,16 @@
 html,
 body {
   padding: 0;
-  margin: 0;
+  margin: 0 auto 0 auto;
+  max-width: 100em;
   font-family: -apple-system, system-ui, sans-serif;
   color: var(--darkgray);
   background-color: var(--white);
+}
+body div {
+  margin: 0 auto 0 auto;
+  width: fit-content;
+  width: -moz-fit-content;
 }
 p:last-child {
   margin-bottom: 0;
@@ -28,7 +34,7 @@ p,
 .tmpl-page li,
 .tmpl-post li,
 img {
-  max-width: 37.5em; /* 600px /16 */
+  max-width: 45em; /* 600px /16 */
 }
 p,
 .tmpl-page li,
