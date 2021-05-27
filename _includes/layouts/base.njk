@@ -35,7 +35,11 @@
       {{ content | safe }}
     </main>
 
-    <footer></footer>
+    <footer>
+      ©
+      <time datetime="{{ dates.utcDate | htmlDateString }}">{{ dates.utcDate | yearString }}</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
 
     <!-- Current page: {{ page.url | url }} -->
   </body>

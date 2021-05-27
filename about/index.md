@@ -1,9 +1,9 @@
 ---
 layout: layouts/page.njk
-title: About Me
+title: About
 templateClass: tmpl-page
 eleventyNavigation:
-  key: About Me
+  key: About
   order: 3
 ---
 
