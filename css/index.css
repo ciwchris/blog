@@ -1,12 +1,54 @@
 /* Colors */
 :root {
   --lightgray: #e0e0e0;
-  --gray: #C0C0C0;
+  --gray: #c0c0c0;
   --darkgray: #333;
-  --navy: #17050F;
+  --navy: #17050f;
   --blue: #082840;
   --white: #fff;
 }
+
+:root.dark {
+  --lightgray: #101010;
+  --gray: #303030;
+  --darkgray: #ccc;
+  --navy: #f3f6f9;
+  --blue: #f3f6f9;
+  --white: #232629;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lightgray: #101010;
+    --gray: #303030;
+    --darkgray: #ccc;
+    --navy: #f3f6f9;
+    --blue: #f3f6f9;
+    --white: #232629;
+  }
+
+  :root.light {
+    --lightgray: #e0e0e0;
+    --gray: #c0c0c0;
+    --darkgray: #333;
+    --navy: #17050f;
+    --blue: #082840;
+    --white: #fff;
+  }
+}
+
+#toggle-input {
+  display: none;
+}
+#light-icon,
+#dark-icon {
+  position: absolute;
+}
+.toggle-switch {
+  padding-right: 1rem;
+  padding-top: 1rem;
+}
+
 
 /* Global stylesheet */
 * {
@@ -249,3 +291,4 @@ a[href].direct-link:focus:visited,
 :hover > a[href].direct-link:visited {
   color: #aaa;
 }
+

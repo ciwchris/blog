@@ -8,6 +8,7 @@ Blog of ciwchris
 - [Eleventy Base Blog](https://github.com/11ty/eleventy-base-blog.git)
 - [How to Deploy Eleventy to GitHub Pages With GitHub Actions](https://www.rockyourcode.com/how-to-deploy-eleventy-to-github-pages-with-github-actions/)
 - [Email address obfuscation](https://dev.to/andrewlocknet/adding-simple-email-address-obfuscation-for-your-blog-like-cloudflare-scrape-shield-40f7)
+- [Dark mode toggle](https://radek.io/posts/secret-darkmode-toggle/)
 
 ## Favicon
 
