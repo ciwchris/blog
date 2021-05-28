@@ -45,8 +45,15 @@
   position: absolute;
 }
 .toggle-switch {
-  padding-right: 1rem;
+  padding-right: 1.8rem;
   padding-top: 1rem;
+}
+
+@media (max-width: 400px) {
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 
@@ -187,7 +194,6 @@ code {
   padding: 0;
   list-style: none;
   float: left;
-  margin-left: 1em;
 }
 .nav-item {
   display: inline-block;
