@@ -32,7 +32,67 @@
 
     <main class="tmpl-page">
       
+<h3 id="about-me">About me <a class="direct-link" href="#about-me">#</a></h3>
 <p>Software developer professional. Dog lover. Pacific Northwest explorer.</p>
+<h3 id="license-%2F-attribution">License / attribution <a class="direct-link" href="#license-%2F-attribution">#</a></h3>
+<p>All content is under <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons CC-BY-SA license</a>, unless stated otherwise.</p>
+<h3 id="about-this-website">About this website <a class="direct-link" href="#about-this-website">#</a></h3>
+<p>This site is built with <a href="https://www.11ty.dev/">Eleventy</a>. Content and other tools used <a href="https://github.com/ciwchris/blog">can be viewed on GitHub</a>.</p>
+<h3 id="contact">Contact <a class="direct-link" href="#contact">#</a></h3>
+<p>Questions? Comments? Feel free to contact me at <a class="eml-protected" href="#">57343f253e242338273f3225793b3827322417273a793a32</a></p>
+<script>
+// https://dev.to/andrewlocknet/adding-simple-email-address-obfuscation-for-your-blog-like-cloudflare-scrape-shield-40f7
+// Find all the elements on the page that use class="eml-protected"
+var allElements = document.getElementsByClassName("eml-protected");
+
+// Loop through all the elements, and update them
+for (var i = 0; i < allElements.length; i++) {
+    updateAnchor(allElements[i])
+}
+
+function updateAnchor(el) {
+    // fetch the hex-encoded string
+    var encoded = el.innerHTML;
+
+    // decode the email, using the decodeEmail() function from before
+    var decoded = decodeEmail(encoded);
+
+    // Replace the text (displayed) content
+    el.textContent = decoded;
+
+    // Set the link to be a "mailto:" link
+    el.href = 'mailto:' + decoded;
+}
+
+function decodeEmail(encodedString) {
+    // Holds the final output
+    var email = "";
+
+    // Extract the first 2 letters
+    var keyInHex = encodedString.substr(0, 2);
+
+    // Convert the hex-encoded key into decimal
+    var key = parseInt(keyInHex, 16);
+
+    // Loop through the remaining encoded characters in steps of 2
+    for (var n = 2; n < encodedString.length; n += 2) {
+
+        // Get the next pair of characters
+        var charInHex = encodedString.substr(n, 2)
+
+        // Convert hex to decimal
+        var char = parseInt(charInHex, 16);
+
+        // XOR the character with the key to get the original character
+        var output = char ^ key;
+
+        // Append the decoded character to the output
+        email += String.fromCharCode(output);
+    }
+    return email;
+}
+
+</script>
 
 
 
@@ -40,7 +100,7 @@
 
     <footer>
       ©
-      <time datetime="2021-05-27">2021</time>
+      <time datetime="2021-05-28">2021</time>
       Chistopher Lopes. I speak only for myself.
     </footer>
 
