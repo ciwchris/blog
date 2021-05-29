@@ -27,6 +27,11 @@
   </url>
   
   <url>
+    <loc>https://ciwchris.github.io/blog/posts/azure-function-logging-with-serilog/</loc>
+    <lastmod>2021-05-28</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ciwchris.github.io/blog/posts/</loc>
     <lastmod>2021-05-29</lastmod>
   </url>
@@ -63,6 +68,16 @@
   
   <url>
     <loc>https://ciwchris.github.io/blog/tags/memory/</loc>
+    <lastmod>2021-05-29</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ciwchris.github.io/blog/tags/azure-fuctions/</loc>
+    <lastmod>2021-05-29</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ciwchris.github.io/blog/tags/logging/</loc>
     <lastmod>2021-05-29</lastmod>
   </url>
   
