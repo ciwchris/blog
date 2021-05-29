@@ -1,0 +1,15 @@
+---
+layout: layouts/page.njk
+permalink: /pages/
+eleventyNavigation:
+  key: Pages
+  order: 2
+---
+
+{% for page in collections.pages %}
+
+<h3>
+  <a href="{{ page.url | url }}">{{ page.data.title }}</a>
+<h3>
+
+{% endfor %}
