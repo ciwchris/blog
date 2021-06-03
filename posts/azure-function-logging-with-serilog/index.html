@@ -53,7 +53,10 @@
 <h3 id="next-problem">Next problem <a class="direct-link" href="#next-problem">#</a></h3>
 <p>The Function App logging was no longer noisy, but sometimes it is nice to change the log level and receive lower level log entries. How can this be accomplished without deploying a new version of the Function App?</p>
 <h3 id="next-solution">Next solution <a class="direct-link" href="#next-solution">#</a></h3>
-<p>Azure Functions provide a convenient way of <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json#override-hostjson-values">overriding values in the host file</a>. We can therefore use this mechanism to change the log level. By adding the Application Setting <code>AzureFunctionsJobHost__logging__default</code> we can set the value to <code>Information</code> and once again receive Information level events coming from the Function App. The one drawback to this is that the Function App will be restarted when an Application Setting is added or changed.</p>
+<p>Azure Functions provide a convenient way of <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json#override-hostjson-values">overriding values in the host file</a>. We can therefore use this mechanism to change the log level by adding an Application Setting:</p>
+<pre><code>AzureFunctionsJobHost__logging__default: Information
+</code></pre>
+<p>We once again receive Information level events coming from the Function App. The one drawback to this is that the Function App will be restarted when an Application Setting is added or changed.</p>
 
 
 
@@ -61,7 +64,7 @@
 
     <footer>
       ©
-      <time datetime="2021-05-29">2021</time>
+      <time datetime="2021-06-03">2021</time>
       Chistopher Lopes. I speak only for myself.
     </footer>
 

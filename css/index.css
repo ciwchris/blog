@@ -59,6 +59,28 @@
   }
 }
 
+blockquote {
+  border-left: .4em solid var(--gray);
+  margin: 1.5em .5em;
+  padding: 0.5em .5em;
+}
+blockquote p {
+  display: inline;
+}
+blockquote:before {
+  content:"\201C";
+  font-size: 2em;
+  line-height: 0.1em;
+  margin-right: 0.05em;
+  vertical-align: -0.3em;
+}
+blockquote:after {
+  content:"\201D";
+  font-size: 2em;
+  line-height: 0.1em;
+  margin-right: 0.05em;
+  vertical-align: -0.3em;
+}
 
 /* Global stylesheet */
 * {
