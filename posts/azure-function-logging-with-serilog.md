@@ -57,4 +57,10 @@ The Function App logging was no longer noisy, but sometimes it is nice to change
 
 ### Next solution
 
-Azure Functions provide a convenient way of [overriding values in the host file](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json#override-hostjson-values). We can therefore use this mechanism to change the log level. By adding the Application Setting `AzureFunctionsJobHost__logging__default` we can set the value to `Information` and once again receive Information level events coming from the Function App. The one drawback to this is that the Function App will be restarted when an Application Setting is added or changed.
+Azure Functions provide a convenient way of [overriding values in the host file](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json#override-hostjson-values). We can therefore use this mechanism to change the log level by adding an Application Setting:
+
+```
+AzureFunctionsJobHost__logging__default: Information
+```
+
+We once again receive Information level events coming from the Function App. The one drawback to this is that the Function App will be restarted when an Application Setting is added or changed.
