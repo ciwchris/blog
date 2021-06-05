@@ -1,3 +1,4 @@
+/* Dark/light toggle */
 /* Colors */
 :root {
   --lightgray: #e0e0e0;
@@ -49,6 +50,7 @@
   padding-top: 1em;
 }
 
+/* Page menu responsive */
 @media (max-width: 400px) {
   ul {
     display: flex;
@@ -59,6 +61,22 @@
   }
 }
 
+/* Vocabularly */
+
+dt:hover + dd {
+  visibility: visible;
+}
+
+dt {
+  font-size: 1.4rem;
+}
+dd {
+  margin-bottom: .8rem;
+  margin-top: .4rem;
+  visibility: hidden;
+}
+
+// Quotes
 blockquote {
   border-left: .4em solid var(--gray);
   margin: 1.5em .5em;
@@ -81,6 +99,9 @@ blockquote:after {
   margin-right: 0.05em;
   vertical-align: -0.3em;
 }
+
+
+// Theme
 
 /* Global stylesheet */
 * {
