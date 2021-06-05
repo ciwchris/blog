@@ -1,7 +1,7 @@
 ---
 title: Reflections on project management 2021
 description:
-date: 2021-05-30
+date: 2021-06-02
 tags:
   - project management
 layout: layouts/post.njk

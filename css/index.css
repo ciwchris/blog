@@ -81,6 +81,7 @@ blockquote {
   border-left: .4em solid var(--gray);
   margin: 1.5em .5em;
   padding: 0.5em .5em;
+  max-width: 40em;
 }
 blockquote p {
   display: inline;
