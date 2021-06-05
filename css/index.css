@@ -76,7 +76,7 @@ dd {
   visibility: hidden;
 }
 
-// Quotes
+/* Quotes */
 blockquote {
   border-left: .4em solid var(--gray);
   margin: 1.5em .5em;
@@ -101,7 +101,7 @@ blockquote:after {
 }
 
 
-// Theme
+/* Source theme */
 
 /* Global stylesheet */
 * {
