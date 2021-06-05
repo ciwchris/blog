@@ -1,6 +1,6 @@
 ---
 layout: layouts/page.njk
-title: Vim
+title: Vim Cheatsheet
 templateClass: tmpl-page
 date: 2020-01-01
 ---
