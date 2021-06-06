@@ -13,7 +13,7 @@ I struggle to make decisions and therefore whenever coming across material on th
 
 ### Science is peculiar
 
-There were two points in particular which stood out to me while listening to the podcast which motivated to read the paper. The first addresses a question he often receives from his colleague concerning the apparent inconsistent approach between the way he approaches his scientific work and his religious life. In the paper he writes:
+There were two points in particular which stood out to me while listening to the podcast which motivated me to read the paper. The first addresses a question he often receives from his colleague concerning the apparent inconsistent approach between the way he approaches his scientific work and his religious life. In the paper he writes:
 
 > Both my colleague and my postdoc were struck by the apparent inconsistency in my adoption of religious beliefs without similarly rigorous standards of proof.
 >
@@ -31,10 +31,10 @@ He had me after describing the problem because it so accurately describes my str
 
 > These kinds of questions, which we all face routinely, simply do not submit to scientific solutions. We cannot make one choice and see how the experiment comes out, then rewind the tape and make the other choice to determine the outcome in the alternative scenario. Rather, we have a one-time shot at our most important decisions. We are forced to rely on intuition, on experience, on the advice of friends, on precarious projections into the future, and, in the end, on our gut feelings about what is likely to prove "right" in a given situation.
 
-### Conclusion
-
 He later sums it up nicely stating "normal mode" choices are:
 
 > the blend of intuition, analysis, and hopeful commitment
 
-I've heard about the head, heart, and gut triad before and an aim in life is being able to listen to each. To have the three be able to communicate to each other. I like the manner in which Bill Newsome describes this. I need this lesson repeated often. I found his approach refreshing. It has given me renewed motitvation to step into this "human condition", although I still find I am hesitant to say embrace this "human condition".
+### Conclusion
+
+I've heard about the head, heart, and gut triad before and an aim in life is being able to listen to each. To have the three be able to communicate with each other. I like the manner in which Bill Newsome describes this. I need this lesson repeated often. I found his approach refreshing. It has given me renewed motivation to step into this "human condition", although I still find I am hesitant to say embrace this "human condition".
