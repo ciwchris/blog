@@ -1,5 +1,5 @@
 ---
-title: Reflections on project management 2021
+title: Reflections on project management
 description:
 date: 2021-06-02
 tags:
