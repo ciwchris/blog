@@ -280,6 +280,10 @@ code {
 .postlist-date {
   word-spacing: -0.5px;
 }
+.postlist-content {
+  margin-left: .5em;
+  font-size: .9rem;
+}
 .postlist-link {
   padding-left: .25em;
   padding-right: .25em;

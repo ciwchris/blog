@@ -8,11 +8,11 @@ tags:
 layout: layouts/post.njk
 ---
 
-## The issue
+### The issue
 
 I love the idea of notes. A place to collect all the interesting bits of information which I come in contact with and which flow through my mind. But recording, tracking and sharing them always become an obstacle. I've tried numerous system which I end up using for a short period of time after the initial excitement is gone resulting in the lack of motivation to continue to follow the process to manage and share them.
 
-## What to do about this
+### What to do about this
 
 Reflecting on this behavior my take away was to keep them as simple as possible. For me this meant creating a text file on each device. When I come across something interesting I open up my `everything.md` file in the text editor of choice and add a date for the beginning of the week if one hasn't already been recorded and then paste in the link, text or type out the thought prefixed with tag(s) delineated by colons.
 
@@ -36,11 +36,11 @@ I'm not too concerned about the structure of the notes, I want to keep it simple
 
 I've mostly successfully used this system for over a year now.
 
-## The weakness
+### The weakness
 
 My primary issue with this system are that the notes are spread across different devices: work laptop, personal laptop and personal phone. I've tried several services to be able to share these files across devices. One major limiting factor in doing so is that my work blocks most file syncing services as well as note taking sites. I therefore need something which is simple, accessible, and doesn't require effort to keep up and running myself.
 
-## Current solution
+### Current solution
 
 We use GitHub at work. I have a personal account. Private repositories are now free. I mostly enjoy git. All of this makes for a simple and convenient system for managing my notes. The primary drawback for me is that the file content will not be encrypted at rest, but that was true before, when the files were a text file sitting on each device. They are still this. We trust GitHub with our code at work, therefore I feel fine with my notes also sitting on their servers.
 
@@ -74,7 +74,7 @@ Success and Success!
 [git config conditional includes]: https://git-scm.com/docs/git-config#_conditional_includes
 [mgit]: https://manichord.com/projects/mgit.html
 
-## Potential issues
+### Potential issues
 
 I don't intend on committing and pushing up a change to a notes file after every edit. Therefore I've renamed each file so they are specific to each device. I therefore can forget to commit any edits for a period of time without worry about any conflicts to resolve when I get around to it. Not committing immediately also means a note I took on a different device may not be present when I need it on another device, but the potential cost of needing to keep them in sync currently outweighs the risk of not having a note available when I need it. If I do experience this scenario I am thinking it will be an infrequent and minor inconvenience, especially since I now work from home.
 

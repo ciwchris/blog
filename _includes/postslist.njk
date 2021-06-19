@@ -9,6 +9,7 @@
         <a href="{{ tagUrl | url }}" class="post-tag">{{ tag }}</a>
       {% endfor %}
     </div>
+    <div class="postlist-content">{{ post.templateContent | safe | striptags(true) | truncate(200) }}</div>
   </li>
 {% endfor %}
 </ul>
