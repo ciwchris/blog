@@ -171,6 +171,10 @@ code {
   font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
   line-height: 1.5;
 }
+pre code {
+  display: block;
+  overflow-x: scroll;
+}
 pre {
   font-size: 14px;
   line-height: 1.375;
@@ -188,7 +192,8 @@ pre {
   hyphens: none;
   padding: 1em;
   margin: .5em 0;
-  background-color: #f6f6f6;
+  color: var(--darkghtgray);
+  background-color: var(--lightgray);
 }
 code {
   word-break: break-all;
