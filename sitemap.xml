@@ -2,13 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ciwchris.github.io/blog/pages/about/</loc>
+    <loc>https://ciwchris.github.io/blog/about/</loc>
     <lastmod>2010-01-01</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ciwchris.github.io/blog/posts/</loc>
+    <lastmod>2011-01-01</lastmod>
   </url>
   
   <url>
     <loc>https://ciwchris.github.io/blog/pages/links/</loc>
     <lastmod>2012-01-01</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ciwchris.github.io/blog/tags/</loc>
+    <lastmod>2015-01-01</lastmod>
   </url>
   
   <url>
@@ -52,11 +62,6 @@
   </url>
   
   <url>
-    <loc>https://ciwchris.github.io/blog/posts/</loc>
-    <lastmod>2021-06-19</lastmod>
-  </url>
-  
-  <url>
     <loc>https://ciwchris.github.io/blog/</loc>
     <lastmod>2021-06-19</lastmod>
   </url>
@@ -68,11 +73,6 @@
   
   <url>
     <loc>https://ciwchris.github.io/blog/pages/</loc>
-    <lastmod>2021-06-19</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ciwchris.github.io/blog/tags/</loc>
     <lastmod>2021-06-19</lastmod>
   </url>
   
