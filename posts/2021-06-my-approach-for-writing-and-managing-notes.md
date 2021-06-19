@@ -10,11 +10,11 @@ layout: layouts/post.njk
 
 ### The issue
 
-I love the idea of notes. A place to collect all the interesting bits of information which I come in contact with and which flow through my mind. But recording, tracking and sharing them always become an obstacle. I've tried numerous system which I end up using for a short period of time after the initial excitement is gone resulting in the lack of motivation to continue to follow the process to manage and share them.
+I love the idea of notes. A place to collect all the interesting bits of information which I come in contact with and which flow through my mind. But recording, tracking and sharing them has always become an obstacle. I've tried numerous system which I end up using for a short period of time but after the initial excitement is gone a lack of motivation sets in to continue to follow the process of managing and sharing them.
 
 ### What to do about this
 
-Reflecting on this behavior my take away was to keep them as simple as possible. For me this meant creating a text file on each device. When I come across something interesting I open up my `everything.md` file in the text editor of choice and add a date for the beginning of the week if one hasn't already been recorded and then paste in the link, text or type out the thought prefixed with tag(s) delineated by colons.
+Reflecting on this behavior my takeaway was to keep my notes and process as simple as possible. For me this meant creating a text file on each device. When I come across something interesting I open up my `everything.md` file in the text editor of choice and add a date for the beginning of the week, if one hasn't already been recorded, and then paste in the link, text or type out the thought prefixed with tag(s) delineated by colons as demonstrated in this example:
 
 ```
 Date: 6/13
@@ -34,17 +34,17 @@ Date: 6/13
 
 I'm not too concerned about the structure of the notes, I want to keep it simple to lessen any friction for recording the information. The only rules I try to follow are including a weekly date, add at least one tag, and always use singular words for tags.
 
-I've mostly successfully used this system for over a year now.
+I've mostly used this system successfully for over a year now.
 
 ### The weakness
 
-My primary issue with this system are that the notes are spread across different devices: work laptop, personal laptop and personal phone. I've tried several services to be able to share these files across devices. One major limiting factor in doing so is that my work blocks most file syncing services as well as note taking sites. I therefore need something which is simple, accessible, and doesn't require effort to keep up and running myself.
+My primary issue with this system is that the notes are spread across different devices: work laptop, personal laptop and personal phone. I've tried several services to be able to share these files across devices. One major limiting factor in doing so is that my work blocks most file syncing services as well as note taking sites. I therefore need something which is simple, accessible, and doesn't require much effort to maintain myself.
 
 ### Current solution
 
-We use GitHub at work. I have a personal account. Private repositories are now free. I mostly enjoy git. All of this makes for a simple and convenient system for managing my notes. The primary drawback for me is that the file content will not be encrypted at rest, but that was true before, when the files were a text file sitting on each device. They are still this. We trust GitHub with our code at work, therefore I feel fine with my notes also sitting on their servers.
+We use GitHub at work. I have a personal account. Private repositories are now free. I mostly enjoy git. All of these facts make for a simple and convenient system for managing my notes. The primary drawback for me is that the file content will not be encrypted at rest, but that was true before, when the files were a text file sitting on each device. They are still this. And since we trust GitHub with our code at work I therefore feel fine with my notes also sitting on their servers.
 
-The next issue is that I use a work GitHub account with my work name and email address. I wanted any commits made from work to not include this information and instead including my personal information. To enable this I am using [git config conditional includes][]. My `gitconfig` contains the following:
+The next issue is that I use a work GitHub account with my work name and email address. I wanted any commits made from work to not include this information and instead include my personal information. To enable this I am using [git config conditional includes][]. An example version of my `gitconfig` contains the following:
 
 ```
 [user]
@@ -64,10 +64,9 @@ I then override the `user` settings in the `.gitconfig.personal` file.
   signingkey =
 ```
 
+I shared access to my notes repository with my work GitHub account, and so I am still committing from my work account but at least the information in the commits now contain my personal information. This is still not ideal but is simple and suffices. Maybe eventually I'll do the work to find a simple approach for managing multiple GitHub accounts on a device.
 
-I shared access to the repo with my work GitHub account and so I am still committing from my work account but at least the information in the commits now contain my personal information. This is still not ideal but is simple and suffices. Maybe eventually I'll do the work to find a simple approach for managing multiple GitHub accounts on a device.
-
-Next up, how to use GitHub from my phone for cloning the repo and then pulling and pushing commits. I looked at several appfor doing this. With a focus on simplicity I decided to use [mgit][]. The app generates an ssh key when I then can add as a "Deploy key" to the repository with write access. When using the git protocol for the repository URL in mgit then mgit will use the ssh key it generated to access the repository.
+Next up, how to use GitHub from my phone for cloning the repository and then pulling and pushing commits. I looked at several apps for performing this. Again, I wanted something, so I decided to use [mgit][]. The app generates a ssh key when I then can add as a "Deploy key" to the repository with write access. When using the git protocol for the repository URL in mgit then mgit will use the ssh key it generated to access the repository.
 
 Success and Success!
 
@@ -76,7 +75,18 @@ Success and Success!
 
 ### Potential issues
 
-I don't intend on committing and pushing up a change to a notes file after every edit. Therefore I've renamed each file so they are specific to each device. I therefore can forget to commit any edits for a period of time without worry about any conflicts to resolve when I get around to it. Not committing immediately also means a note I took on a different device may not be present when I need it on another device, but the potential cost of needing to keep them in sync currently outweighs the risk of not having a note available when I need it. If I do experience this scenario I am thinking it will be an infrequent and minor inconvenience, especially since I now work from home.
+I don't intend on committing and pushing up a change to a notes file after every edit. Therefore, I've renamed each file, so they are specific to each device. I therefore can forget to commit any edits for a period of time without worry about any conflicts to resolve when I get around to it. Not committing immediately also means a note I took on a different device may not be present when I need it on another device, but the potential cost of needing to keep them in sync currently outweighs the risk of not having a note available when I need it. If I do experience this scenario I am thinking it will be an infrequent and minor inconvenience, especially since I now work from home, and so have all my devices in near proximity most of the time.
 
-Since I now have multiple files broken out by device I decide I'd also try breaking up the files by years. I have concerns about the benefits in doing this and whether it was be the source of obstacles, primarily ease of searching. But at this point I will already be searching across files so I'm giving it a try. It's easy enough to stitch them back together if it becomes an issue.
+Have multiple files broken out by device I decided now was a good time to also try breaking up the files by years.
+
+```
+everything-personal-2021.md
+everything-personal-2020.md
+everything-phone-2021.md
+everything-phone-2021.md
+everything-work-2020.md
+everything-work-2020.md
+```
+
+I have concerns about the benefits in doing this and whether it will be the source of obstacles, primarily ease of searching. But at this point I will already be searching across files, so it is worth a try. It's easy enough to stitch them back together if it becomes an issue.
 

@@ -1,8 +1,12 @@
 ---
 layout: layouts/page.njk
+permalink: /about/
 title: About
 templateClass: tmpl-page
 date: 2010-01-01
+eleventyNavigation:
+  key: About
+  order: 1
 ---
 
 ### About me
