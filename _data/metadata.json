@@ -1,21 +1,20 @@
 {
   "title": "Figuring \\w+ out",
-  "url": "https://ciwchris.github.io/blog",
+  "url": "https://blog.christopherlopes.com",
   "language": "en",
   "description": "",
   "feed": {
     "subtitle": "",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
-    "id": "https://ciwchris.github.io/blog"
+    "id": "https://blog.christopherlopes.com"
   },
   "jsonfeed": {
     "path": "/feed/feed.json",
-    "url": "https://ciwchris.github.io/blog/feed/feed.json"
+    "url": "https://blog.christopherlopes.com/feed/feed.json"
   },
   "author": {
     "name": "Christopher Lopes",
-    "email": "christopher.lopes@pm.me",
-    "url": "https://ciwchris.github.io/blog/about-me/"
+    "url": "https://blog.christopherlopes.com/about"
   }
 }

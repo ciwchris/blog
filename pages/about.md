@@ -19,7 +19,7 @@ All content is under [Creative Commons CC-BY-SA license](https://creativecommons
 
 ### About this website
 
-This site is built with [Eleventy](https://www.11ty.dev/). Content and other tools used [can be viewed on GitHub](https://github.com/ciwchris/blog).
+This site is built with [Eleventy](https://www.11ty.dev/). Content and other tools used can be viewed at [https://blog.christopherlopes.com](https://blog.christopherlopes.com).
 
 ### Contact
 
