@@ -32,10 +32,13 @@ downloaded. I did not see a package for the KopiaUI which was disappointing beca
 easy. But the CLI is preferable anyway.&lt;/p&gt;
 &lt;p&gt;I followed their Getting Started guide. The first example is using the file system. Probably the&lt;br /&gt;
 simplest use case, so let&#39;s try it.&lt;/p&gt;
-&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;kopia repository create filesystem --path /home/my-user/kopia-backup&lt;br /&gt;kopia snapshot create ~/Documents&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;kopia repository create filesystem --path /home/my-user/kopia-backup
+kopia snapshot create ~/Documents
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It prompted for a password when creating the repository and then quickly created the snapshot.&lt;br /&gt;
 Simple indeed. Let&#39;s take a look at the snapshot.&lt;/p&gt;
-&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;kopia snapshot list&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;kopia snapshot list
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&quot;policies&quot;&gt;Policies &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2021-11-13-computer-backups/#policies&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I think I want to change some of those policies, like which files to ignore. Let&#39;s take a look at&lt;br /&gt;
 the current default policies.&lt;/p&gt;
@@ -61,32 +64,47 @@ kopia benchmark compression --data-file=data.csv
 &lt;p&gt;Not much difference in the algorithms for those files. And unsurprisingly it didn&#39;t help the PDF.&lt;br /&gt;
 The CSV isn&#39;t very large so not much benefit there either. Oh well, I&#39;ll still turn it on and pick&lt;br /&gt;
 an algorithm.&lt;/p&gt;
-&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;kopia policy &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; --compression&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;pgzip --global&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;kopia policy set --compression=pgzip --global
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;After enabling it and creating a new snapshot you can view the stats of the snapshot.&lt;/p&gt;
-&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;kopia content stats&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;kopia content stats
+&lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
 &lt;p&gt;compression 1.3%&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&quot;scheduling-%F0%9F%93%85&quot;&gt;Scheduling 📅 &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2021-11-13-computer-backups/#scheduling-%F0%9F%93%85&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Okay, well let&#39;s put the backups on a schedule so they don&#39;t get neglected this time. On Arch one&lt;br /&gt;
 option is to use &lt;code&gt;systemd-run&lt;/code&gt; to run jobs. I&#39;ll create a little script to run all snapshots.&lt;/p&gt;
-&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;#!/bin/sh&lt;span class=&quot;token entity&quot; title=&quot;\n&quot;&gt;\n&lt;/span&gt;kopia snapshot create --all&#39;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; ~/.bin/kopia-backup.sh&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;chmod&lt;/span&gt; +x ~/.bin/kopia-backup.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;echo &#39;#!/bin/sh\nkopia snapshot create --all&#39; &amp;gt;&amp;gt; ~/.bin/kopia-backup.sh
+chmod +x ~/.bin/kopia-backup.sh
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Then I&#39;ll add an entry to run the script hourly.&lt;/p&gt;
-&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; systemd-run --on-calendar&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;hourly ~/.bin/kopia-backup.sh&lt;br /&gt;systemctl list-timers&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;sudo systemd-run --on-calendar=hourly ~/.bin/kopia-backup.sh
+systemctl list-timers
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&quot;backblaze&quot;&gt;Backblaze &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2021-11-13-computer-backups/#backblaze&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I have an old Backblaze bucket I was using for backups. I&#39;ll repurpose it for the Kopia backups.&lt;br /&gt;
 I&#39;ll use environment variables for the Backblaze bucket ID and Key so I can store them elsewhere.&lt;/p&gt;
-&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;B2_KEY_ID&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;MY-APPLICATION-ID&lt;br /&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;B2_KEY&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;MY-APPLICATION-KEY&lt;br /&gt;kopia repository create b2 --bucket&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;tCarbon&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;export B2_KEY_ID=MY-APPLICATION-ID
+export B2_KEY=MY-APPLICATION-KEY
+kopia repository create b2 --bucket=tCarbon
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Policies do need to be set up for this repository as well.&lt;/p&gt;
-&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;kopia policy &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; --add-ignore .node_modules/ --global&lt;br /&gt;kopia policy &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; --add-ignore .git/ --global&lt;br /&gt;kopia policy &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; --compression&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;pgzip --global&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;kopia policy set --add-ignore .node_modules/ --global
+kopia policy set --add-ignore .git/ --global
+kopia policy set --compression=pgzip --global
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Great! And now we can start creating snapshots for this repository.&lt;/p&gt;
-&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;kopia snapshot create ~/Documents&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;kopia snapshot create ~/Documents
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&quot;switching-repositories&quot;&gt;Switching repositories &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2021-11-13-computer-backups/#switching-repositories&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;You need to switch back and forth between repositories when creating snapshots. This seems like it&lt;br /&gt;
 could be a stumbling stone when trying to schedule backups and using multiple repositories. Anyway,&lt;br /&gt;
 the command to switch back and forth is the same as the initial command when creating the repository&lt;br /&gt;
 except the command is &lt;code&gt;connect&lt;/code&gt; instead of &lt;code&gt;create&lt;/code&gt;.&lt;/p&gt;
-&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;kopia repository connect filesystem --path /home/ciwchris/kopia-backup&lt;br /&gt;kopia repository connect b2 --bucket&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;tCarbon&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;kopia repository connect filesystem --path /home/ciwchris/kopia-backup
+kopia repository connect b2 --bucket=tCarbon
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;That&#39;s it for now. Happy backups! 🤞&lt;/p&gt;
 </content>
 	</entry>
