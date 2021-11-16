@@ -103,7 +103,7 @@ chmod +x ~/.bin/kopia-backup.sh
 Then I'll add an entry to run the script hourly.
 
 ```
-sudo systemd-run --on-calendar=hourly ~/.bin/kopia-backup.sh
+sudo systemd-run --user --on-calendar=hourly ~/.bin/kopia-backup.sh
 systemctl list-timers
 ```
 
@@ -134,17 +134,46 @@ kopia snapshot create ~/Documents
 
 ### Switching repositories
 
-You need to switch back and forth between repositories when creating snapshots. This seems like it
-could be a stumbling stone when trying to schedule backups and using multiple repositories. Anyway,
-the command to switch back and forth is the same as the initial command when creating the repository
-except the command is `connect` instead of `create`.
+If multiple repositories are being used then you need to switch to the appropriate repository before
+taking the snapshot. The command to switch back and forth is the same as the initial command when
+creating the repository except the command is `connect` instead of `create`.
 
 ```
 kopia repository connect filesystem --path /home/ciwchris/kopia-backup
 kopia repository connect b2 --bucket=tCarbon
 ```
 
+### Password management
+
+The password for the repository will need to be entered when connecting. To provide the password
+securely in the script I'm using [pass][]. To configure pass I followed [steps in flbuddymooreiv's
+gist].
+
+- Generate a key to use `gpg --gen-key`
+- Retrieve the public key `gpg --list-keys`
+- Use the public key to initialize pass: `pass init xxxxxxxxxxx`
+- Add Git support to pass: `pass git init`
+  - Git support can be handy when adding a remote repo which then can be shared between devices
+- Create a password for kopia: `pass insert kopia/filesystem`
+
+The backup script can now be modified to insert the password when connecting to the repository. When
+the password is accessed a prompt will be displayed to unlock pass. Once the password for pass has
+been entered the password will be retrieved and used in the script to connect to the repository.
+
+```
+#!/bin/sh
+
+kopia repository connect filesystem --path /home/ciwchris/kopia-backup -p "$(pass kopia/filesystem)"
+kopia snapshot create --all
+```
+
+Similar steps can be followed to supply the password for connecting to the Backblaze repository as
+well as the Backblaze bucket id and key.
+
 That's it for now. Happy backups! 🤞
 
-[Kopia]: https://kopia.io/
 
+
+[Kopia]: https://kopia.io/
+[pass]: https://www.passwordstore.org/
+[steps in flbuddymooreiv's gist]: https://gist.github.com/flbuddymooreiv/a4f24da7e0c3552942ff
