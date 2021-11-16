@@ -102,7 +102,7 @@ option is to use <code>systemd-run</code> to run jobs. I'll create a little scri
 chmod +x ~/.bin/kopia-backup.sh
 </code></pre>
 <p>Then I'll add an entry to run the script hourly.</p>
-<pre><code>sudo systemd-run --on-calendar=hourly ~/.bin/kopia-backup.sh
+<pre><code>sudo systemd-run --user --on-calendar=hourly ~/.bin/kopia-backup.sh
 systemctl list-timers
 </code></pre>
 <h3 id="backblaze">Backblaze <a class="direct-link" href="#backblaze">#</a></h3>
@@ -121,13 +121,37 @@ kopia policy set --compression=pgzip --global
 <pre><code>kopia snapshot create ~/Documents
 </code></pre>
 <h3 id="switching-repositories">Switching repositories <a class="direct-link" href="#switching-repositories">#</a></h3>
-<p>You need to switch back and forth between repositories when creating snapshots. This seems like it<br>
-could be a stumbling stone when trying to schedule backups and using multiple repositories. Anyway,<br>
-the command to switch back and forth is the same as the initial command when creating the repository<br>
-except the command is <code>connect</code> instead of <code>create</code>.</p>
+<p>If multiple repositories are being used then you need to switch to the appropriate repository before<br>
+taking the snapshot. The command to switch back and forth is the same as the initial command when<br>
+creating the repository except the command is <code>connect</code> instead of <code>create</code>.</p>
 <pre><code>kopia repository connect filesystem --path /home/ciwchris/kopia-backup
 kopia repository connect b2 --bucket=tCarbon
 </code></pre>
+<h3 id="password-management">Password management <a class="direct-link" href="#password-management">#</a></h3>
+<p>The password for the repository will need to be entered when connecting. To provide the password<br>
+securely in the script I'm using <a href="https://www.passwordstore.org/">pass</a>. To configure pass I followed <a href="https://gist.github.com/flbuddymooreiv/a4f24da7e0c3552942ff">steps in flbuddymooreiv's<br>
+gist</a>.</p>
+<ul>
+<li>Generate a key to use <code>gpg --gen-key</code></li>
+<li>Retrieve the public key <code>gpg --list-keys</code></li>
+<li>Use the public key to initialize pass: <code>pass init xxxxxxxxxxx</code></li>
+<li>Add Git support to pass: <code>pass git init</code>
+<ul>
+<li>Git support can be handy when adding a remote repo which then can be shared between devices</li>
+</ul>
+</li>
+<li>Create a password for kopia: <code>pass insert kopia/filesystem</code></li>
+</ul>
+<p>The backup script can now be modified to insert the password when connecting to the repository. When<br>
+the password is accessed a prompt will be displayed to unlock pass. Once the password for pass has<br>
+been entered the password will be retrieved and used in the script to connect to the repository.</p>
+<pre><code>#!/bin/sh
+
+kopia repository connect filesystem --path /home/ciwchris/kopia-backup -p &quot;$(pass kopia/filesystem)&quot;
+kopia snapshot create --all
+</code></pre>
+<p>Similar steps can be followed to supply the password for connecting to the Backblaze repository as<br>
+well as the Backblaze bucket id and key.</p>
 <p>That's it for now. Happy backups! 🤞</p>
 
 
@@ -136,7 +160,7 @@ kopia repository connect b2 --bucket=tCarbon
 
     <footer>
       ©
-      <time datetime="2021-11-13">2021</time>
+      <time datetime="2021-11-16">2021</time>
       Chistopher Lopes. I speak only for myself.
     </footer>
 

@@ -79,7 +79,7 @@ option is to use &lt;code&gt;systemd-run&lt;/code&gt; to run jobs. I&#39;ll crea
 chmod +x ~/.bin/kopia-backup.sh
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Then I&#39;ll add an entry to run the script hourly.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;sudo systemd-run --on-calendar=hourly ~/.bin/kopia-backup.sh
+&lt;pre&gt;&lt;code&gt;sudo systemd-run --user --on-calendar=hourly ~/.bin/kopia-backup.sh
 systemctl list-timers
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&quot;backblaze&quot;&gt;Backblaze &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2021-11-13-computer-backups/#backblaze&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
@@ -98,13 +98,37 @@ kopia policy set --compression=pgzip --global
 &lt;pre&gt;&lt;code&gt;kopia snapshot create ~/Documents
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&quot;switching-repositories&quot;&gt;Switching repositories &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2021-11-13-computer-backups/#switching-repositories&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;You need to switch back and forth between repositories when creating snapshots. This seems like it&lt;br /&gt;
-could be a stumbling stone when trying to schedule backups and using multiple repositories. Anyway,&lt;br /&gt;
-the command to switch back and forth is the same as the initial command when creating the repository&lt;br /&gt;
-except the command is &lt;code&gt;connect&lt;/code&gt; instead of &lt;code&gt;create&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If multiple repositories are being used then you need to switch to the appropriate repository before&lt;br /&gt;
+taking the snapshot. The command to switch back and forth is the same as the initial command when&lt;br /&gt;
+creating the repository except the command is &lt;code&gt;connect&lt;/code&gt; instead of &lt;code&gt;create&lt;/code&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;kopia repository connect filesystem --path /home/ciwchris/kopia-backup
 kopia repository connect b2 --bucket=tCarbon
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;password-management&quot;&gt;Password management &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2021-11-13-computer-backups/#password-management&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The password for the repository will need to be entered when connecting. To provide the password&lt;br /&gt;
+securely in the script I&#39;m using &lt;a href=&quot;https://www.passwordstore.org/&quot;&gt;pass&lt;/a&gt;. To configure pass I followed &lt;a href=&quot;https://gist.github.com/flbuddymooreiv/a4f24da7e0c3552942ff&quot;&gt;steps in flbuddymooreiv&#39;s&lt;br /&gt;
+gist&lt;/a&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Generate a key to use &lt;code&gt;gpg --gen-key&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Retrieve the public key &lt;code&gt;gpg --list-keys&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Use the public key to initialize pass: &lt;code&gt;pass init xxxxxxxxxxx&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Add Git support to pass: &lt;code&gt;pass git init&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;Git support can be handy when adding a remote repo which then can be shared between devices&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Create a password for kopia: &lt;code&gt;pass insert kopia/filesystem&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The backup script can now be modified to insert the password when connecting to the repository. When&lt;br /&gt;
+the password is accessed a prompt will be displayed to unlock pass. Once the password for pass has&lt;br /&gt;
+been entered the password will be retrieved and used in the script to connect to the repository.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#!/bin/sh
+
+kopia repository connect filesystem --path /home/ciwchris/kopia-backup -p &amp;quot;$(pass kopia/filesystem)&amp;quot;
+kopia snapshot create --all
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Similar steps can be followed to supply the password for connecting to the Backblaze repository as&lt;br /&gt;
+well as the Backblaze bucket id and key.&lt;/p&gt;
 &lt;p&gt;That&#39;s it for now. Happy backups! 🤞&lt;/p&gt;
 </content>
 	</entry>
