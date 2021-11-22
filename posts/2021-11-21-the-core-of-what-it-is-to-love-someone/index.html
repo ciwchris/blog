@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The core of what it is to love someone</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Figuring \w+ out">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Figuring \w+ out">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Figuring \w+ out</a></h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/">Pages</a>
+        </li>
+        <li class="nav-item">
+          <a href="/feed/feed.xml">RSS</a>
+        </li>
+      </ul>
+      <label class="toggle-switch" for="toggle-input">
+          <input id="toggle-input" type="checkbox">
+          <span id="dark-icon">🌘</span>
+          <span id="light-icon">☀️</span>
+      </label>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>The core of what it is to love someone</h1>
+
+<time datetime="2021-11-21">Nov 21 2021</time><a href="/tags/love/" class="post-tag">love</a><a href="/tags/life/" class="post-tag">life</a>
+
+<h3 id="the-excerpt">The excerpt <a class="direct-link" href="#the-excerpt">#</a></h3>
+<p>An excerpt from <a href="https://youtu.be/DLg2Q0daphE?t=2700">Jordan Peterson's interview with John Vervaeke</a>:</p>
+<blockquote>
+<p>The goal of Rhineland Mysticism was this kind of receptivity, you have to make a space so that the<br>
+son of God can be born within you. And again, not to be irreligious, but for me to to love my<br>
+partner is to cultivate that kind of receptivity, a space in which she can be within me, and I don't<br>
+mean in any purely romantic metaphorical sense. What I mean is she finds a purchase within me<br>
+whereby she can realize herself, in both senses of the word realize. And she can come to trust that<br>
+that space that place of realization will always be available for her. And she can come to rely on<br>
+it. A place which she can transcend herself when she needs to. And being committed to that and<br>
+finding that inseparably bound up with my own project of trying to realize who I am. That's for me<br>
+the core of what it is to love somebody.</p>
+</blockquote>
+<p>I'll let the excerpt stand for itself, the link to the interview is provided to for those who desire<br>
+to learn more about the excerpt and what more precisely he is expressing.</p>
+<h3 id="the-reflection">The reflection <a class="direct-link" href="#the-reflection">#</a></h3>
+<p>The words <a href="https://twitter.com/vervaeke_john">Vervaeke</a> used to describe the core of love struck me. His articulation of love evoked<br>
+a visceral response in me. Poetry. I desire this, both for myself and for my partner. Yes, this is<br>
+what it means to love someone. Well, it is one expression of it. A sacred, safe, trusted place<br>
+within myself for another. Bound up forever together as we journey, to learn about ourself, about<br>
+ourselves. I need that. I want to provide that. A vow to make. A commitment to each other. A north<br>
+star to guide our relationship as we wander, get off track, and find our way back. By the grace of<br>
+God may I. May we.</p>
+<h3 id="back-to-where-it-started">Back to where it started <a class="direct-link" href="#back-to-where-it-started">#</a></h3>
+<p>Vervaeke is borrowing language describing our relationship with God. Space within us so that the son<br>
+of God is born within us. After concluding the previous section, where I invoke the grace of God, my<br>
+thoughts are only complete by circling back and noting this space we allow in us seems contingent on<br>
+us first having this space in us which God can take hold and grow, so that his grace works out of us<br>
+from within. I don't know how else we will be able to trust and maintain safe spaces while we do<br>
+come to know ourselves and each other. To have a space within us where another is able to reside in<br>
+some ways seems like a organ transplant. It is only with medication our body will not reject the new<br>
+organ. It is with the grace of God I will not reject another as I maintain a space with myself for<br>
+them.</p>
+<p>By the grace of God</p>
+
+
+
+    </main>
+
+    <footer>
+      ©
+      <time datetime="2021-11-22">2021</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
+
+    <!-- Current page: /posts/2021-11-21-the-core-of-what-it-is-to-love-someone/ -->
+
+
+
+  <script>
+
+function setTheme(theme, persist = false) {
+    const on = theme;
+    const off = theme === 'light' ? 'dark' : 'light'
+
+    const htmlEl = document.documentElement;
+    htmlEl.classList.add(on);
+    htmlEl.classList.remove(off);
+
+    if (persist) {
+        localStorage.setItem('preferred-theme', theme);
+    }
+}
+const toggle = document.getElementById('toggle-input');
+const lightIcon = document.getElementById('light-icon');
+const darkIcon = document.getElementById('dark-icon');
+
+function updateUI(theme) {
+    toggle.checked = theme === 'light';
+
+    if (theme === 'light') {
+        lightIcon.style.visibility = "hidden";
+        darkIcon.style.visibility = "visible";
+    } else {
+        darkIcon.style.visibility = "hidden";
+        lightIcon.style.visibility = "visible";
+    }
+}
+
+toggle.addEventListener('click', () => {
+    const theme = toggle.checked ? 'light' : 'dark';
+    setTheme(theme, true);
+    updateUI(theme);
+});
+const osPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferredTheme = localStorage.getItem('preferred-theme') || osPreference;
+
+setTheme(preferredTheme, false);
+updateUI(preferredTheme);
+  </script>
+  </body>
+</html>
