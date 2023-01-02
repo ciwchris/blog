@@ -103,7 +103,7 @@ chmod +x ~/.bin/kopia-backup.sh
 Then I'll add an entry to run the script hourly.
 
 ```
-sudo systemd-run --user --on-calendar=hourly ~/.bin/kopia-backup.sh
+systemd-run --user --on-calendar=hourly ~/.bin/kopia-backup.sh
 systemctl list-timers
 ```
 
