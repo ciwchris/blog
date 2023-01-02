@@ -102,7 +102,7 @@ option is to use <code>systemd-run</code> to run jobs. I'll create a little scri
 chmod +x ~/.bin/kopia-backup.sh
 </code></pre>
 <p>Then I'll add an entry to run the script hourly.</p>
-<pre><code>sudo systemd-run --user --on-calendar=hourly ~/.bin/kopia-backup.sh
+<pre><code>systemd-run --user --on-calendar=hourly ~/.bin/kopia-backup.sh
 systemctl list-timers
 </code></pre>
 <h3 id="backblaze">Backblaze <a class="direct-link" href="#backblaze">#</a></h3>
@@ -160,7 +160,7 @@ well as the Backblaze bucket id and key.</p>
 
     <footer>
       ©
-      <time datetime="2021-11-22">2021</time>
+      <time datetime="2023-01-02">2023</time>
       Chistopher Lopes. I speak only for myself.
     </footer>
 
