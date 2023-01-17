@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using devcontainers with VS Code and GitHub Codespaces</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Figuring \w+ out">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Figuring \w+ out">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Figuring \w+ out</a></h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/">Pages</a>
+        </li>
+        <li class="nav-item">
+          <a href="/feed/feed.xml">RSS</a>
+        </li>
+      </ul>
+      <label class="toggle-switch" for="toggle-input">
+          <input id="toggle-input" type="checkbox">
+          <span id="dark-icon">🌘</span>
+          <span id="light-icon">☀️</span>
+      </label>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>Using devcontainers with VS Code and GitHub Codespaces</h1>
+
+<time datetime="2023-01-16">Jan 16 2023</time><a href="/tags/vscode/" class="post-tag">vscode</a><a href="/tags/dev-container/" class="post-tag">dev-container</a><a href="/tags/codespaces/" class="post-tag">codespaces</a><a href="/tags/static-web-apps/" class="post-tag">static-web-apps</a><a href="/tags/blazor/" class="post-tag">blazor</a>
+
+<h3 id="the-beginning%3A-creating-a-blazor-wasm-application-on-both-windows-and-linux">The beginning: Creating a Blazor WASM application on both Windows and Linux <a class="direct-link" href="#the-beginning%3A-creating-a-blazor-wasm-application-on-both-windows-and-linux">#</a></h3>
+<p>I use a Windows machine at work but a Linux machine at home. I do .Net development at work.<br>
+Although I'd prefer to development in a different ecosystem at home it is still helpful to be<br>
+able to experiment and do some .Net development at home. In theory this should now be possible.<br>
+However I always seem to run into issues.</p>
+<p>As part of my learning related to work I decided to create a simple shopping list application using<br>
+an <a href="https://learn.microsoft.com/en-us/azure/static-web-apps">Azure Static Website Application</a>, SWA. I've also wanted to try out WASM, so off I went starting my project.</p>
+<h3 id="how-to-create-the-project-and-the-azure-resources">How to create the project and the Azure resources <a class="direct-link" href="#how-to-create-the-project-and-the-azure-resources">#</a></h3>
+<p>I also was interested in learning how to integrate the <a href="https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/">Azure Developer CLI</a> (azd). There currently isn't a<br>
+template to start from for the project type I wanted to create. Therefore I started out <a href="https://github.com/Azure-Samples/todo-csharp-sql-swa-func">azd C#<br>
+Static Web App template</a> to learn from. When I tried provisioning Azure resources stating a<br>
+resource was not available in the region I selected. But it did not report which resource it was!<br>
+Thankfully I had recently tried deploying an Azure SQL DB recently and remembered it was not<br>
+available in the region I normally use. I selected a different region and tried again. Same type of<br>
+failure. I was able to eventually determine which other resource it was not happy with in the region<br>
+I selected. Finally I was able to successfully provision Azure resources. But a couple days later I<br>
+realized I should have looked at the resources the template was creating because the Azure SQL DB<br>
+quickly spent all of my credits and locked my account.</p>
+<p>I did not give up. I pushed forward and went through the process of customizing the template for my<br>
+project. There's a lot in these templates however. So the process took time as I tried to simplify<br>
+the template for my project. It was an error prone and lengthy process. Thankfully I never felt<br>
+completely stuck and so was able to finally provision all of the resources.</p>
+<p>I started my Blazor WASM project from the <a href="https://github.com/staticwebdev/blazor-starter">Blazor Starter template</a>. However when I tried to deploy<br>
+the application it failed. The resolution was not obvious. Perhaps WASM is not supported by azd for<br>
+SWA's. I was exhausted. At this point I just wanted something which worked.</p>
+<p>SWA's have their own CLI. It's a convenient way to create, develop and deploy SWAs. Therefore I next<br>
+tried this route. However I immediately ran into errors. I don't remember what they were. I didn't<br>
+spend time attempting to figure it out.</p>
+<p>As a final fallback I used the built in GitHub Actions to deploy the SWA. Thankfully this worked<br>
+without issue. Yay!</p>
+<h3 id="pulled-in-again-with-dev-containers">Pulled in again with Dev Containers <a class="direct-link" href="#pulled-in-again-with-dev-containers">#</a></h3>
+<p>Azd is still in beta. A recent update included azd usage from <a href="https://devblogs.microsoft.com/azure-sdk/azure-developer-cli-azd-january-2023-release/#use-the-azure-developer-cli-in-github-codespaces">within GitHub Codespaces</a>, which uses<br>
+<a href="https://containers.dev/">Dev Containers</a>. I was familiar with the usage of Dev Containers with VS Code but had never used<br>
+them before. I figure now was a great time incorporate them.</p>
+<p>But how to begin? There's a <a href="https://code.visualstudio.com/docs/devcontainers/devcontainer-cli">Dev Container CLI</a>. Yikes! That's more than I wanted to dig into.<br>
+There must be a simpler way to get going. How about a template to work from? This looks like a<br>
+simple <a href="https://github.com/microsoft/vscode-remote-try-dotnet/blob/main/.devcontainer/devcontainer.json">Dev Container Template</a>. I started out with it, and added in my VS Code extensions, which<br>
+was what I thought would be the primary benefit of setting up a Dev Container.</p>
+<p>I was able to launch a Codespace. But VS Code was recommending extensions which I thought I had<br>
+already specified. Unfortunately I had a couple typos and I didn't notice any messages indicating<br>
+this. I was able to figure out the issue. Extensions installed!</p>
+<p>Except, the <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.blazorwasm-companion">Blazor WASM Debugging extension</a>. It reports it cannot be used in a Dev Container. Sigh.</p>
+<p>And wait, azd is not installed in the container. I watched the video embedded in the azd<br>
+announcement, saw the template they were using for the demo, and examined their Dev Container<br>
+configuration. They use a Dockerfile and specify several images in their configuration. I guess it's<br>
+going to be more complicated than I had hoped. Well, at least now I have another example template<br>
+to work from.</p>
+<p>The changes required were not significant and I was up and running soon. First step, logging in. My<br>
+user name is the same between my enterprise work and MSDN work accounts. Try as I may I cannot<br>
+log into the MSDN account. It turns out the <a href="https://github.com/Azure/azure-dev/releases/tag/azure-dev-cli_0.5.0-beta.2">new version of azd introduced this bug</a>. I wonder what<br>
+version is installed in the Dev Container. The timing of the report of the bug and its resolution<br>
+worked out for me. A fix was quickly in place for me to use. But now I can login but it doesn't know<br>
+about my Azure subscription. <a href="https://github.com/Azure/azure-dev/issues/1398">A new issue has already been created</a></p>
+<h3 id="local-dev-container-usage">Local Dev Container usage <a class="direct-link" href="#local-dev-container-usage">#</a></h3>
+<p>Now every time I start up VS Code it asks if I want to open the project in the Dev Container. That's<br>
+sort of annoying. How can I always just open it in the Dev Container? After looking around the Dev<br>
+Container should have an <em>open</em> command. But I don't see that command. There are GitHub issues<br>
+about this command is missing after an update.</p>
+<p>On a whim I uninstalled the Dev Container CLI and instead installed the tool through VS Code and<br>
+added the path to the tool in my shell profile. This version does have the <em>open</em> command. I'm<br>
+calling it good.</p>
+<h3 id="conclusion">Conclusion <a class="direct-link" href="#conclusion">#</a></h3>
+<p>It feels like it has been a long journey. Longer than it should have been. When things follow the<br>
+predetermined path then they work great out of the box. But if you need something different then<br>
+prepared to figure things out as you go. It is in beta. And this is all part of the learning<br>
+process.</p>
+<p>Now I need to try develop using the Dev Container and determine if this process provides added<br>
+value, hopefully making it more seamless to develop in Linux and across platforms: Linux, Windows<br>
+and Codespaces.</p>
+
+
+
+    </main>
+
+    <footer>
+      ©
+      <time datetime="2023-01-17">2023</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
+
+    <!-- Current page: /posts/2023-01-16-devcontainers/ -->
+
+
+
+  <script>
+
+function setTheme(theme, persist = false) {
+    const on = theme;
+    const off = theme === 'light' ? 'dark' : 'light'
+
+    const htmlEl = document.documentElement;
+    htmlEl.classList.add(on);
+    htmlEl.classList.remove(off);
+
+    if (persist) {
+        localStorage.setItem('preferred-theme', theme);
+    }
+}
+const toggle = document.getElementById('toggle-input');
+const lightIcon = document.getElementById('light-icon');
+const darkIcon = document.getElementById('dark-icon');
+
+function updateUI(theme) {
+    toggle.checked = theme === 'light';
+
+    if (theme === 'light') {
+        lightIcon.style.visibility = "hidden";
+        darkIcon.style.visibility = "visible";
+    } else {
+        darkIcon.style.visibility = "hidden";
+        lightIcon.style.visibility = "visible";
+    }
+}
+
+toggle.addEventListener('click', () => {
+    const theme = toggle.checked ? 'light' : 'dark';
+    setTheme(theme, true);
+    updateUI(theme);
+});
+const osPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferredTheme = localStorage.getItem('preferred-theme') || osPreference;
+
+setTheme(preferredTheme, false);
+updateUI(preferredTheme);
+  </script>
+  </body>
+</html>
