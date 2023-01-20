@@ -5,12 +5,32 @@
 	
 	<link href="https://blog.christopherlopes.com/feed/feed.xml" rel="self"/>
 	<link href="https://blog.christopherlopes.com"/>
-	<updated>2023-01-16T00:00:00Z</updated>
+	<updated>2023-01-19T00:00:00Z</updated>
 	<id>https://blog.christopherlopes.com</id>
 	<author>
 		<name>Christopher Lopes</name>
 		<email></email>
 	</author>
+	
+	<entry>
+		<title>We teach failure is to be feared</title>
+		<link href="https://blog.christopherlopes.com/posts/2023-01-19-we-teach-failure-is-to-be-feared/"/>
+		<updated>2023-01-19T00:00:00Z</updated>
+		<id>https://blog.christopherlopes.com/posts/2023-01-19-we-teach-failure-is-to-be-feared/</id>
+		<content type="html">&lt;h3 id=&quot;how-fear-of-failure-impacts-me&quot;&gt;How fear of failure impacts me &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2023-01-19-we-teach-failure-is-to-be-feared/#how-fear-of-failure-impacts-me&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;I&#39;ve carried the fear of failure for as long as I can remember. There&#39;s no area of my life where this fear does not reach. As I&#39;ve grown older I believe I understand this emotion better. That I can recognize it and understand why I am experiencing it. But it doesn&#39;t mean I&#39;m not overcome by it and that it has an undesirable impact in my life.&lt;/p&gt;
+&lt;p&gt;One significant area of my life this fear has dominated me has been in school. One positive aspect to this fear is that it motivated me to do well in school. But the negative side of it is that it caused me to focus on what it would take to get the mark. Even though I&#39;m a curious person this part of me was sacrificed at the alter of fear. I don&#39;t know if today I&#39;d do much better letting this fear control me. Yet I long to be in an environment where I can be curious and explore. Where the learning process is to be enjoyed.&lt;/p&gt;
+&lt;p&gt;Recently I was in a discussion about high school students enrolled in Running Start. Sometimes they complete everything needed to graduate but because of timelines they are still finishing the Running Start classes. But at this point it doesn&#39;t matter how they do in the class. It doesn&#39;t impact their high school record and it won&#39;t impact their college record. When students are in this position they frequently slack off and stop working. I imagine I would have kept working for the grade, out of fear of failure. But I wondered, would I have been able to experience this scenario as freeing? Since the grade would not have had any impact would I have been able to let my curiosity out and finally enjoy the learning process?&lt;/p&gt;
+&lt;h3 id=&quot;how-we-teach-failure-is-to-be-feared&quot;&gt;How we teach failure is to be feared &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2023-01-19-we-teach-failure-is-to-be-feared/#how-we-teach-failure-is-to-be-feared&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://freakonomics.com/podcast/is-gaming-good-for-you/&quot;&gt;Episode 76 of the podcast People I Mostly Admire&lt;/a&gt; with guest &lt;a href=&quot;https://en.wikipedia.org/wiki/Jane_McGonigal&quot;&gt;Jane McGonigal&lt;/a&gt; of the book &lt;a href=&quot;https://janemcgonigal.com/my-book/&quot;&gt;SuperBetter&lt;/a&gt; compared video games to our educational system. When playing a video game it is okay if you fail because you are able keep trying, playing over and over, as long as you want. But in school you typically have one try. You don&#39;t get to retake a test. Relearn the material. This makes for an &amp;quot;overly punitive system&amp;quot; in which instead of embracing and enjoying a challenge we are anxious and fear the failure.&lt;/p&gt;
+&lt;p&gt;I could not have finish school soon enough. In university I was offered the opportunity to continue on in graduate school and teach. I was approached be several professors. I dismissed them all immediately. I did not enjoy school. There&#39;s so much I lost by not being able to do so.&lt;/p&gt;
+&lt;h3 id=&quot;the-consequences-of-teaching-failure-is-to-be-feared&quot;&gt;The consequences of teaching failure is to be feared &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2023-01-19-we-teach-failure-is-to-be-feared/#the-consequences-of-teaching-failure-is-to-be-feared&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;It is understandable how we&#39;ve ended up in a punitive educational system. But because we do operate under such a system what we lose is substantial.&lt;/p&gt;
+&lt;p&gt;Fear of failures prevents many of us from starting things, learning things, and receiving correction well. This blog post for example. It is not researched. It is not thought out. Instead I am merely shaping my thoughts as I go. And it makes me wonder, there is failure in this approach. Perhaps if it was thought out and researched it would be more persuasive. That it would present a better impression of myself. But by that reasoning I probably would never write anything because I&#39;d know I could always research it more. Think about it more. Wisdom is in understanding this line.&lt;/p&gt;
+&lt;p&gt;But having a society where its people have been taught through fear leads to a society of people who feel bad about themselves. We give up. We focus on the wrong thing. There is a tremendous amount of potential which will never be realized. That is lost.&lt;/p&gt;
+&lt;p&gt;Changing the educational system isn&#39;t going to happen overnight, but maybe eventually. In the meantime I desire to be the kind of person where I communicate failure differently in the relationships I am, to encourage others to keep trying instead of fearing. To enjoy taking on hard things and challenged by failure, instead of being anxious and fearing failure.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Using devcontainers with VS Code and GitHub Codespaces</title>
