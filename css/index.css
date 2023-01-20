@@ -156,6 +156,7 @@ header:after {
 footer {
   font-size: .8em;
   margin-top: 2em;
+  margin-bottom: 1em;
   text-align: center;
 }
 table {
