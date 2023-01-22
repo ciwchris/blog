@@ -11,7 +11,14 @@ eleventyNavigation:
 
 ### About me
 
-Software developer professional. Dog lover. Pacific Northwest explorer.
+I'm a dog lover and [adopted a dog](http://PETHUB.ME/SPK-701172) which joins me as I [explore the Pacific Northwest](https://www.wta.org/go-outside/hikes/).
+I enjoy getting away on nice country summer [motorcycle rides](https://www.motorcycleroads.com/motorcycle-rides-in/washington). I've had a longstanding interest in [flying](https://www.topgunmovie.com/) since childhood. I took lessons one summer but did not continue. I haven't missed an episode of [Survivor](https://en.wikipedia.org/wiki/Survivor_43) since beginning watching halfway through season 3. I've applied twice. 
+
+I have the desire to be a [continual Learner](https://ln.ht/~ciwchris). I spend too much time listening to [podcasts](https://gist.github.com/ciwchris/b204fbbca6f240b0cf2e789797355e60). But they are informative and keep the mind going while doing others things. Although I miss allowing my mind to wander. I enjoy [Reading](https://bookshelf.christopherlopes.com) well written informative books on a variety of topics.
+
+I strive to make lifelong [healthy decisions](https://ymcainw.org/). I was a runner until an injury. The feeling of the ground under my feet and the rush of endorphins afterward was magical. Now I [volunteer at track events](https://www.spokanesports.org/Indoormeets).
+
+I'm a professional software developer. I work in [.Net](https://dot.net) and follow [Elixir](https://elixir-lang.org/). I continue to learn about [faith](https://www.commonprayerdaily.com/) and what it means in life. I married later in life and am [Learning to be a nourishing Husband](https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/).
 
 ### License / attribution
 
