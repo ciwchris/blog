@@ -5,6 +5,7 @@ date: 2023-06-12
 tags:
   - meditation
   - life
+  - dog
 layout: layouts/post.njk
 ---
 
