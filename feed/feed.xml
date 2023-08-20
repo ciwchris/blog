@@ -5,12 +5,27 @@
 	
 	<link href="https://blog.christopherlopes.com/feed/feed.xml" rel="self"/>
 	<link href="https://blog.christopherlopes.com"/>
-	<updated>2023-08-08T00:00:00Z</updated>
+	<updated>2023-08-20T00:00:00Z</updated>
 	<id>https://blog.christopherlopes.com</id>
 	<author>
 		<name>Christopher Lopes</name>
 		<email></email>
 	</author>
+	
+	<entry>
+		<title>Ask vs guess culture at work</title>
+		<link href="https://blog.christopherlopes.com/posts/2023-08-20-ask-vs-guess-culture-at-work/"/>
+		<updated>2023-08-20T00:00:00Z</updated>
+		<id>https://blog.christopherlopes.com/posts/2023-08-20-ask-vs-guess-culture-at-work/</id>
+		<content type="html">&lt;p&gt;In the article &lt;a href=&quot;https://jeanhsu.substack.com/p/ask-vs-guess-culture&quot;&gt;Ask vs guess culture&lt;/a&gt; I appreciated the attention drawn to the conflict between the typical &amp;quot;ask&amp;quot; culture at work and the more typical &amp;quot;guess&amp;quot; culture in personal life.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;At a high level, western corporate work operates almost entirely in ask culture. But people working at these companies often operate in or were raised in guess culture, which as you might expect, is ripe for feeling misunderstood and frustrated.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This week, we experienced an after-hours outage at work. I work later than everyone else, so I was the only one around to notice it. I could determine that the issue was outside my typical role. I communicated about the issues in the department&#39;s messaging channel. A member of another team, who is more closely connected to the issue, responded. We continued to investigate, but we weren&#39;t making much progress. He raised the issue in the IT messaging channel. He was instructed to call in so the appropriate personal could be notified, which he did. The person notified was able to quickly determine the issue and work to resolve it.&lt;/p&gt;
+&lt;p&gt;It is challenging for me to &amp;quot;ask&amp;quot;. I don&#39;t want to bother someone else, especially if I&#39;m responsible for doing something. In the story above, I believe I eventually could have determined the problem, but I now know I would not have been able to resolve it. Even still, I feel obligated to diagnosis the problem so that when I need to make a request I know they need to be bothered and that I have reduced my request to the minimal amount. I observed this in myself in the midst of the outage, but I still resisted asking. I&#39;ve known this about myself for most of my life.&lt;/p&gt;
+&lt;p&gt;I feel the article was helpful in that it normalized the conflict within me and has provided me rational for reaching out and asking, especially when I know assistance is needed. I realize I need to be prepared for the kind of response I receive, because it also will be different from when I make a request from a well researched guess. They may quickly decline, by other askers. Or I may impose on them, other guessers. I may feel hurt. I may feel shame. I may feel like a failure. But I also may feel camaraderie. Someone else may feel important. It all may establish a better community.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>The fall of poetry</title>
