@@ -127,17 +127,17 @@
   </url>
   
   <url>
+    <loc>https://blog.christopherlopes.com/tags/pages/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.christopherlopes.com/tags/neroscience/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/memory/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/pages/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
@@ -162,22 +162,22 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/notes/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/organization/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.christopherlopes.com/tags/decisions/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/project-management/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/notes/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/organization/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
@@ -197,27 +197,12 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/vscode/</loc>
+    <loc>https://blog.christopherlopes.com/tags/money/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/dev-container/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/codespaces/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/static-web-apps/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/blazor/</loc>
+    <loc>https://blog.christopherlopes.com/tags/product/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
@@ -252,16 +237,6 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/career/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/growth/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.christopherlopes.com/tags/meditation/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
@@ -272,12 +247,7 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/money/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/product/</loc>
+    <loc>https://blog.christopherlopes.com/tags/courage/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
@@ -297,27 +267,27 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/guidance/</loc>
+    <loc>https://blog.christopherlopes.com/tags/vscode/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/authority/</loc>
+    <loc>https://blog.christopherlopes.com/tags/dev-container/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/courage/</loc>
+    <loc>https://blog.christopherlopes.com/tags/codespaces/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/perception/</loc>
+    <loc>https://blog.christopherlopes.com/tags/static-web-apps/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/knowledgew/</loc>
+    <loc>https://blog.christopherlopes.com/tags/blazor/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
@@ -328,6 +298,36 @@
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/work/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/guidance/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/authority/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/career/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/growth/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/perception/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/knowledgew/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
 </urlset>
