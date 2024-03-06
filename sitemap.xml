@@ -142,16 +142,6 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/azure-fuctions/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/logging/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.christopherlopes.com/tags/empathy/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
@@ -162,107 +152,22 @@
   </url>
   
   <url>
+    <loc>https://blog.christopherlopes.com/tags/azure-fuctions/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/logging/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.christopherlopes.com/tags/decisions/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/project-management/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/notes/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/organization/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.christopherlopes.com/tags/computer/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/love/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/life/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/money/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/product/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/failure/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/fear/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/education/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/curiosity/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/story/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/mind/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/meditation/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/dog/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/courage/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/poetry/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/literature/</loc>
-    <lastmod>2024-03-06</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/history/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
@@ -292,6 +197,96 @@
   </url>
   
   <url>
+    <loc>https://blog.christopherlopes.com/tags/failure/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/fear/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/education/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/curiosity/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/love/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/life/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/story/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/mind/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/project-management/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/notes/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/organization/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/meditation/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/dog/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/money/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/product/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/courage/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/career/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/growth/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.christopherlopes.com/tags/culture/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
@@ -312,12 +307,17 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/career/</loc>
+    <loc>https://blog.christopherlopes.com/tags/poetry/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/growth/</loc>
+    <loc>https://blog.christopherlopes.com/tags/literature/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/history/</loc>
     <lastmod>2024-03-06</lastmod>
   </url>
   
