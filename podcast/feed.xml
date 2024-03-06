@@ -10,17 +10,17 @@
 
   <item>
     <title>Episode 1: Introduction</title>
-    <pubDate>Tue, 05 Mar 2024 00:00:00 PST</pubDate> <link>Your Podcast Website URL/episode-1</link> <enclosure url="hello.mp3" type="audio/mpeg" length="12345" /> <description>This is the first episode of your podcast.</description>
+    <pubDate>Tue, 05 Mar 2024 00:00:00 PST</pubDate> <link>Your Podcast Website URL/episode-1</link> <enclosure url="podcast/hello.mp3" type="audio/mpeg" length="12345" /> <description>This is the first episode of your podcast.</description>
   </item>
 
   <item>
     <title>Episode 2: Test Episode</title>
-    <pubDate>Tue, 05 Mar 2024 00:00:00 PST</pubDate> <link>Your Podcast Website URL/episode-2</link> <enclosure url="test.mp3" type="audio/mpeg" length="54321" /> <description>This is a test episode.</description>
+    <pubDate>Tue, 05 Mar 2024 00:00:00 PST</pubDate> <link>Your Podcast Website URL/episode-2</link> <enclosure url="podcast/test.mp3" type="audio/mpeg" length="54321" /> <description>This is a test episode.</description>
   </item>
 
   <item>
     <title>Episode 3: Conclusion</title>
-    <pubDate>Tue, 05 Mar 2024 00:00:00 PST</pubDate> <link>Your Podcast Website URL/episode-3</link> <enclosure url="conclusion.mp3" type="audio/mpeg" length="98765" /> <description>This is the concluding episode.</description>
+    <pubDate>Tue, 05 Mar 2024 00:00:00 PST</pubDate> <link>Your Podcast Website URL/episode-3</link> <enclosure url="podcast/conclusion.mp3" type="audio/mpeg" length="98765" /> <description>This is the concluding episode.</description>
   </item>
 </channel>
 </rss>
