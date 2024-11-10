@@ -162,16 +162,6 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/computer/</loc>
-    <lastmod>2024-11-10</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/project-management/</loc>
-    <lastmod>2024-11-10</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.christopherlopes.com/tags/notes/</loc>
     <lastmod>2024-11-10</lastmod>
   </url>
@@ -182,7 +172,12 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/decisions/</loc>
+    <loc>https://blog.christopherlopes.com/tags/project-management/</loc>
+    <lastmod>2024-11-10</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/computer/</loc>
     <lastmod>2024-11-10</lastmod>
   </url>
   
@@ -222,12 +217,47 @@
   </url>
   
   <url>
+    <loc>https://blog.christopherlopes.com/tags/career/</loc>
+    <lastmod>2024-11-10</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/growth/</loc>
+    <lastmod>2024-11-10</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/decisions/</loc>
+    <lastmod>2024-11-10</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.christopherlopes.com/tags/story/</loc>
     <lastmod>2024-11-10</lastmod>
   </url>
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/mind/</loc>
+    <lastmod>2024-11-10</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/money/</loc>
+    <lastmod>2024-11-10</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/product/</loc>
+    <lastmod>2024-11-10</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/meditation/</loc>
+    <lastmod>2024-11-10</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/dog/</loc>
     <lastmod>2024-11-10</lastmod>
   </url>
   
@@ -252,6 +282,11 @@
   </url>
   
   <url>
+    <loc>https://blog.christopherlopes.com/tags/courage/</loc>
+    <lastmod>2024-11-10</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.christopherlopes.com/tags/poetry/</loc>
     <lastmod>2024-11-10</lastmod>
   </url>
@@ -267,26 +302,6 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/career/</loc>
-    <lastmod>2024-11-10</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/growth/</loc>
-    <lastmod>2024-11-10</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/courage/</loc>
-    <lastmod>2024-11-10</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/dog/</loc>
-    <lastmod>2024-11-10</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.christopherlopes.com/tags/culture/</loc>
     <lastmod>2024-11-10</lastmod>
   </url>
@@ -297,17 +312,12 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/meditation/</loc>
+    <loc>https://blog.christopherlopes.com/tags/perception/</loc>
     <lastmod>2024-11-10</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/money/</loc>
-    <lastmod>2024-11-10</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/product/</loc>
+    <loc>https://blog.christopherlopes.com/tags/knowledgew/</loc>
     <lastmod>2024-11-10</lastmod>
   </url>
   
@@ -318,16 +328,6 @@
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/authority/</loc>
-    <lastmod>2024-11-10</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/perception/</loc>
-    <lastmod>2024-11-10</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/knowledgew/</loc>
     <lastmod>2024-11-10</lastmod>
   </url>
 </urlset>
