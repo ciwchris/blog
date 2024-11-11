@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faking time and logs</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Figuring \w+ out">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Figuring \w+ out">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Figuring \w+ out</a></h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/">Pages</a>
+        </li>
+        <li class="nav-item">
+          <a href="/feed/feed.xml">RSS</a>
+        </li>
+      </ul>
+      <label class="toggle-switch" for="toggle-input">
+          <input id="toggle-input" type="checkbox">
+          <span id="dark-icon">🌘</span>
+          <span id="light-icon">☀️</span>
+      </label>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>Faking time and logs</h1>
+
+<time datetime="2024-03-11">Mar 11 2024</time><a href="/tags/dotnet/" class="post-tag">dotnet</a><a href="/tags/testing/" class="post-tag">testing</a>
+
+<h3 id="the-problem%3A-framework-side-effects">The problem: framework side effects <a class="direct-link" href="#the-problem%3A-framework-side-effects">#</a></h3>
+<p>Ideally core application logic is written in such a way so that it does not have any side effects.
+Unfortunately some .NET framework types produce side effects.</p>
+<p>When working with dates and times most commonly static methods are used to retrieve the current date
+and time. As a result some wrap these types within another type. Then the new type can be injected
+as a dependency. This is not difficult to do, but does require extra work and discipline.</p>
+<p>Logging can already be injected as a dependency. The challenging part with logging is examining
+written logs in tests. It's certainly possible to mock logging in tests and then write
+verifications. Typically mocking is not ideal. Testing an implementation is brittle. Instead tests
+should focus on the result, which means there should not be side effects. Logging is a somewhat
+unique case, so the typical concerns may not apply. But why settle for less, it can be implemented
+better.</p>
+<h3 id="resolutions">Resolutions <a class="direct-link" href="#resolutions">#</a></h3>
+<h4 id="timeprovider">TimeProvider <a class="direct-link" href="#timeprovider">#</a></h4>
+<p>Recently .NET gain additions to mitigate both of these issues. For date time there is now a
+<code>TimeProvider</code> which can be injected. It can then be used in application code,
+ex:<code>timeProvider.GetLocalNow()</code>.</p>
+<p>When testing <code>FakeTimeProvider</code> can be used to set a date time, so when then application code
+requests a date time a preset value will be used.</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">new</span> <span class="token constructor-invocation class-name">FakeTimeProvider</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token constructor-invocation class-name">DateTimeOffset</span><span class="token punctuation">(</span><span class="token number">2023</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">,</span> TimeSpan<span class="token punctuation">.</span><span class="token function">FromHours</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h4 id="fakelogger">FakeLogger <a class="direct-link" href="#fakelogger">#</a></h4>
+<p>For logging there now is a <code>FakeLogger</code> which you can create in tests and use when creating an
+object to test, ex: <code>new FakeLogger&lt;SomeService&gt;()</code>.</p>
+<p>Assertions can then be made in tests:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token class-name"><span class="token keyword">var</span></span> latestLog <span class="token operator">=</span> logger<span class="token punctuation">.</span>Collector<span class="token punctuation">.</span>LatestRecord<span class="token punctuation">;</span><br>Assert<span class="token punctuation">.</span><span class="token function">That</span><span class="token punctuation">(</span>latestLog<span class="token punctuation">.</span>Level<span class="token punctuation">,</span> Is<span class="token punctuation">.</span><span class="token function">EqualTo</span><span class="token punctuation">(</span>LogLevel<span class="token punctuation">.</span>Error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h3 id="complete-example">Complete example <a class="direct-link" href="#complete-example">#</a></h3>
+<p>A simple console application can be created:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Main</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span></span> args<span class="token punctuation">)</span><br><span class="token punctuation">{</span><br>  <span class="token class-name"><span class="token keyword">var</span></span> host <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">HostBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><br>    <span class="token punctuation">.</span><span class="token function">ConfigureLogging</span><span class="token punctuation">(</span>builder <span class="token operator">=></span> <span class="token punctuation">{</span> builder<span class="token punctuation">.</span><span class="token function">AddConsole</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><br>    <span class="token punctuation">.</span><span class="token function">ConfigureServices</span><span class="token punctuation">(</span>serviceProvider <span class="token operator">=></span><br>    <span class="token punctuation">{</span><br>      serviceProvider<br>        <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddTransient</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>SomeService<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><br>        <span class="token punctuation">.</span><span class="token function">AddSingleton</span><span class="token punctuation">(</span>TimeProvider<span class="token punctuation">.</span>System<span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><br>    <span class="token punctuation">.</span><span class="token function">Build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  host<span class="token punctuation">.</span>Services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">GetRequiredService</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>SomeService<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>And example service which uses <code>TimeProvider</code> and <code>ILogger</code> is:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SomeService</span><span class="token punctuation">(</span><span class="token class-name">TimeProvider</span> timeProvider<span class="token punctuation">,</span> <span class="token class-name">ILogger<span class="token punctuation">&lt;</span>SomeService<span class="token punctuation">></span></span> logger<span class="token punctuation">)</span><br><span class="token punctuation">{</span><br>  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><br>  <span class="token punctuation">{</span><br>    logger<span class="token punctuation">.</span><span class="token function">LogInformation</span><span class="token punctuation">(</span><span class="token string">"The time is: {Time}"</span><span class="token punctuation">,</span> timeProvider<span class="token punctuation">.</span><span class="token function">GetLocalNow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">try</span><br>    <span class="token punctuation">{</span><br>      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">NotImplementedException</span><span class="token punctuation">(</span><span class="token string">"Causing an error to test logging with exception information"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br>    <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NotImplementedException</span> e<span class="token punctuation">)</span><br>    <span class="token punctuation">{</span><br>      logger<span class="token punctuation">.</span><span class="token function">LogError</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token string">"The error time is: {Time}"</span><span class="token punctuation">,</span> timeProvider<span class="token punctuation">.</span><span class="token function">GetLocalNow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+<p>Then a test can be written for the service which allows the test to control the date time and logger
+so that the tests are not brittle, remain simple and allow proper assertions:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">Test</span></span><span class="token punctuation">]</span><br><span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">FrameworkLogger_FakeLoggerRecordsLogs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><br><span class="token punctuation">{</span><br>  <span class="token class-name"><span class="token keyword">var</span></span> logger <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">FakeLogger<span class="token punctuation">&lt;</span>SomeService<span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token class-name"><span class="token keyword">var</span></span> fakeTimeProvider <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">FakeTimeProvider</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token constructor-invocation class-name">DateTimeOffset</span><span class="token punctuation">(</span><span class="token number">2023</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">,</span> TimeSpan<span class="token punctuation">.</span><span class="token function">FromHours</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token class-name"><span class="token keyword">var</span></span> service <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">SomeService</span><span class="token punctuation">(</span>fakeTimeProvider<span class="token punctuation">,</span> logger<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  service<span class="token punctuation">.</span><span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  Assert<span class="token punctuation">.</span><span class="token function">That</span><span class="token punctuation">(</span>logger<span class="token punctuation">.</span>Collector<span class="token punctuation">.</span>Count<span class="token punctuation">,</span> Is<span class="token punctuation">.</span><span class="token function">EqualTo</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  <span class="token class-name"><span class="token keyword">var</span></span> firstLog <span class="token operator">=</span> logger<span class="token punctuation">.</span>Collector<span class="token punctuation">.</span><span class="token function">GetSnapshot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span><br>  Assert<span class="token punctuation">.</span><span class="token function">That</span><span class="token punctuation">(</span>firstLog<span class="token punctuation">.</span>Level<span class="token punctuation">,</span> Is<span class="token punctuation">.</span><span class="token function">EqualTo</span><span class="token punctuation">(</span>LogLevel<span class="token punctuation">.</span>Information<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  Assert<span class="token punctuation">.</span><span class="token function">That</span><span class="token punctuation">(</span>firstLog<span class="token punctuation">.</span>Message<span class="token punctuation">,</span> Is<span class="token punctuation">.</span><span class="token function">EqualTo</span><span class="token punctuation">(</span><span class="token string">"The time is: 07/15/2023 13:25:13 -07:00"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  <span class="token class-name"><span class="token keyword">var</span></span> latestLog <span class="token operator">=</span> logger<span class="token punctuation">.</span>Collector<span class="token punctuation">.</span>LatestRecord<span class="token punctuation">;</span><br>  Assert<span class="token punctuation">.</span><span class="token function">That</span><span class="token punctuation">(</span>latestLog<span class="token punctuation">.</span>Level<span class="token punctuation">,</span> Is<span class="token punctuation">.</span><span class="token function">EqualTo</span><span class="token punctuation">(</span>LogLevel<span class="token punctuation">.</span>Error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  Assert<span class="token punctuation">.</span><span class="token function">That</span><span class="token punctuation">(</span>latestLog<span class="token punctuation">.</span>Message<span class="token punctuation">,</span> Is<span class="token punctuation">.</span><span class="token function">EqualTo</span><span class="token punctuation">(</span><span class="token string">"The error time is: 07/15/2023 13:25:13 -07:00"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  Assert<span class="token punctuation">.</span><span class="token function">That</span><span class="token punctuation">(</span>latestLog<span class="token punctuation">.</span>Exception<span class="token punctuation">?.</span>Message<span class="token punctuation">,</span><br>    Is<span class="token punctuation">.</span><span class="token function">EqualTo</span><span class="token punctuation">(</span><span class="token string">"Causing an error to test logging with exception information"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="conclusion">Conclusion <a class="direct-link" href="#conclusion">#</a></h3>
+<p>These changes in .NET are very much welcomed. The changes are not significant, but they are
+niceties. They make tests less brittle, there is less boilerplate and they lead developers in the
+right direction.</p>
+
+
+
+    </main>
+
+    <footer>
+      <ul>
+        <li class="nav-item">
+          <a href="https://bsky.app/profile/christopherlopes.bsky.social">💬 @christopherlopes</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://bookshelf.christopherlopes.com">📚 Bookshelf</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://ln.ht/~ciwchris">🔖 Links</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://rss.christopherlopes.com">📒 RSS Reader</a>
+        </li>
+      </ul>
+
+      ©
+      <time datetime="2024-11-11">2024</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
+
+    <!-- Current page: /posts/2024-03-11-faking-time-and-logs/ -->
+
+
+
+  <script>
+
+function setTheme(theme, persist = false) {
+    const on = theme;
+    const off = theme === 'light' ? 'dark' : 'light'
+
+    const htmlEl = document.documentElement;
+    htmlEl.classList.add(on);
+    htmlEl.classList.remove(off);
+
+    if (persist) {
+        localStorage.setItem('preferred-theme', theme);
+    }
+}
+const toggle = document.getElementById('toggle-input');
+const lightIcon = document.getElementById('light-icon');
+const darkIcon = document.getElementById('dark-icon');
+
+function updateUI(theme) {
+    toggle.checked = theme === 'light';
+
+    if (theme === 'light') {
+        lightIcon.style.visibility = "hidden";
+        darkIcon.style.visibility = "visible";
+    } else {
+        darkIcon.style.visibility = "hidden";
+        lightIcon.style.visibility = "visible";
+    }
+}
+
+toggle.addEventListener('click', () => {
+    const theme = toggle.checked ? 'light' : 'dark';
+    setTheme(theme, true);
+    updateUI(theme);
+});
+const osPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferredTheme = localStorage.getItem('preferred-theme') || osPreference;
+
+setTheme(preferredTheme, false);
+updateUI(preferredTheme);
+  </script>
+  </body>
+</html>
