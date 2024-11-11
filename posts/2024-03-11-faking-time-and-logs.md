@@ -17,9 +17,9 @@ When working with dates and times most commonly static methods are used to retri
 and time. As a result some wrap these types within another type. Then the new type can be injected
 as a dependency. This is not difficult to do, but does require extra work and discipline.
 
-Logging can already be injected as a dependency. The challenging part with logging is examining
+Logging can already be injected as a dependency. The challenging part of logging is asserting
 written logs in tests. It's certainly possible to mock logging in tests and then write
-verifications. Typically mocking is not ideal. Testing an implementation is brittle. Instead tests
+verifications. Typically mocking is not ideal. Testing an implementation is brittle. Instead, tests
 should focus on the result, which means there should not be side effects. Logging is a somewhat
 unique case, so the typical concerns may not apply. But why settle for less, it can be implemented
 better.
@@ -28,11 +28,11 @@ better.
 
 #### TimeProvider
 
-Recently .NET gain additions to mitigate both of these issues. For date time there is now a
+Recently .NET gained additions to mitigate both of these issues. For date time there is now a
 `TimeProvider` which can be injected. It can then be used in application code,
 ex:`timeProvider.GetLocalNow()`.
 
-When testing `FakeTimeProvider` can be used to set a date time, so when then application code
+When testing `FakeTimeProvider` can be used to set a date time, so when the application code
 requests a date time a preset value will be used.
 
 ```csharp
@@ -53,7 +53,7 @@ Assert.That(latestLog.Level, Is.EqualTo(LogLevel.Error));
 
 ### Complete example
 
-A simple console application can be created:
+A simple console application can be setup:
 
 ```csharp
 public static void Main(string[] args)
@@ -72,7 +72,7 @@ public static void Main(string[] args)
 }
 ```
 
-And example service which uses `TimeProvider` and `ILogger` is:
+And an example service which uses `TimeProvider` and `ILogger`:
 
 ```csharp
 public class SomeService(TimeProvider timeProvider, ILogger<SomeService> logger)
@@ -93,8 +93,7 @@ public class SomeService(TimeProvider timeProvider, ILogger<SomeService> logger)
 }
 ```
 
-Then a test can be written for the service which allows the test to control the date time and logger
-so that the tests are not brittle, remain simple and allow proper assertions:
+Then a test can be written for the service which allows the test to control the date time and logger:
 
 ```csharp
 [Test]
@@ -123,5 +122,6 @@ public void FrameworkLogger_FakeLoggerRecordsLogs()
 ### Conclusion
 
 These changes in .NET are very much welcomed. The changes are not significant, but they are
-niceties. They make tests less brittle, there is less boilerplate and they lead developers in the
-right direction.
+niceties. They simplify tests, remove boilerplate and make tests less brittle. They lead developers
+in the right direction.
+

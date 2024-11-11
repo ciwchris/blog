@@ -1,5 +1,5 @@
 ---
-title: "Why not to ask doctors for their advice"
+title: "Why not ask doctors for their advice"
 description:
 date: 2023-08-30
 tags:
@@ -10,7 +10,7 @@ layout: layouts/post.njk
 
 ### The danger
 
-While not tho focus of the EconTalk episode [Vinay Prasad on Cancer Screening](https://www.econtalk.org/vinay-prasad-on-cancer-screening/) Russ Roberts raises the dilema of asking your doctor what they would do when facing a health care situation:
+While not tho focus of the EconTalk episode [Vinay Prasad on Cancer Screening](https://www.econtalk.org/vinay-prasad-on-cancer-screening/) Russ Roberts raises the dilemma of asking your doctor what they would do when facing a health care situation:
 
 > …where there's uncertainty and a financial stake, it's often helpful to ask the doctor, let's say you're helping your mother or dealing with some health crisis. You say to the doctor, "Well, if this was your mother, what would you do?"
 
@@ -30,4 +30,4 @@ It makes sense he would be so firmly rooted in believing his procedure was benef
 
 If I trust an authority then I place a high value on their guidance. I believe their guidance is often accurate. But at times they may overprescribe their service, because that is what they have persuaded themselves to be helpful.
 
-I still believe it is wise to ask for guidance from an authority, but I'll be seconding guessing doing so and examining more closely what they have to say.
+I still believe it is wise to ask for guidance from an authority, but I'll be second guessing, and examining more closely what they have to say.
