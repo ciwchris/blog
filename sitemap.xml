@@ -132,37 +132,17 @@
   </url>
   
   <url>
+    <loc>https://blog.christopherlopes.com/tags/pages/</loc>
+    <lastmod>2024-11-11</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.christopherlopes.com/tags/neroscience/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/memory/</loc>
-    <lastmod>2024-11-11</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/pages/</loc>
-    <lastmod>2024-11-11</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/azure-fuctions/</loc>
-    <lastmod>2024-11-11</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/logging/</loc>
-    <lastmod>2024-11-11</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/empathy/</loc>
-    <lastmod>2024-11-11</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/scripture/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
   
@@ -177,12 +157,32 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/project-management/</loc>
+    <loc>https://blog.christopherlopes.com/tags/empathy/</loc>
+    <lastmod>2024-11-11</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/scripture/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/decisions/</loc>
+    <lastmod>2024-11-11</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/project-management/</loc>
+    <lastmod>2024-11-11</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/azure-fuctions/</loc>
+    <lastmod>2024-11-11</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/logging/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
   
@@ -193,11 +193,6 @@
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/life/</loc>
-    <lastmod>2024-11-11</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/computer/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
   
@@ -227,6 +222,21 @@
   </url>
   
   <url>
+    <loc>https://blog.christopherlopes.com/tags/computer/</loc>
+    <lastmod>2024-11-11</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/story/</loc>
+    <lastmod>2024-11-11</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/mind/</loc>
+    <lastmod>2024-11-11</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.christopherlopes.com/tags/failure/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
@@ -243,16 +253,6 @@
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/curiosity/</loc>
-    <lastmod>2024-11-11</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/story/</loc>
-    <lastmod>2024-11-11</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/mind/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
   
@@ -287,11 +287,6 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/courage/</loc>
-    <lastmod>2024-11-11</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.christopherlopes.com/tags/poetry/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
@@ -307,12 +302,12 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/culture/</loc>
+    <loc>https://blog.christopherlopes.com/tags/guidance/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/work/</loc>
+    <loc>https://blog.christopherlopes.com/tags/authority/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
   
@@ -327,6 +322,11 @@
   </url>
   
   <url>
+    <loc>https://blog.christopherlopes.com/tags/courage/</loc>
+    <lastmod>2024-11-11</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.christopherlopes.com/tags/dotnet/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
@@ -337,12 +337,12 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/guidance/</loc>
+    <loc>https://blog.christopherlopes.com/tags/culture/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/authority/</loc>
+    <loc>https://blog.christopherlopes.com/tags/work/</loc>
     <lastmod>2024-11-11</lastmod>
   </url>
 </urlset>
