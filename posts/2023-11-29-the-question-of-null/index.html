@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The question of null</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Figuring \w+ out">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Figuring \w+ out">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Figuring \w+ out</a></h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/">Pages</a>
+        </li>
+        <li class="nav-item">
+          <a href="/feed/feed.xml">RSS</a>
+        </li>
+      </ul>
+      <label class="toggle-switch" for="toggle-input">
+          <input id="toggle-input" type="checkbox">
+          <span id="dark-icon">🌘</span>
+          <span id="light-icon">☀️</span>
+      </label>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>The question of null</h1>
+
+<time datetime="2023-11-29">Nov 29 2023</time><a href="/tags/dotnet/" class="post-tag">dotnet</a><a href="/tags/design/" class="post-tag">design</a>
+
+<h3 id="the-past">The past <a class="direct-link" href="#the-past">#</a></h3>
+<p>Null reference exceptions seems to be one of the most common runtime exceptions in .NET. Protecting
+against null requires discipline, and a lot of extra code to read through. For .NET Core 3.0, C# 8
+the options shifted. At that time a project could be enabled to flag potential nullables not being
+handled. The project could also be set to turn these warnings into errors.</p>
+<pre class="language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Nullable</span><span class="token punctuation">></span></span>enable<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Nullable</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>WarningsAsErrors</span><span class="token punctuation">></span></span>nullable<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>WarningsAsErrors</span><span class="token punctuation">></span></span></code></pre>
+<p>Along with these setting two new operators were introduced to work with nulls. First, the
+null-forgiving operator <code>!</code> allows you to instruct the compiler that the object is not null, and so
+allows access to any properties: <code>myStringValue!.Length</code>. This operator should not be used
+haphazardly.</p>
+<p>The second operator is the null-conditional operator <code>?.</code>. It allows you to access object properties
+more succinctly and protect yourself for accessing null by falling through to the end of the
+expression if any part of it is null: <code>myStringValue?.Length ?? 0</code>.</p>
+<h3 id="how-to-handle-null">How to handle null <a class="direct-link" href="#how-to-handle-null">#</a></h3>
+<p>Considering this new option I see four general approaches to handling null, all of which have their
+trade-offs.</p>
+<ol>
+<li>Nullables</li>
+<li>Try pattern</li>
+<li>Null value pattern</li>
+<li>Option pattern</li>
+</ol>
+<p>In the examples below the following type will be used to return for the example methods:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token return-type class-name">record</span> <span class="token function">TheReturnValue</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span></span> TheValue<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h4 id="nullables">Nullables <a class="direct-link" href="#nullables">#</a></h4>
+<p>We define a method which potentially returns a nullable type:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">internal</span> <span class="token keyword">class</span> <span class="token class-name">NullableExample</span><br><span class="token punctuation">{</span><br>    <span class="token keyword">public</span> <span class="token return-type class-name">TheReturnValue<span class="token punctuation">?</span></span> <span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">bool</span></span> useNullPath <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span><br>    <span class="token punctuation">{</span><br>        <span class="token keyword">return</span> useNullPath<br>            <span class="token punctuation">?</span> <span class="token keyword">null</span><br>            <span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">TheReturnValue</span><span class="token punctuation">(</span><span class="token keyword">nameof</span><span class="token punctuation">(</span>NullableExample<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+<p>Calling and handling the potential null value:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token class-name"><span class="token keyword">var</span></span> nullableExample <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">NullableExample</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>nullableExample<span class="token punctuation">.</span><span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">?.</span>TheValue <span class="token operator">??</span> <span class="token string">"Empty"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>nullableExample<span class="token punctuation">.</span><span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token named-parameter punctuation">useNullPath</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">?.</span>TheValue <span class="token operator">??</span> <span class="token string">"Empty"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>The compiler helps us, to ensure the potential null is not being accessed inappropriately.</p>
+<h4 id="try-pattern">Try pattern <a class="direct-link" href="#try-pattern">#</a></h4>
+<p>The try pattern is not new. But the <code>NutNullWhen</code> attribute was also only introduced at the same
+time as the new null handling operators. Here we define a <code>Try</code> method which potentially returns
+<code>null</code>:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">internal</span> <span class="token keyword">class</span> <span class="token class-name">TryExample</span><br><span class="token punctuation">{</span><br>    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">bool</span></span> <span class="token function">TryDoSomething</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">NotNullWhen</span><span class="token attribute-arguments"><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span></span></span><span class="token punctuation">]</span> <span class="token keyword">out</span> <span class="token class-name">TheReturnValue<span class="token punctuation">?</span></span> theReturnValue<span class="token punctuation">,</span> <span class="token class-name"><span class="token keyword">bool</span></span> useNullPath <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span><br>    <span class="token punctuation">{</span><br>        <span class="token keyword">if</span> <span class="token punctuation">(</span>useNullPath<span class="token punctuation">)</span><br>        <span class="token punctuation">{</span><br>            theReturnValue <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span><br>            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span><br>        <span class="token punctuation">}</span><br>        <span class="token keyword">else</span><br>        <span class="token punctuation">{</span><br>            theReturnValue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">TheReturnValue</span><span class="token punctuation">(</span><span class="token keyword">nameof</span><span class="token punctuation">(</span>TryExample<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span><br>        <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+<p>Calling and handling the potential null value:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token constructor-invocation class-name">TryExample</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">TryDoSomething</span><span class="token punctuation">(</span><span class="token keyword">out</span> <span class="token class-name"><span class="token keyword">var</span></span> theTryGetReturnValue<span class="token punctuation">)</span><span class="token punctuation">)</span><br><span class="token punctuation">{</span><br>    Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>theTryGetReturnValue<span class="token punctuation">.</span>TheValue<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">new</span> <span class="token constructor-invocation class-name">TryExample</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">TryDoSomething</span><span class="token punctuation">(</span><span class="token keyword">out</span> <span class="token class-name"><span class="token keyword">var</span></span> theTryGetReturnValueNullScenario<span class="token punctuation">,</span> <span class="token named-parameter punctuation">useNullPath</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br><span class="token punctuation">{</span><br>    Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"Empty"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>The approach is a little more awkward. It also does not work with <code>async</code> methods.</p>
+<h4 id="the-null-value-pattern">The null value pattern <a class="direct-link" href="#the-null-value-pattern">#</a></h4>
+<p>There isn't anything new about the null value pattern. For this pattern we need to also define a new
+type which represents the case when the method does not have a value to return:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">internal</span> <span class="token keyword">class</span> <span class="token class-name">NullValueExample</span><br><span class="token punctuation">{</span><br>    <span class="token keyword">public</span> <span class="token return-type class-name">TheReturnValue</span> <span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">bool</span></span> useNullPath <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span><br>    <span class="token punctuation">{</span><br>        <span class="token keyword">return</span> useNullPath<br>            <span class="token punctuation">?</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">NullValueTheReturnValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><br>            <span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">TheReturnValue</span><span class="token punctuation">(</span><span class="token keyword">nameof</span><span class="token punctuation">(</span>NullValueExample<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">internal</span> <span class="token return-type class-name">record</span> <span class="token function">NullValueTheReturnValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token function">TheReturnValue</span><span class="token punctuation">(</span><span class="token string">"Empty"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Calling and handling the potential null value:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token class-name"><span class="token keyword">var</span></span> nullValueExample <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">NullValueExample</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>nullValueExample<span class="token punctuation">.</span><span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>TheValue<span class="token punctuation">)</span><span class="token punctuation">;</span><br>Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>nullValueExample<span class="token punctuation">.</span><span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token named-parameter punctuation">useNullPath</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">.</span>TheValue<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Pretty simple and straightforward. The awkwardness comes when you need to know if the object you
+have is the null value object.</p>
+<h4 id="the-option-pattern">The option pattern <a class="direct-link" href="#the-option-pattern">#</a></h4>
+<p>This pattern comes from functional languages. In functional languages it is an elegant solution to
+working with <code>null</code>. The biggest issue is it's unfamiliarly with developers who work in .NET. It
+requires discipline to use.</p>
+<p>There are many implementations which can be used. This is a simple implementation which allows an
+illustration of usage:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">internal</span> <span class="token keyword">class</span> <span class="token class-name">Option<span class="token punctuation">&lt;</span>T<span class="token punctuation">></span></span> <span class="token keyword">where</span> <span class="token class-name">T</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token keyword">class</span></span><br><span class="token punctuation">{</span><br>    <span class="token keyword">private</span> <span class="token class-name">T<span class="token punctuation">?</span></span> theObject <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token return-type class-name">Option<span class="token punctuation">&lt;</span>T<span class="token punctuation">></span></span> <span class="token function">Some</span><span class="token punctuation">(</span><span class="token class-name">T</span> theObjectPassedIn<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> theObject <span class="token operator">=</span> theObjectPassedIn <span class="token punctuation">}</span><span class="token punctuation">;</span><br>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token return-type class-name">Option<span class="token punctuation">&lt;</span>T<span class="token punctuation">></span></span> <span class="token function">None</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">public</span> <span class="token return-type class-name">Option<span class="token punctuation">&lt;</span>TResult<span class="token punctuation">></span></span> <span class="token generic-method"><span class="token function">Map</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>TResult<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token class-name">Func<span class="token punctuation">&lt;</span>T<span class="token punctuation">,</span> TResult<span class="token punctuation">></span></span> map<span class="token punctuation">)</span> <span class="token keyword">where</span> <span class="token class-name">TResult</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token keyword">class</span></span> <span class="token operator">=></span><br>        theObject <span class="token keyword">is</span> <span class="token keyword">null</span> <span class="token punctuation">?</span> Option<span class="token operator">&lt;</span>TResult<span class="token operator">></span><span class="token punctuation">.</span><span class="token function">None</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> Option<span class="token operator">&lt;</span>TResult<span class="token operator">></span><span class="token punctuation">.</span><span class="token function">Some</span><span class="token punctuation">(</span><span class="token function">map</span><span class="token punctuation">(</span>theObject<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">public</span> <span class="token return-type class-name">T</span> <span class="token function">Reduce</span><span class="token punctuation">(</span><span class="token class-name">T</span> defaultValue<span class="token punctuation">)</span> <span class="token operator">=></span> theObject <span class="token operator">??</span> defaultValue<span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">internal</span> <span class="token keyword">class</span> <span class="token class-name">OptionExample</span><br><span class="token punctuation">{</span><br>    <span class="token keyword">public</span> <span class="token return-type class-name">Option<span class="token punctuation">&lt;</span>TheReturnValue<span class="token punctuation">></span></span> <span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">bool</span></span> useNullPath <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span><br>    <span class="token punctuation">{</span><br>        <span class="token keyword">return</span> <span class="token return-type class-name">useNullPath<br>            <span class="token punctuation">?</span></span> Option<span class="token operator">&lt;</span>TheReturnValue<span class="token operator">></span><span class="token punctuation">.</span><span class="token function">None</span><span class="token punctuation">(</span><span class="token punctuation">)</span><br>            <span class="token punctuation">:</span> Option<span class="token operator">&lt;</span>TheReturnValue<span class="token operator">></span><span class="token punctuation">.</span><span class="token function">Some</span><span class="token punctuation">(</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token keyword">nameof</span><span class="token punctuation">(</span>OptionExample<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+<p>Calling and handling the potential null value:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token class-name"><span class="token keyword">var</span></span> optionExample <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">OptionExample</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>optionExample<span class="token punctuation">.</span><span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Map</span><span class="token punctuation">(</span>theReturnValue <span class="token operator">=></span> theReturnValue<span class="token punctuation">.</span>TheValue<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Reduce</span><span class="token punctuation">(</span><span class="token string">"Empty"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>optionExample<span class="token punctuation">.</span><span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token named-parameter punctuation">useNullPath</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Map</span><span class="token punctuation">(</span>theReturnValue <span class="token operator">=></span> theReturnValue<span class="token punctuation">.</span>TheValue<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Reduce</span><span class="token punctuation">(</span><span class="token string">"Empty"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h3 id="conclusion">Conclusion <a class="direct-link" href="#conclusion">#</a></h3>
+<p>For most use cases I have found using nullable types with the new nullable settings and operators
+makes the most since for where I work. It's still a leaky abstraction, but it is familiar to
+.NET developers and mostly protects against <code>null</code> simply and sufficiently.</p>
+
+
+
+    </main>
+
+    <footer>
+      <ul>
+        <li class="nav-item">
+          <a href="https://bsky.app/profile/christopherlopes.bsky.social">💬 @christopherlopes</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://bookshelf.christopherlopes.com">📚 Bookshelf</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://ln.ht/~ciwchris">🔖 Links</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://rss.christopherlopes.com">📒 RSS Reader</a>
+        </li>
+      </ul>
+
+      ©
+      <time datetime="2024-11-12">2024</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
+
+    <!-- Current page: /posts/2023-11-29-the-question-of-null/ -->
+
+
+
+  <script>
+
+function setTheme(theme, persist = false) {
+    const on = theme;
+    const off = theme === 'light' ? 'dark' : 'light'
+
+    const htmlEl = document.documentElement;
+    htmlEl.classList.add(on);
+    htmlEl.classList.remove(off);
+
+    if (persist) {
+        localStorage.setItem('preferred-theme', theme);
+    }
+}
+const toggle = document.getElementById('toggle-input');
+const lightIcon = document.getElementById('light-icon');
+const darkIcon = document.getElementById('dark-icon');
+
+function updateUI(theme) {
+    toggle.checked = theme === 'light';
+
+    if (theme === 'light') {
+        lightIcon.style.visibility = "hidden";
+        darkIcon.style.visibility = "visible";
+    } else {
+        darkIcon.style.visibility = "hidden";
+        lightIcon.style.visibility = "visible";
+    }
+}
+
+toggle.addEventListener('click', () => {
+    const theme = toggle.checked ? 'light' : 'dark';
+    setTheme(theme, true);
+    updateUI(theme);
+});
+const osPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferredTheme = localStorage.getItem('preferred-theme') || osPreference;
+
+setTheme(preferredTheme, false);
+updateUI(preferredTheme);
+  </script>
+  </body>
+</html>
