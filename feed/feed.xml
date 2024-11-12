@@ -5,12 +5,79 @@
 	
 	<link href="https://blog.christopherlopes.com/feed/feed.xml" rel="self"/>
 	<link href="https://blog.christopherlopes.com"/>
-	<updated>2024-03-11T00:00:00Z</updated>
+	<updated>2024-04-08T00:00:00Z</updated>
 	<id>https://blog.christopherlopes.com</id>
 	<author>
 		<name>Christopher Lopes</name>
 		<email></email>
 	</author>
+	
+	<entry>
+		<title>Architecture Descision Records (ADR)</title>
+		<link href="https://blog.christopherlopes.com/posts/2024-04-08-architecture-decision-records/"/>
+		<updated>2024-04-08T00:00:00Z</updated>
+		<id>https://blog.christopherlopes.com/posts/2024-04-08-architecture-decision-records/</id>
+		<content type="html">&lt;h3 id=&quot;what-is-an-adr&quot;&gt;What is an ADR &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-04-08-architecture-decision-records/#what-is-an-adr&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;An ADR is a way to document decisions a team makes on a product. There are several standard
+templates which can be used. They can be as simple or as complex as desired. &lt;a href=&quot;https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record&quot;&gt;Microsoft has some
+recommended ADR
+practices&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;ADRs do not seem very popular to me, I only hear them come up every once and a while. Perhaps they
+are not very exciting so people just do not discuss them, even though they use them.&lt;/p&gt;
+&lt;p&gt;There are various tools to help manage ADR documents. Most seem outdated, which again makes me
+wonder how often ADRs are actually used.&lt;/p&gt;
+&lt;h3 id=&quot;how-to-use-them-in-.net&quot;&gt;How to use them in .NET &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-04-08-architecture-decision-records/#how-to-use-them-in-.net&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://endjin.com/blog/2023/07/architecture-decision-records&quot;&gt;Recently I came upon a post introducing me to a .NET tool for managing
+ADRs&lt;/a&gt;. I had used ADR occasionally
+previously. There was some initial excitement by the team, but it was quickly neglected. Perhaps
+this new tooling would be an on ramp for using ADRs more consistently.&lt;/p&gt;
+&lt;p&gt;To get started install the tool and the list of ADR templates they package up for use:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnet tool install -g adr
+adr templates package set adr.templates
+adr templates package install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Custom templates can be created, if you desire. List the templates to see which they provide: &lt;code&gt;adr templates list&lt;/code&gt;. The template I&#39;ve used in the past is essentially the &amp;quot;Markdown Architectural
+Decision Records (MADR)&amp;quot; template. There seems several flavors of this template floating around the
+internet, but they&#39;re all very similar.&lt;/p&gt;
+&lt;p&gt;The template is fairly in-depth, but most of the items are optional to fill out.&lt;/p&gt;
+&lt;p&gt;To specify the path to store the ADRs create the file &lt;code&gt;adr.config.json&lt;/code&gt; and add the contents:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;path&amp;quot;: &amp;quot;./docs/adr&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;First, initialize the ADR environment. This command will not use the config above. Therefore, if you
+used a different value above you&#39;ll need to include the path in the &lt;code&gt;init&lt;/code&gt; command as well. Then set
+which template the environment will use:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;adr environment init
+adr templates set madr
+adr templates show
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The last command shows details about the selected template. From my experience none of the above
+commands are actually needed. If I skip them I end up with the same results. I&#39;m not sure what the
+&lt;code&gt;init&lt;/code&gt; command even does, besides creating a directory.&lt;/p&gt;
+&lt;p&gt;Now new records can be created:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;adr new &amp;quot;First decision&amp;quot;
+adr new &amp;quot;Second decision&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Two new ADRs will be created in the specified directory. The ADRs will be numbered in sequential
+order.&lt;/p&gt;
+&lt;p&gt;That&#39;s pretty much it. The tool itself doesn&#39;t seem like it brings much value. It seems you can just
+as simply download a template and then make a copy every time there is a need for a new ADR.&lt;/p&gt;
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-04-08-architecture-decision-records/#conclusion&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Unfortunately the tool did not improve our usage. I suppose adoption comes down to what is required
+for most processes, the discipline to do the work. It&#39;s all too easy to put off the less interesting
+work of documenting the decisions. After all the decision is fresh in our minds. Everyone
+understands why the decision was made. The pain only comes later, when memory is a bit fuzzy and
+everyone remembers differently, that&#39;s if the people who made the decision are even still around.&lt;/p&gt;
+&lt;p&gt;We&#39;ve experienced the pain of not remembering why something was done the way it was. Or even trying
+to remember exactly how it all works. Everyone scours their emails, messages and issues searching
+for an answer.&lt;/p&gt;
+&lt;p&gt;Perhaps we are too ambitious when we look at the ADR template, endeavoring to fill it in complete,
+which then causes us to give up. But something is better than nothing. Therefore maybe a good start will
+be just to record a snippet of the decision along with who was part of the team. After all, this
+information probably already exists, it only needs to be copied into a standard location.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Faking time and logs</title>

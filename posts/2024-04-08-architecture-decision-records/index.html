@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Descision Records (ADR)</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Figuring \w+ out">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Figuring \w+ out">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Figuring \w+ out</a></h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/">Pages</a>
+        </li>
+        <li class="nav-item">
+          <a href="/feed/feed.xml">RSS</a>
+        </li>
+      </ul>
+      <label class="toggle-switch" for="toggle-input">
+          <input id="toggle-input" type="checkbox">
+          <span id="dark-icon">🌘</span>
+          <span id="light-icon">☀️</span>
+      </label>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>Architecture Descision Records (ADR)</h1>
+
+<time datetime="2024-04-08">Apr 08 2024</time><a href="/tags/dotnet/" class="post-tag">dotnet</a><a href="/tags/architecture/" class="post-tag">architecture</a><a href="/tags/documentation/" class="post-tag">documentation</a>
+
+<h3 id="what-is-an-adr">What is an ADR <a class="direct-link" href="#what-is-an-adr">#</a></h3>
+<p>An ADR is a way to document decisions a team makes on a product. There are several standard
+templates which can be used. They can be as simple or as complex as desired. <a href="https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record">Microsoft has some
+recommended ADR
+practices</a>.</p>
+<p>ADRs do not seem very popular to me, I only hear them come up every once and a while. Perhaps they
+are not very exciting so people just do not discuss them, even though they use them.</p>
+<p>There are various tools to help manage ADR documents. Most seem outdated, which again makes me
+wonder how often ADRs are actually used.</p>
+<h3 id="how-to-use-them-in-.net">How to use them in .NET <a class="direct-link" href="#how-to-use-them-in-.net">#</a></h3>
+<p><a href="https://endjin.com/blog/2023/07/architecture-decision-records">Recently I came upon a post introducing me to a .NET tool for managing
+ADRs</a>. I had used ADR occasionally
+previously. There was some initial excitement by the team, but it was quickly neglected. Perhaps
+this new tooling would be an on ramp for using ADRs more consistently.</p>
+<p>To get started install the tool and the list of ADR templates they package up for use:</p>
+<pre><code>dotnet tool install -g adr
+adr templates package set adr.templates
+adr templates package install
+</code></pre>
+<p>Custom templates can be created, if you desire. List the templates to see which they provide: <code>adr templates list</code>. The template I've used in the past is essentially the &quot;Markdown Architectural
+Decision Records (MADR)&quot; template. There seems several flavors of this template floating around the
+internet, but they're all very similar.</p>
+<p>The template is fairly in-depth, but most of the items are optional to fill out.</p>
+<p>To specify the path to store the ADRs create the file <code>adr.config.json</code> and add the contents:</p>
+<pre><code>{
+    &quot;path&quot;: &quot;./docs/adr&quot;
+}
+</code></pre>
+<p>First, initialize the ADR environment. This command will not use the config above. Therefore, if you
+used a different value above you'll need to include the path in the <code>init</code> command as well. Then set
+which template the environment will use:</p>
+<pre><code>adr environment init
+adr templates set madr
+adr templates show
+</code></pre>
+<p>The last command shows details about the selected template. From my experience none of the above
+commands are actually needed. If I skip them I end up with the same results. I'm not sure what the
+<code>init</code> command even does, besides creating a directory.</p>
+<p>Now new records can be created:</p>
+<pre><code>adr new &quot;First decision&quot;
+adr new &quot;Second decision&quot;
+</code></pre>
+<p>Two new ADRs will be created in the specified directory. The ADRs will be numbered in sequential
+order.</p>
+<p>That's pretty much it. The tool itself doesn't seem like it brings much value. It seems you can just
+as simply download a template and then make a copy every time there is a need for a new ADR.</p>
+<h3 id="conclusion">Conclusion <a class="direct-link" href="#conclusion">#</a></h3>
+<p>Unfortunately the tool did not improve our usage. I suppose adoption comes down to what is required
+for most processes, the discipline to do the work. It's all too easy to put off the less interesting
+work of documenting the decisions. After all the decision is fresh in our minds. Everyone
+understands why the decision was made. The pain only comes later, when memory is a bit fuzzy and
+everyone remembers differently, that's if the people who made the decision are even still around.</p>
+<p>We've experienced the pain of not remembering why something was done the way it was. Or even trying
+to remember exactly how it all works. Everyone scours their emails, messages and issues searching
+for an answer.</p>
+<p>Perhaps we are too ambitious when we look at the ADR template, endeavoring to fill it in complete,
+which then causes us to give up. But something is better than nothing. Therefore maybe a good start will
+be just to record a snippet of the decision along with who was part of the team. After all, this
+information probably already exists, it only needs to be copied into a standard location.</p>
+
+
+
+    </main>
+
+    <footer>
+      <ul>
+        <li class="nav-item">
+          <a href="https://bsky.app/profile/christopherlopes.bsky.social">💬 @christopherlopes</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://bookshelf.christopherlopes.com">📚 Bookshelf</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://ln.ht/~ciwchris">🔖 Links</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://rss.christopherlopes.com">📒 RSS Reader</a>
+        </li>
+      </ul>
+
+      ©
+      <time datetime="2024-11-12">2024</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
+
+    <!-- Current page: /posts/2024-04-08-architecture-decision-records/ -->
+
+
+
+  <script>
+
+function setTheme(theme, persist = false) {
+    const on = theme;
+    const off = theme === 'light' ? 'dark' : 'light'
+
+    const htmlEl = document.documentElement;
+    htmlEl.classList.add(on);
+    htmlEl.classList.remove(off);
+
+    if (persist) {
+        localStorage.setItem('preferred-theme', theme);
+    }
+}
+const toggle = document.getElementById('toggle-input');
+const lightIcon = document.getElementById('light-icon');
+const darkIcon = document.getElementById('dark-icon');
+
+function updateUI(theme) {
+    toggle.checked = theme === 'light';
+
+    if (theme === 'light') {
+        lightIcon.style.visibility = "hidden";
+        darkIcon.style.visibility = "visible";
+    } else {
+        darkIcon.style.visibility = "hidden";
+        lightIcon.style.visibility = "visible";
+    }
+}
+
+toggle.addEventListener('click', () => {
+    const theme = toggle.checked ? 'light' : 'dark';
+    setTheme(theme, true);
+    updateUI(theme);
+});
+const osPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferredTheme = localStorage.getItem('preferred-theme') || osPreference;
+
+setTheme(preferredTheme, false);
+updateUI(preferredTheme);
+  </script>
+  </body>
+</html>
