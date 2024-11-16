@@ -145,7 +145,7 @@ other parameters with our current data.</p>
 make sense is the <code>RandomForestRegressor</code>. Here's are new pipeline:</p>
 <pre class="language-python"><code class="language-python">pipe <span class="token operator">=</span> Pipeline<span class="token punctuation">(</span><span class="token punctuation">[</span><br>    <span class="token punctuation">(</span><span class="token string">"scale"</span><span class="token punctuation">,</span> StandardScaler<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>    <span class="token punctuation">(</span><span class="token string">"model"</span><span class="token punctuation">,</span> RandomForestRegressor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
 <p>We can then use the grid search and make a prediction again. Here's the new plot:</p>
-<p><img src="img/posts/PredictionScatterChart-RandomForest.png" alt="Random Forest Scatter Chart"></p>
+<p><img src="/img/posts/PredictionScatterChart-RandomForest.png" alt="Random Forest Scatter Chart"></p>
 <p>These results make much more sense. When it predicts values less than .4 it seems to indicate the
 correct target of not &quot;late&quot;. When above .4 then it is &quot;late&quot;.</p>
 <h3 id="conclusion">Conclusion <a class="direct-link" href="#conclusion">#</a></h3>
