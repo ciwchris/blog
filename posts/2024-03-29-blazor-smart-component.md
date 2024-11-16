@@ -75,7 +75,7 @@ app.MapSmartComboBox("api/automatic", request => embedder.FindClosest(request.Qu
 The last piece needed is adding the component to a page. The crucial piece is to specify the same
 `Url` as you did above.
 
-```
+```csharp
 <SmartComboBox Url="api/automatic" @bind-Value="@episode" />
 <div>Selected episode: @episode</div>
 
@@ -112,7 +112,7 @@ app.MapPost("api/manuel", async httpContext =>
 
 Using this endpoint is similar, the endpoint name must match.
 
-```
+```csharp
 <SmartComboBox Url="api/manuel" @bind-Value="@episode" />
 <div>Selected episode: @episode</div>
 
