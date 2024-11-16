@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrating .NET Smart Combo Box</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Figuring \w+ out">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Figuring \w+ out">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Figuring \w+ out</a></h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/">Pages</a>
+        </li>
+        <li class="nav-item">
+          <a href="/feed/feed.xml">RSS</a>
+        </li>
+      </ul>
+      <label class="toggle-switch" for="toggle-input">
+          <input id="toggle-input" type="checkbox">
+          <span id="dark-icon">🌘</span>
+          <span id="light-icon">☀️</span>
+      </label>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>Integrating .NET Smart Combo Box</h1>
+
+<time datetime="2024-03-29">Mar 29 2024</time><a href="/tags/dotnet/" class="post-tag">dotnet</a><a href="/tags/blazor/" class="post-tag">blazor</a><a href="/tags/ai/" class="post-tag">ai</a>
+
+<h3 id=".net-smart-components">.NET Smart Components <a class="direct-link" href="#.net-smart-components">#</a></h3>
+<p>AI is great. I use it in my development workflow. But how am I supposed to use it in the
+applications I develop? It seems intimating. What exactly do I need to know? What do I have to setup
+and have running so my application can integrate with an AI?</p>
+<p>Enter <a href="https://github.com/dotnet/smartcomponents">.NET Smart Components</a>. Smart Components is a set
+of Blazor and MVC components which allows developers to very easily add AI powered components to an
+application.</p>
+<h3 id="smart-combobox">Smart ComboBox <a class="direct-link" href="#smart-combobox">#</a></h3>
+<p>I found the <a href="https://github.com/dotnet/smartcomponents/blob/main/docs/smart-combobox.md">Smart
+Combo Box</a> the most useful
+component, so it is the one I experimented with. It runs entirely local. It allows a user to type in
+a select box and a local embedding will be use to run a similarity search using the text typed. It's
+very simple to add to an application. Here's what you need to do.</p>
+<h3 id="getting-started">Getting started <a class="direct-link" href="#getting-started">#</a></h3>
+<p>Install the needed NuGet packages. Currently they are prerelease, so make sure you specify that
+flag.</p>
+<pre class="language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PackageReference</span> <span class="token attr-name">Include</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>SmartComponents.AspNetCore<span class="token punctuation">"</span></span> <span class="token attr-name">Version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0.1.0-preview10147<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PackageReference</span> <span class="token attr-name">Include</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>SmartComponents.LocalEmbeddings<span class="token punctuation">"</span></span> <span class="token attr-name">Version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0.1.0-preview10147<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+<p>Then in <code>Program.cs</code> register the needed pieces:</p>
+<pre class="language-csharp"><code class="language-csharp">builder<span class="token punctuation">.</span>Services<span class="token punctuation">.</span><span class="token function">AddSmartComponents</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>builder<span class="token punctuation">.</span>Services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddSingleton</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>LocalEmbedder<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>In <code>Program.cs</code> the embedder needs to be created and populated. The embedder expects an
+<code>IEnumerable</code> of type <code>string</code>. I'm using a repository type which simply returns a list of values.
+I'm a fan of the TV show Survivor, so my list is a list of Survivor episode names.</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">SurvivorEpisodeRepository</span><br><span class="token punctuation">{</span><br>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name"><span class="token keyword">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span></span> EpisodeNames <span class="token operator">=</span><br>    <span class="token punctuation">[</span><br>        <span class="token string">"The Marooning"</span><span class="token punctuation">,</span><br>        <span class="token string">"The Generation Gap"</span><span class="token punctuation">,</span><br>        <span class="token string">"Quest for Food"</span><span class="token punctuation">,</span><br>        <span class="token string">"Too Little, Too Late?"</span><span class="token punctuation">,</span><br>        <span class="token range operator">..</span><span class="token punctuation">.</span><br>    <span class="token punctuation">]</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>The ComboBqx also needs to be created. It requires an API endpoint to call and the search results to
+return. The API endpoint will automatically be managed, no other work is needed, other than also
+specifying this endpoint on the component.</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token class-name"><span class="token keyword">var</span></span> embedder <span class="token operator">=</span> app<span class="token punctuation">.</span>Services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">GetRequiredService</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>LocalEmbedder<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token class-name"><span class="token keyword">var</span></span> categories <span class="token operator">=</span> embedder<span class="token punctuation">.</span><span class="token function">EmbedRange</span><span class="token punctuation">(</span>SurvivorEpisodeRepository<span class="token punctuation">.</span>EpisodeNames<span class="token punctuation">)</span><span class="token punctuation">;</span><br>app<span class="token punctuation">.</span><span class="token function">MapSmartComboBox</span><span class="token punctuation">(</span><span class="token string">"api/automatic"</span><span class="token punctuation">,</span> request <span class="token operator">=></span> embedder<span class="token punctuation">.</span><span class="token function">FindClosest</span><span class="token punctuation">(</span>request<span class="token punctuation">.</span>Query<span class="token punctuation">,</span> categories<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>The last piece needed is adding the component to a page. The crucial piece is to specify the same
+<code>Url</code> as you did above.</p>
+<pre><code>&lt;SmartComboBox Url=&quot;api/automatic&quot; @bind-Value=&quot;@episode&quot; /&gt;
+&lt;div&gt;Selected episode: @episode&lt;/div&gt;
+
+@code {
+    private string episode = &quot;&quot;;
+}
+</code></pre>
+<p>That's it!</p>
+<h3 id="manuel-endpoint">Manuel endpoint <a class="direct-link" href="#manuel-endpoint">#</a></h3>
+<p>If you need more control on how the search is performed then you can define the API endpoint
+yourself. There isn't anything special about the endpoint. Here we once again use the embedder to
+query.</p>
+<pre class="language-csharp"><code class="language-csharp">app<span class="token punctuation">.</span><span class="token function">MapPost</span><span class="token punctuation">(</span><span class="token string">"api/manuel"</span><span class="token punctuation">,</span> <span class="token keyword">async</span> httpContext <span class="token operator">=></span><br><span class="token punctuation">{</span><br>    <span class="token class-name"><span class="token keyword">var</span></span> form <span class="token operator">=</span> <span class="token keyword">await</span> httpContext<span class="token punctuation">.</span>Request<span class="token punctuation">.</span><span class="token function">ReadFormAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token class-name"><span class="token keyword">var</span></span> inputValue <span class="token operator">=</span> form<span class="token punctuation">[</span><span class="token string">"inputValue"</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">FirstOrDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">??</span> <span class="token string">""</span><span class="token punctuation">;</span><br><br>    <span class="token class-name"><span class="token keyword">var</span></span> embedder <span class="token operator">=</span> httpContext<span class="token punctuation">.</span>RequestServices<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">GetRequiredService</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>LocalEmbedder<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token class-name"><span class="token keyword">var</span></span> categories <span class="token operator">=</span> embedder<span class="token punctuation">.</span><span class="token function">EmbedRange</span><span class="token punctuation">(</span>SurvivorEpisodeRepository<span class="token punctuation">.</span>EpisodeNames<span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token class-name"><span class="token keyword">var</span></span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">SimilarityQuery</span><br>    <span class="token punctuation">{</span><br>        SearchText <span class="token operator">=</span> inputValue<span class="token punctuation">,</span><br>    <span class="token punctuation">}</span><span class="token punctuation">;</span><br>    <span class="token class-name"><span class="token keyword">var</span></span> result <span class="token operator">=</span> embedder<span class="token punctuation">.</span><span class="token function">FindClosest</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> categories<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">await</span> httpContext<span class="token punctuation">.</span>Response<span class="token punctuation">.</span><span class="token function">WriteAsJsonAsync</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Using this endpoint is similar, the endpoint name must match.</p>
+<pre><code>&lt;SmartComboBox Url=&quot;api/manuel&quot; @bind-Value=&quot;@episode&quot; /&gt;
+&lt;div&gt;Selected episode: @episode&lt;/div&gt;
+
+@code {
+    private string episode = &quot;&quot;;
+}
+</code></pre>
+<h3 id="customizing-the-search-response">Customizing the search response <a class="direct-link" href="#customizing-the-search-response">#</a></h3>
+<p>The number of suggestions and the similarity sensitivity of the embedder can be configured. For the
+automatic endpoint it is specified on the component.</p>
+<pre><code>&lt;SmartComboBox MaxSuggestions=&quot;3&quot; SimilarityThreshold=&quot;0.6f&quot; ... /&gt;
+</code></pre>
+<p>For the manual endpoint is is specified in the endpoint.</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token class-name"><span class="token keyword">var</span></span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">SimilarityQuery</span><br><span class="token punctuation">{</span><br>    SearchText <span class="token operator">=</span> inputValue<span class="token punctuation">,</span><br>    MaxResults <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span><br>    MinSimilarity <span class="token operator">=</span> <span class="token number">0.6f</span><br><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<h3 id="local-embeddings">Local Embeddings <a class="direct-link" href="#local-embeddings">#</a></h3>
+<p>The embedder is standalone functionality. In this post it is being used with the Smart ComboBox, but
+it can be used independently, where ever similarity search will be helpful in an application.</p>
+<h3 id="conclusion">Conclusion <a class="direct-link" href="#conclusion">#</a></h3>
+<p>I am impressed with how easy it was to use this Smart Component. In the real world it will require a
+little more planning to determine how the component should be leveraged. And so unfortunately there
+is still some friction to integrating it into existing applications. Perhaps once functionality such
+as this becomes more popular it's usefulness will be recognised and requested.</p>
+
+
+
+    </main>
+
+    <footer>
+      <ul>
+        <li class="nav-item">
+          <a href="https://bsky.app/profile/christopherlopes.bsky.social">💬 @christopherlopes</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://bookshelf.christopherlopes.com">📚 Bookshelf</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://ln.ht/~ciwchris">🔖 Links</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://rss.christopherlopes.com">📒 RSS Reader</a>
+        </li>
+      </ul>
+
+      ©
+      <time datetime="2024-11-16">2024</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
+
+    <!-- Current page: /posts/2024-03-29-blazor-smart-component/ -->
+
+
+
+  <script>
+
+function setTheme(theme, persist = false) {
+    const on = theme;
+    const off = theme === 'light' ? 'dark' : 'light'
+
+    const htmlEl = document.documentElement;
+    htmlEl.classList.add(on);
+    htmlEl.classList.remove(off);
+
+    if (persist) {
+        localStorage.setItem('preferred-theme', theme);
+    }
+}
+const toggle = document.getElementById('toggle-input');
+const lightIcon = document.getElementById('light-icon');
+const darkIcon = document.getElementById('dark-icon');
+
+function updateUI(theme) {
+    toggle.checked = theme === 'light';
+
+    if (theme === 'light') {
+        lightIcon.style.visibility = "hidden";
+        darkIcon.style.visibility = "visible";
+    } else {
+        darkIcon.style.visibility = "hidden";
+        lightIcon.style.visibility = "visible";
+    }
+}
+
+toggle.addEventListener('click', () => {
+    const theme = toggle.checked ? 'light' : 'dark';
+    setTheme(theme, true);
+    updateUI(theme);
+});
+const osPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferredTheme = localStorage.getItem('preferred-theme') || osPreference;
+
+setTheme(preferredTheme, false);
+updateUI(preferredTheme);
+  </script>
+  </body>
+</html>
