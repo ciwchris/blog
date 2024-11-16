@@ -122,6 +122,11 @@
   </url>
   
   <url>
+    <loc>https://blog.christopherlopes.com/posts/2024-11-16-scikit-learn-model-generation/</loc>
+    <lastmod>2024-03-11</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.christopherlopes.com/posts/2024-03-29-blazor-smart-component/</loc>
     <lastmod>2024-03-29</lastmod>
   </url>
@@ -177,12 +182,22 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/empathy/</loc>
+    <loc>https://blog.christopherlopes.com/tags/notes/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/scripture/</loc>
+    <loc>https://blog.christopherlopes.com/tags/organization/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/project-management/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/decisions/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
   
@@ -197,27 +212,37 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/notes/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/organization/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/decisions/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/project-management/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.christopherlopes.com/tags/computer/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/failure/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/fear/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/education/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/curiosity/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/empathy/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/scripture/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
   
@@ -247,22 +272,12 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/failure/</loc>
+    <loc>https://blog.christopherlopes.com/tags/career/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/fear/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/education/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/curiosity/</loc>
+    <loc>https://blog.christopherlopes.com/tags/growth/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
   
@@ -277,22 +292,22 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/career/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/growth/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.christopherlopes.com/tags/courage/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/dog/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/money/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/product/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
   
@@ -312,16 +327,6 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/money/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/product/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.christopherlopes.com/tags/poetry/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
@@ -333,6 +338,16 @@
   
   <url>
     <loc>https://blog.christopherlopes.com/tags/history/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/perception/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/knowledgew/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
   
@@ -357,12 +372,7 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/perception/</loc>
-    <lastmod>2024-11-16</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.christopherlopes.com/tags/knowledgew/</loc>
+    <loc>https://blog.christopherlopes.com/tags/testing/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
   
@@ -382,7 +392,12 @@
   </url>
   
   <url>
-    <loc>https://blog.christopherlopes.com/tags/testing/</loc>
+    <loc>https://blog.christopherlopes.com/tags/scikit/</loc>
+    <lastmod>2024-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.christopherlopes.com/tags/machine-learning/</loc>
     <lastmod>2024-11-16</lastmod>
   </url>
   

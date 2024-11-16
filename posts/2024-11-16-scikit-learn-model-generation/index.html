@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faking time and logs</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Figuring \w+ out">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Figuring \w+ out">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Figuring \w+ out</a></h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/">Pages</a>
+        </li>
+        <li class="nav-item">
+          <a href="/feed/feed.xml">RSS</a>
+        </li>
+      </ul>
+      <label class="toggle-switch" for="toggle-input">
+          <input id="toggle-input" type="checkbox">
+          <span id="dark-icon">🌘</span>
+          <span id="light-icon">☀️</span>
+      </label>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>Faking time and logs</h1>
+
+<time datetime="2024-03-11">Mar 11 2024</time><a href="/tags/scikit/" class="post-tag">scikit</a><a href="/tags/machine-learning/" class="post-tag">machine-learning</a>
+
+<h3 id="getting-started">Getting started <a class="direct-link" href="#getting-started">#</a></h3>
+<p><a href="https://scikit-learn.org/">Scikit-learn</a> is a set of tools for creating machine learning models. Or
+in their words a &quot;Simple and efficient tools for predictive data analysis&quot;.</p>
+<p>Their installation guide got me going. The creation of a Python virtual environment is recommended,
+to isolate project work from the verison of python installated on the machine. Assuming Python3:</p>
+<pre class="language-shell"><code class="language-shell">python -m venv sklearn-env<br><span class="token builtin class-name">source</span> sklearn-env/bin/activate<br>pip <span class="token function">install</span> -U scikit-learn</code></pre>
+<p>But I didn't find their guides all that helpful to get going after that. I know I wanted to use
+Jupyter. Here are the steps I found to set up everything else needed. The <code>ipykernel</code> adds the
+ability to create a new Jupyter notebook kernel which will contain all of the installation bits for
+the python virtual environment being used.</p>
+<pre class="language-shell"><code class="language-shell">pip <span class="token function">install</span> jupyterlab<br>pip <span class="token function">install</span> ipykernel<br>python -m ipykernel <span class="token function">install</span> --user --name scikit-kernel<br>pip <span class="token function">install</span> matplotlib numpy pandas seaborn</code></pre>
+<p>Start up with <code>jupyter lab</code> and we're off and running. Create a new notebook using the scikit-kernel
+we just created.</p>
+<p>Now what? I didn't find the documentation particularly helpful, so off to YouTube! I found this
+<a href="http://freeCodeCamp.org">freeCodeCamp.org</a> video helpful, <a href="https://www.youtube.com/watch?v=0B5eIE_1vpU">Scikit-learn Crash Course - Machine Learning Library for
+Python</a>, at least the first few modules. The rest of
+this post will be based upon what I learned in this video.</p>
+<h3 id="the-data">The data <a class="direct-link" href="#the-data">#</a></h3>
+<p>The course uses the Boston house price dataset. This dataset has been removed from scikit-learn, as
+explained in the video. If you want to follow along with the tutorial you either need to install an
+older version of scikit-learn, or I found you can still access and load the data with this script:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd<br><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np<br><br>data_url <span class="token operator">=</span> <span class="token string">"http://lib.stat.cmu.edu/datasets/boston"</span><br>raw_df <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span>data_url<span class="token punctuation">,</span> sep<span class="token operator">=</span><span class="token string">"\\s+"</span><span class="token punctuation">,</span> skiprows<span class="token operator">=</span><span class="token number">22</span><span class="token punctuation">,</span> header<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><br>X <span class="token operator">=</span> np<span class="token punctuation">.</span>hstack<span class="token punctuation">(</span><span class="token punctuation">[</span>raw_df<span class="token punctuation">.</span>values<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> raw_df<span class="token punctuation">.</span>values<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><br>y <span class="token operator">=</span> raw_df<span class="token punctuation">.</span>values<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span></code></pre>
+<p>While watching the video I did use the Boston dataset. After completing the video I went back and
+reran the example using the California housing dataset, which is included in scikit-learn:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>datasets <span class="token keyword">import</span> fetch_california_housing<br>california_housing <span class="token operator">=</span> fetch_california_housing<span class="token punctuation">(</span><span class="token punctuation">)</span><br>X<span class="token punctuation">,</span> y <span class="token operator">=</span> california_housing<span class="token punctuation">.</span>data<span class="token punctuation">,</span> california_housing<span class="token punctuation">.</span>target</code></pre>
+<p>But I wanted to apply what I learned to a real dataset. Therefore, at my job I created a SQL script
+to extract data from a database for a business scenario I thought it would be interesting to make
+predictions for. The dataset has approximately 100k records. I'm using this data for the rest of
+the blog post. Since it is real data I'm not revealing any of the data. I have also removed columns
+which do not add any value to the blog post and I have changed some of the column names.</p>
+<h3 id="loading-things-up">Loading things up <a class="direct-link" href="#loading-things-up">#</a></h3>
+<p>In the first notebook cell I import everything I'll eventually use. Therefore, I won't explain any of
+it here.</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pylab <span class="token keyword">as</span> plt<br><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd<br><br><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>neighbors <span class="token keyword">import</span> KNeighborsRegressor<br><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>ensemble <span class="token keyword">import</span> RandomForestRegressor<br><br><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>preprocessing <span class="token keyword">import</span> StandardScaler<span class="token punctuation">,</span> OneHotEncoder<br><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>pipeline <span class="token keyword">import</span> Pipeline<br><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> GridSearchCV</code></pre>
+<p><code>Pandas</code>, commonly abbreviated <code>pd</code> has a lot of functionality for working with data. It has a handy
+function to read in data from a CSV into a DataFrame, the default tabular structure for holding the
+data.</p>
+<pre class="language-python"><code class="language-python">orig_data <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">"sample.csv"</span><span class="token punctuation">)</span></code></pre>
+<h4 id="categorical-data">Categorical data <a class="direct-link" href="#categorical-data">#</a></h4>
+<p>The dataset has both numerical and categorical data. Additionally, some of the categorical data it
+makes sense to group together into buckets. For this example, I have a column named &quot;class&quot; which
+has positive integer values. Each value represents a particular class and each 100 value range
+represents a kind of class. Therefore the data can be segmented into 100 value groups.</p>
+<p>To do this the Panada's <code>cut</code> function can be used, to target one column and group each value into a
+group, i.e. &quot;bin&quot;. We therefore create an array of &quot;bins&quot; to define the grouping, as well as labels,
+which will be the new column names. Once the new columns have been created for each group we can
+remove the original &quot;class&quot; column:</p>
+<pre class="language-python"><code class="language-python">class_bins <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">99</span><span class="token punctuation">,</span> <span class="token number">199</span><span class="token punctuation">,</span> <span class="token number">299</span><span class="token punctuation">,</span> <span class="token number">399</span><span class="token punctuation">,</span> <span class="token number">499</span><span class="token punctuation">,</span> <span class="token number">599</span><span class="token punctuation">,</span> <span class="token number">699</span><span class="token punctuation">,</span> <span class="token number">799</span><span class="token punctuation">,</span> <span class="token number">899</span><span class="token punctuation">,</span> <span class="token number">999</span><span class="token punctuation">,</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">'inf'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><br>class_labels <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'0-99'</span><span class="token punctuation">,</span> <span class="token string">'100-199'</span><span class="token punctuation">,</span> <span class="token string">'200-299'</span><span class="token punctuation">,</span> <span class="token string">'300-399'</span><span class="token punctuation">,</span> <span class="token string">'400-499'</span><span class="token punctuation">,</span> <span class="token string">'500-599'</span><span class="token punctuation">,</span> <span class="token string">'600-699'</span><span class="token punctuation">,</span> <span class="token string">'700-799'</span><span class="token punctuation">,</span> <span class="token string">'800-899'</span><span class="token punctuation">,</span> <span class="token string">'900-999'</span><span class="token punctuation">,</span> <span class="token string">'1000+'</span><span class="token punctuation">]</span><br><br>orig_data<span class="token punctuation">[</span><span class="token string">'class_ranges'</span><span class="token punctuation">]</span> <span class="token operator">=</span> pd<span class="token punctuation">.</span>cut<span class="token punctuation">(</span>orig_data<span class="token punctuation">[</span><span class="token string">'class'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> bins<span class="token operator">=</span>class_bins<span class="token punctuation">,</span> labels<span class="token operator">=</span>class_labels<span class="token punctuation">,</span> right<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><br>data_with_ranges <span class="token operator">=</span> orig_data<span class="token punctuation">.</span>drop<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'class'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span></code></pre>
+<p>All categorical columns now need to be encoded. They need to be transformed so that the model can
+create relations between the categorical values. Each column to encode is specified, transformed
+into an encoded array, placed into a DataFrame along with their column names and then included into
+the original dataset. Finally the original columns are removed:</p>
+<pre class="language-python"><code class="language-python">catgorical_encoder <span class="token operator">=</span> OneHotEncoder<span class="token punctuation">(</span>sparse_output<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><br>catgorical_columns <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'gender'</span><span class="token punctuation">,</span> <span class="token string">'marital_status'</span><span class="token punctuation">,</span> <span class="token string">'class_ranges'</span><span class="token punctuation">]</span><br>encoded_array <span class="token operator">=</span> catgorical_encoder<span class="token punctuation">.</span>fit_transform<span class="token punctuation">(</span>data_with_ranges<span class="token punctuation">[</span>catgorical_columns<span class="token punctuation">]</span><span class="token punctuation">)</span><br><br>encoded_data <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>encoded_array<span class="token punctuation">,</span> columns<span class="token operator">=</span>catgorical_encoder<span class="token punctuation">.</span>get_feature_names_out<span class="token punctuation">(</span>catgorical_columns<span class="token punctuation">)</span><span class="token punctuation">)</span><br>data <span class="token operator">=</span> pd<span class="token punctuation">.</span>concat<span class="token punctuation">(</span><span class="token punctuation">[</span>data_with_ranges<span class="token punctuation">,</span> encoded_data<span class="token punctuation">]</span><span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>drop<span class="token punctuation">(</span>catgorical_columns<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span></code></pre>
+<p>We have &quot;preprocessed&quot; our data. We now can break our data up into &quot;features&quot; and a &quot;target&quot;, or
+commonly referred to &quot;X&quot; and &quot;y&quot;. The features are what we are using to make predictions. The target
+is the real value we are desiring to predict. This is &quot;supervised&quot; learning. In our date the target
+is the column &quot;late&quot;, indicating whether the item is either late or not, 0 or 1.</p>
+<pre class="language-python"><code class="language-python">X <span class="token operator">=</span> data<span class="token punctuation">.</span>drop<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'late'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><br>y <span class="token operator">=</span> data<span class="token punctuation">[</span><span class="token string">'late'</span><span class="token punctuation">]</span></code></pre>
+<h3 id="the-pipeline">The pipeline <a class="direct-link" href="#the-pipeline">#</a></h3>
+<p>Once we have our data we can immediately send it to a model for training and prediction. But
+typically a more elaborate &quot;pipeline&quot; is used, which can be thought as a model itself, to make
+further tweaks to the data.</p>
+<p>The first piece of our pipeline is to scale the values in our data. If some columns have values
+which range from 1-10 but other columns 1-1,000,000, then the significance of the values in the
+first column will be lost. Therefore, all numerical values are scaled so that some do not overpower
+others.</p>
+<p>The second piece of the pipeline is what model to use. We will start out with the K Nearest
+Neighbors model. I will not try to describe how any of the models work, that is an immense topic.
+I encourage you to use your favorite search tool to find an article which provides you a
+helpful description.</p>
+<p>Here is our pipeline:</p>
+<pre class="language-python"><code class="language-python">pipe <span class="token operator">=</span> Pipeline<span class="token punctuation">(</span><span class="token punctuation">[</span><br>    <span class="token punctuation">(</span><span class="token string">"scale"</span><span class="token punctuation">,</span> StandardScaler<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>    <span class="token punctuation">(</span><span class="token string">"model"</span><span class="token punctuation">,</span> KNeighborsRegressor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
+<p>We could train and predict using this pipeline, but we have a couple more concerns to consider.</p>
+<p>First, each model has parameters which can be tweaked. You can see the names of these parameters
+by calling <code>pipe.get_params()</code>. For the nearest neighbors model a property of interest is how many
+neighbors to use, &quot;model__n_neighbors&quot;. The default value is 5, but what value is best for our
+data?</p>
+<p>Second, our predictions will be biased if we use the same data for training as we do to make
+predictions. Therefore, the data should be split up into a set for training and a set to make
+predictions. How the data is split can also influence the result of our model. Therefore, it would
+be even better if we can split of the data, train and then split up the data another way and train
+again with that version of the split data.</p>
+<p>We can accomplish both of these things using a grid search cross validation. Below, we specify how
+many times to split up the data <code>cv=3</code> and which model parameters to target and the values to use
+<code>param_grid={'model__n_neighbors': [3, 5, 7, 9]}</code>. This will create 9 training sets, a combination
+for each value.</p>
+<pre class="language-python"><code class="language-python">model <span class="token operator">=</span> GridSearchCV<span class="token punctuation">(</span>estimator<span class="token operator">=</span>pipe<span class="token punctuation">,</span><br>             param_grid<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'model__n_neighbors'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">,</span><br>             cv<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span><br>model<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X<span class="token punctuation">,</span> y<span class="token punctuation">)</span></code></pre>
+<p>We can see the results of the grid search by calling <code>pd.DataFrame(model.cv_results_)</code>. This will
+show how each combination preformed and will rank them. For the dataset I'm using none of the
+combinations performed well. Nevertheless, for now we'll continue on making predictions, which is as
+simple as <code>prediction = model.predict(X)</code>.</p>
+<h3 id="visualizing-the-results">Visualizing the results <a class="direct-link" href="#visualizing-the-results">#</a></h3>
+<p>The predictions can be visualized with a scatter plot, <code>plt.scatter(prediction, y)</code>. Unsuprisingly,
+the predictions do not make sense, they jump all over the place.</p>
+<p>A heatmap can also be displayed showing the correlation of each feature to the predicted target. For
+our data there is not any features strongly correlated.</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> seaborn <span class="token keyword">as</span> sns<br><span class="token keyword">from</span> matplotlib<span class="token punctuation">.</span>patches <span class="token keyword">import</span> Rectangle<br><br>heatmap_data <span class="token operator">=</span> X<br>heatmap_data<span class="token punctuation">[</span><span class="token string">'late'</span><span class="token punctuation">]</span> <span class="token operator">=</span> prediction<br><br>fig<span class="token punctuation">,</span> ax <span class="token operator">=</span> plt<span class="token punctuation">.</span>subplots<span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>sns<span class="token punctuation">.</span>heatmap<span class="token punctuation">(</span>heatmap_data<span class="token punctuation">.</span>corr<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>iloc<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>values<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">round</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> annot<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> cmap<span class="token operator">=</span><span class="token string">'RdBu'</span><span class="token punctuation">)</span><br>ax<span class="token punctuation">.</span>set_yticklabels<span class="token punctuation">(</span>heatmap_data<span class="token punctuation">.</span>columns<span class="token punctuation">.</span>tolist<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rotation<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><br>ax<span class="token punctuation">.</span>set_xticklabels<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'late'</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
+<h3 id="what-next">What next <a class="direct-link" href="#what-next">#</a></h3>
+<p>In this particular case the results obviously do not make sense. It clearly indicates we need to
+either use other data, reconsider how we are preprocessing the data we have, try other models or try
+other parameters with our current data.</p>
+<p>I went down the route of using several other models. One model which produced results which seem to
+make sense is the <code>RandomForestRegressor</code>. Here's are new pipeline:</p>
+<pre class="language-python"><code class="language-python">pipe <span class="token operator">=</span> Pipeline<span class="token punctuation">(</span><span class="token punctuation">[</span><br>    <span class="token punctuation">(</span><span class="token string">"scale"</span><span class="token punctuation">,</span> StandardScaler<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>    <span class="token punctuation">(</span><span class="token string">"model"</span><span class="token punctuation">,</span> RandomForestRegressor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
+<p>We can then use the grid search and make a prediction again. Here's the new plot:</p>
+<p><img src="img/posts/PredictionScatterChart-RandomForest.png" alt="Random Forest Scatter Chart"></p>
+<p>These results make much more sense. When it predicts values less than .4 it seems to indicate the
+correct target of not &quot;late&quot;. When above .4 then it is &quot;late&quot;.</p>
+<h3 id="conclusion">Conclusion <a class="direct-link" href="#conclusion">#</a></h3>
+<p>We are not finished yet. We have a result, but can the result be trusted? It seems a little too
+good. Is it overfitted to our data?</p>
+<p>We are just getting started. We've done the easy part, creating a functional model. Now we need
+to apply our understanding to evaluate what's going on.</p>
+
+
+
+    </main>
+
+    <footer>
+      <ul>
+        <li class="nav-item">
+          <a href="https://bsky.app/profile/christopherlopes.bsky.social">💬 @christopherlopes</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://bookshelf.christopherlopes.com">📚 Bookshelf</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://ln.ht/~ciwchris">🔖 Links</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://rss.christopherlopes.com">📒 RSS Reader</a>
+        </li>
+      </ul>
+
+      ©
+      <time datetime="2024-11-16">2024</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
+
+    <!-- Current page: /posts/2024-11-16-scikit-learn-model-generation/ -->
+
+
+
+  <script>
+
+function setTheme(theme, persist = false) {
+    const on = theme;
+    const off = theme === 'light' ? 'dark' : 'light'
+
+    const htmlEl = document.documentElement;
+    htmlEl.classList.add(on);
+    htmlEl.classList.remove(off);
+
+    if (persist) {
+        localStorage.setItem('preferred-theme', theme);
+    }
+}
+const toggle = document.getElementById('toggle-input');
+const lightIcon = document.getElementById('light-icon');
+const darkIcon = document.getElementById('dark-icon');
+
+function updateUI(theme) {
+    toggle.checked = theme === 'light';
+
+    if (theme === 'light') {
+        lightIcon.style.visibility = "hidden";
+        darkIcon.style.visibility = "visible";
+    } else {
+        darkIcon.style.visibility = "hidden";
+        lightIcon.style.visibility = "visible";
+    }
+}
+
+toggle.addEventListener('click', () => {
+    const theme = toggle.checked ? 'light' : 'dark';
+    setTheme(theme, true);
+    updateUI(theme);
+});
+const osPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferredTheme = localStorage.getItem('preferred-theme') || osPreference;
+
+setTheme(preferredTheme, false);
+updateUI(preferredTheme);
+  </script>
+  </body>
+</html>
