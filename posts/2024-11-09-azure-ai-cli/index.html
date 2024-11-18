@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Book of AI and the Azure AI CLI</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Figuring \w+ out">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Figuring \w+ out">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Figuring \w+ out</a></h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/">Pages</a>
+        </li>
+        <li class="nav-item">
+          <a href="/feed/feed.xml">RSS</a>
+        </li>
+      </ul>
+      <label class="toggle-switch" for="toggle-input">
+          <input id="toggle-input" type="checkbox">
+          <span id="dark-icon">🌘</span>
+          <span id="light-icon">☀️</span>
+      </label>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>The Book of AI and the Azure AI CLI</h1>
+
+<time datetime="2024-11-09">Nov 09 2024</time><a href="/tags/ai/" class="post-tag">ai</a><a href="/tags/cli/" class="post-tag">cli</a>
+
+<h3 id="the-book-of-ai">The Book of AI <a class="direct-link" href="#the-book-of-ai">#</a></h3>
+<p>I came across the <a href="https://thebookof.ai/">Book of AI</a> buried in a blog post. Mildly interested I
+decided to take a look. I'm glad I did!</p>
+<p>The Book of AI is documentation about Azure AI Services. Of interest for this post is the portion on
+the Azure AI CLI.</p>
+<p>First stop was a <a href="https://techcommunity.microsoft.com/blog/aiplatformblog/the-future-of-ai-unlocking-the-power-of-azure-ai-with-the-book-of-ai/4251353">post on the creation of the website for the Book of AI using the Azure AI
+CLI</a>.
+It got me curious. I began going through the install and getting started guide for the Azure AI CLI.
+I already had the required .NET components, so I skipped down to installing the .NET tool.</p>
+<pre class="language-shell"><code class="language-shell">dotnet tool <span class="token function">install</span> -g Azure.AI.CLI --prerelease</code></pre>
+<p>Next, the initialize the AI CLI. If you haven't already you will also need to be logged in with the
+AZ CLI, part of the install steps I already had.</p>
+<pre class="language-shell"><code class="language-shell">ai init openai</code></pre>
+<p>It seems the &quot;openai&quot; option is currently optional, and I don't know of any other options which can
+be specified. Hopefully other options with other AI models will be supported in the future. It is
+prerelease after all.</p>
+<p>The initialization walks you through all the Azure resources needed to use the CLI.</p>
+<h3 id="chatting">Chatting <a class="direct-link" href="#chatting">#</a></h3>
+<p>Once installed you can begin chatting. You can call the CLI with parameters to either ask a
+question as part of the command, reference a file containing a question and/or chat interactively.
+The same is true when providing a system prompt:</p>
+<pre class="language-shell"><code class="language-shell">ai chat --user <span class="token string">"What is the capital of France?"</span><br>ai chat --user <span class="token string">"What is the capital of France."</span> --system <span class="token string">"Always answer in French."</span><br>ai chat --interactive --question <span class="token string">"@question.txt"</span><br>ai chat --interactive --question <span class="token string">"@question.txt"</span> --system <span class="token string">"@system.txt"</span></code></pre>
+<p>Additionally, assistants can be created. This allows you to define an AI chat with a set prompt or
+reference files for context. To create a new assistant with a prompt referenced in a file:</p>
+<pre class="language-shell"><code class="language-shell">ai chat assistant create --name Grammar --instructions <span class="token string">"@grammar-instructions.txt"</span></code></pre>
+<p>To use the assistant you can list the assistants to find its id and then use that id when
+initiating a chat:</p>
+<pre class="language-shell"><code class="language-shell">ai chat assistant list<br>ai chat --assistant-id asst_KryKV4zhMgVfz8OO1QTjScdo --interactive</code></pre>
+<p>Specifying the id every time you start a chat gets old, so you can set a default assistant for
+every time your initiate a chat:</p>
+<pre class="language-shell"><code class="language-shell">ai config --set assistant.id asst_erCjkTgoWlmiyEvu6plonEX6</code></pre>
+<p>The next time you initiate a chat with <code>ai chat --interactive</code> it will automatically use the
+assistant set.</p>
+<p>If needed you can update the assistant:</p>
+<pre class="language-shell"><code class="language-shell">ai chat assistant update --instructions <span class="token string">"@grammar-instructions.txt"</span> --id asst_erCjkTgoWlmiyEvu6plonEX6</code></pre>
+<p>To see what assistant is the default:</p>
+<pre class="language-shell"><code class="language-shell">ai config @assistant.id</code></pre>
+<p>If you ever need to clear the default or delete the assistant:</p>
+<pre class="language-shell"><code class="language-shell">ai config --clear assistant.id<br>ai chat assistant delete --id MlAssistant</code></pre>
+<p>This is all pretty amazing and usually works smoothly. I'm using my Azure Subscription for my MSDN
+account, which has $50 in credits every month. I've been using this as my primary AI chat interface
+for a little over a week and so far it has only cost me just over $1. Overall it has been quite
+helpful and a joy to use.</p>
+<h3 id="sample-applications">Sample applications <a class="direct-link" href="#sample-applications">#</a></h3>
+<p>There is much more you can do beyond chatting. There are many application templates demonstrating
+various functionality using AI. The Azure AI CLI allows you to quickly create a new application
+using a template and then run it. To see what applications are available:</p>
+<pre class="language-shell"><code class="language-shell">ai dev list --csharp</code></pre>
+<p>Select one and create it:</p>
+<pre class="language-shell"><code class="language-shell">ai dev new openai-chat --csharp</code></pre>
+<p>Change into the directory and build the project: <code>dotnet build</code>.</p>
+<p>To run the project you need all of the environment variables with URLs and keys for accessing the
+created Azure resources. The way they easily support this is with the AI shell.</p>
+<pre class="language-shell"><code class="language-shell">ai dev shell</code></pre>
+<p>I did have issue in Windows Powershell starting the dev shell. It would not include any of the
+environment variables. But it did work fine in various Linux shells.</p>
+<p>Once in the shell start the applications: <code>dotnet run</code>.</p>
+<p>Pretty slick way to easily try things out.</p>
+<h3 id="text-to-speech!">Text to speech! <a class="direct-link" href="#text-to-speech!">#</a></h3>
+<p>I listen to a lot of audio, primarily podcasts. Therefore, any tool to help me convert text to
+audio I'm interested in. Unfortunately there is an issue in the Speech SDK on Linux. The issue has
+been resolved in the Speech SDK but the Azure AI CLI is still referencing an old version of the
+package. Therefore, I was only able to use text to speech on Windows.</p>
+<p>First configure it:</p>
+<pre class="language-shell"><code class="language-shell">ai speech setup</code></pre>
+<p>Then begin chatting away:</p>
+<pre class="language-shell"><code class="language-shell">ai speech synthesize --interactive</code></pre>
+<p>There are many voices you can specify when creating audio:</p>
+<pre class="language-shell"><code class="language-shell">ai speech synthesize --list-voices <span class="token operator">|</span> rg ShortName<br>ai speech synthesize --text <span class="token string">"Hello, world!"</span> --voice en-US-SteffanNeural</code></pre>
+<p>The text can be read from a file and the audio outputted to a file:</p>
+<pre><code>ai speech synthesize --file hello-world.txt --audio-output hello-world.mp3 --format mp3
+</code></pre>
+<p>There is also voice recognition and translation!</p>
+<h3 id="conclusion">Conclusion <a class="direct-link" href="#conclusion">#</a></h3>
+<p>There is much much more. I only scratched the surface. It has already become immensely helpful to
+me. I'll continue to poke around and see what else I find helpful. I encourage you to try it out and
+experiment. Again, it's in preview. You're likely to run across issues, like I did. I have also
+found the documentation to be sparse. Nevertheless I have still have found this tool to be
+convenient and helpful.</p>
+
+
+
+    </main>
+
+    <footer>
+      <ul>
+        <li class="nav-item">
+          <a href="https://bsky.app/profile/christopherlopes.bsky.social">💬 @christopherlopes</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://bookshelf.christopherlopes.com">📚 Bookshelf</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://ln.ht/~ciwchris">🔖 Links</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://rss.christopherlopes.com">📒 RSS Reader</a>
+        </li>
+      </ul>
+
+      ©
+      <time datetime="2024-11-18">2024</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
+
+    <!-- Current page: /posts/2024-11-09-azure-ai-cli/ -->
+
+
+
+  <script>
+
+function setTheme(theme, persist = false) {
+    const on = theme;
+    const off = theme === 'light' ? 'dark' : 'light'
+
+    const htmlEl = document.documentElement;
+    htmlEl.classList.add(on);
+    htmlEl.classList.remove(off);
+
+    if (persist) {
+        localStorage.setItem('preferred-theme', theme);
+    }
+}
+const toggle = document.getElementById('toggle-input');
+const lightIcon = document.getElementById('light-icon');
+const darkIcon = document.getElementById('dark-icon');
+
+function updateUI(theme) {
+    toggle.checked = theme === 'light';
+
+    if (theme === 'light') {
+        lightIcon.style.visibility = "hidden";
+        darkIcon.style.visibility = "visible";
+    } else {
+        darkIcon.style.visibility = "hidden";
+        lightIcon.style.visibility = "visible";
+    }
+}
+
+toggle.addEventListener('click', () => {
+    const theme = toggle.checked ? 'light' : 'dark';
+    setTheme(theme, true);
+    updateUI(theme);
+});
+const osPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferredTheme = localStorage.getItem('preferred-theme') || osPreference;
+
+setTheme(preferredTheme, false);
+updateUI(preferredTheme);
+  </script>
+  </body>
+</html>

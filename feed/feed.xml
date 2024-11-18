@@ -134,6 +134,93 @@ to apply our understanding to evaluate what&#39;s going on.&lt;/p&gt;
 	</entry>
 	
 	<entry>
+		<title>The Book of AI and the Azure AI CLI</title>
+		<link href="https://blog.christopherlopes.com/posts/2024-11-09-azure-ai-cli/"/>
+		<updated>2024-11-09T00:00:00Z</updated>
+		<id>https://blog.christopherlopes.com/posts/2024-11-09-azure-ai-cli/</id>
+		<content type="html">&lt;h3 id=&quot;the-book-of-ai&quot;&gt;The Book of AI &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-09-azure-ai-cli/#the-book-of-ai&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;I came across the &lt;a href=&quot;https://thebookof.ai/&quot;&gt;Book of AI&lt;/a&gt; buried in a blog post. Mildly interested I
+decided to take a look. I&#39;m glad I did!&lt;/p&gt;
+&lt;p&gt;The Book of AI is documentation about Azure AI Services. Of interest for this post is the portion on
+the Azure AI CLI.&lt;/p&gt;
+&lt;p&gt;First stop was a &lt;a href=&quot;https://techcommunity.microsoft.com/blog/aiplatformblog/the-future-of-ai-unlocking-the-power-of-azure-ai-with-the-book-of-ai/4251353&quot;&gt;post on the creation of the website for the Book of AI using the Azure AI
+CLI&lt;/a&gt;.
+It got me curious. I began going through the install and getting started guide for the Azure AI CLI.
+I already had the required .NET components, so I skipped down to installing the .NET tool.&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;dotnet tool &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -g Azure.AI.CLI --prerelease&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, the initialize the AI CLI. If you haven&#39;t already you will also need to be logged in with the
+AZ CLI, part of the install steps I already had.&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai init openai&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It seems the &amp;quot;openai&amp;quot; option is currently optional, and I don&#39;t know of any other options which can
+be specified. Hopefully other options with other AI models will be supported in the future. It is
+prerelease after all.&lt;/p&gt;
+&lt;p&gt;The initialization walks you through all the Azure resources needed to use the CLI.&lt;/p&gt;
+&lt;h3 id=&quot;chatting&quot;&gt;Chatting &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-09-azure-ai-cli/#chatting&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Once installed you can begin chatting. You can call the CLI with parameters to either ask a
+question as part of the command, reference a file containing a question and/or chat interactively.
+The same is true when providing a system prompt:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai chat --user &lt;span class=&quot;token string&quot;&gt;&quot;What is the capital of France?&quot;&lt;/span&gt;&lt;br /&gt;ai chat --user &lt;span class=&quot;token string&quot;&gt;&quot;What is the capital of France.&quot;&lt;/span&gt; --system &lt;span class=&quot;token string&quot;&gt;&quot;Always answer in French.&quot;&lt;/span&gt;&lt;br /&gt;ai chat --interactive --question &lt;span class=&quot;token string&quot;&gt;&quot;@question.txt&quot;&lt;/span&gt;&lt;br /&gt;ai chat --interactive --question &lt;span class=&quot;token string&quot;&gt;&quot;@question.txt&quot;&lt;/span&gt; --system &lt;span class=&quot;token string&quot;&gt;&quot;@system.txt&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Additionally, assistants can be created. This allows you to define an AI chat with a set prompt or
+reference files for context. To create a new assistant with a prompt referenced in a file:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai chat assistant create --name Grammar --instructions &lt;span class=&quot;token string&quot;&gt;&quot;@grammar-instructions.txt&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To use the assistant you can list the assistants to find its id and then use that id when
+initiating a chat:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai chat assistant list&lt;br /&gt;ai chat --assistant-id asst_KryKV4zhMgVfz8OO1QTjScdo --interactive&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Specifying the id every time you start a chat gets old, so you can set a default assistant for
+every time your initiate a chat:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai config --set assistant.id asst_erCjkTgoWlmiyEvu6plonEX6&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The next time you initiate a chat with &lt;code&gt;ai chat --interactive&lt;/code&gt; it will automatically use the
+assistant set.&lt;/p&gt;
+&lt;p&gt;If needed you can update the assistant:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai chat assistant update --instructions &lt;span class=&quot;token string&quot;&gt;&quot;@grammar-instructions.txt&quot;&lt;/span&gt; --id asst_erCjkTgoWlmiyEvu6plonEX6&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To see what assistant is the default:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai config @assistant.id&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you ever need to clear the default or delete the assistant:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai config --clear assistant.id&lt;br /&gt;ai chat assistant delete --id MlAssistant&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is all pretty amazing and usually works smoothly. I&#39;m using my Azure Subscription for my MSDN
+account, which has $50 in credits every month. I&#39;ve been using this as my primary AI chat interface
+for a little over a week and so far it has only cost me just over $1. Overall it has been quite
+helpful and a joy to use.&lt;/p&gt;
+&lt;h3 id=&quot;sample-applications&quot;&gt;Sample applications &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-09-azure-ai-cli/#sample-applications&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;There is much more you can do beyond chatting. There are many application templates demonstrating
+various functionality using AI. The Azure AI CLI allows you to quickly create a new application
+using a template and then run it. To see what applications are available:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai dev list --csharp&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Select one and create it:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai dev new openai-chat --csharp&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Change into the directory and build the project: &lt;code&gt;dotnet build&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To run the project you need all of the environment variables with URLs and keys for accessing the
+created Azure resources. The way they easily support this is with the AI shell.&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai dev shell&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I did have issue in Windows Powershell starting the dev shell. It would not include any of the
+environment variables. But it did work fine in various Linux shells.&lt;/p&gt;
+&lt;p&gt;Once in the shell start the applications: &lt;code&gt;dotnet run&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Pretty slick way to easily try things out.&lt;/p&gt;
+&lt;h3 id=&quot;text-to-speech!&quot;&gt;Text to speech! &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-09-azure-ai-cli/#text-to-speech!&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;I listen to a lot of audio, primarily podcasts. Therefore, any tool to help me convert text to
+audio I&#39;m interested in. Unfortunately there is an issue in the Speech SDK on Linux. The issue has
+been resolved in the Speech SDK but the Azure AI CLI is still referencing an old version of the
+package. Therefore, I was only able to use text to speech on Windows.&lt;/p&gt;
+&lt;p&gt;First configure it:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai speech setup&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then begin chatting away:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai speech synthesize --interactive&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are many voices you can specify when creating audio:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;ai speech synthesize --list-voices &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; rg ShortName&lt;br /&gt;ai speech synthesize --text &lt;span class=&quot;token string&quot;&gt;&quot;Hello, world!&quot;&lt;/span&gt; --voice en-US-SteffanNeural&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The text can be read from a file and the audio outputted to a file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ai speech synthesize --file hello-world.txt --audio-output hello-world.mp3 --format mp3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is also voice recognition and translation!&lt;/p&gt;
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-09-azure-ai-cli/#conclusion&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;There is much much more. I only scratched the surface. It has already become immensely helpful to
+me. I&#39;ll continue to poke around and see what else I find helpful. I encourage you to try it out and
+experiment. Again, it&#39;s in preview. You&#39;re likely to run across issues, like I did. I have also
+found the documentation to be sparse. Nevertheless I have still have found this tool to be
+convenient and helpful.&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
 		<title>Semantic Kernel exploration</title>
 		<link href="https://blog.christopherlopes.com/posts/2024-05-16-semantic-kernel-exploration/"/>
 		<updated>2024-05-16T00:00:00Z</updated>
