@@ -202,6 +202,8 @@ simple as `prediction = model.predict(X)`.
 The predictions can be visualized with a scatter plot, `plt.scatter(prediction, y)`. Unsuprisingly,
 the predictions do not make sense, they jump all over the place.
 
+![KNearest Neighbor Scatter Chart](/img/posts/ScikitLearnIntro-PredictionScatterChart-KNearestNeighbors.png)
+
 A heatmap can also be displayed showing the correlation of each feature to the predicted target. For
 our data there is not any features strongly correlated.
 
@@ -217,6 +219,8 @@ sns.heatmap(heatmap_data.corr().iloc[-1,:].values.reshape(-1,1).round(2), annot=
 ax.set_yticklabels(heatmap_data.columns.tolist(), rotation=0)
 ax.set_xticklabels(['late'])
 ```
+
+![KNearest Neighbor Heatmap](/img/posts/ScikitLearnIntro-Heatmap-KNearestNeighbors.png)
 
 ### What next
 
@@ -236,7 +240,7 @@ pipe = Pipeline([
 
 We can then use the grid search and make a prediction again. Here's the new plot:
 
-![Random Forest Scatter Chart](/img/posts/PredictionScatterChart-RandomForest.png)
+![Random Forest Scatter Chart](/img/posts/ScikitLearnIntro-PredictionScatterChart-RandomForest.png)
 
 These results make much more sense. When it predicts values less than .4 it seems to indicate the
 correct target of not "late". When above .4 then it is "late".
