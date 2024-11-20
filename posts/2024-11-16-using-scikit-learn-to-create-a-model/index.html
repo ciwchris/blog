@@ -134,9 +134,11 @@ simple as <code>prediction = model.predict(X)</code>.</p>
 <h3 id="visualizing-the-results">Visualizing the results <a class="direct-link" href="#visualizing-the-results">#</a></h3>
 <p>The predictions can be visualized with a scatter plot, <code>plt.scatter(prediction, y)</code>. Unsuprisingly,
 the predictions do not make sense, they jump all over the place.</p>
+<p><img src="/img/posts/ScikitLearnIntro-PredictionScatterChart-KNearestNeighbors.png" alt="KNearest Neighbor Scatter Chart"></p>
 <p>A heatmap can also be displayed showing the correlation of each feature to the predicted target. For
 our data there is not any features strongly correlated.</p>
 <pre class="language-python"><code class="language-python"><span class="token keyword">import</span> seaborn <span class="token keyword">as</span> sns<br><span class="token keyword">from</span> matplotlib<span class="token punctuation">.</span>patches <span class="token keyword">import</span> Rectangle<br><br>heatmap_data <span class="token operator">=</span> X<br>heatmap_data<span class="token punctuation">[</span><span class="token string">'late'</span><span class="token punctuation">]</span> <span class="token operator">=</span> prediction<br><br>fig<span class="token punctuation">,</span> ax <span class="token operator">=</span> plt<span class="token punctuation">.</span>subplots<span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>sns<span class="token punctuation">.</span>heatmap<span class="token punctuation">(</span>heatmap_data<span class="token punctuation">.</span>corr<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>iloc<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>values<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">round</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> annot<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> cmap<span class="token operator">=</span><span class="token string">'RdBu'</span><span class="token punctuation">)</span><br>ax<span class="token punctuation">.</span>set_yticklabels<span class="token punctuation">(</span>heatmap_data<span class="token punctuation">.</span>columns<span class="token punctuation">.</span>tolist<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rotation<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><br>ax<span class="token punctuation">.</span>set_xticklabels<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'late'</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
+<p><img src="/img/posts/ScikitLearnIntro-Heatmap-KNearestNeighbors.png" alt="KNearest Neighbor Heatmap"></p>
 <h3 id="what-next">What next <a class="direct-link" href="#what-next">#</a></h3>
 <p>In this particular case the results obviously do not make sense. It clearly indicates we need to
 either use other data, reconsider how we are preprocessing the data we have, try other models or try
@@ -145,7 +147,7 @@ other parameters with our current data.</p>
 make sense is the <code>RandomForestRegressor</code>. Here's are new pipeline:</p>
 <pre class="language-python"><code class="language-python">pipe <span class="token operator">=</span> Pipeline<span class="token punctuation">(</span><span class="token punctuation">[</span><br>    <span class="token punctuation">(</span><span class="token string">"scale"</span><span class="token punctuation">,</span> StandardScaler<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>    <span class="token punctuation">(</span><span class="token string">"model"</span><span class="token punctuation">,</span> RandomForestRegressor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
 <p>We can then use the grid search and make a prediction again. Here's the new plot:</p>
-<p><img src="/img/posts/PredictionScatterChart-RandomForest.png" alt="Random Forest Scatter Chart"></p>
+<p><img src="/img/posts/ScikitLearnIntro-PredictionScatterChart-RandomForest.png" alt="Random Forest Scatter Chart"></p>
 <p>These results make much more sense. When it predicts values less than .4 it seems to indicate the
 correct target of not &quot;late&quot;. When above .4 then it is &quot;late&quot;.</p>
 <h3 id="conclusion">Conclusion <a class="direct-link" href="#conclusion">#</a></h3>
@@ -175,7 +177,7 @@ to apply our understanding to evaluate what's going on.</p>
       </ul>
 
       ©
-      <time datetime="2024-11-18">2024</time>
+      <time datetime="2024-11-20">2024</time>
       Chistopher Lopes. I speak only for myself.
     </footer>
 
