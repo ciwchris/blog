@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What do you use for local RAG</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Figuring \w+ out">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Figuring \w+ out">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Figuring \w+ out</a></h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/">Pages</a>
+        </li>
+        <li class="nav-item">
+          <a href="/feed/feed.xml">RSS</a>
+        </li>
+      </ul>
+      <label class="toggle-switch" for="toggle-input">
+          <input id="toggle-input" type="checkbox">
+          <span id="dark-icon">🌘</span>
+          <span id="light-icon">☀️</span>
+      </label>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>What do you use for local RAG</h1>
+
+<time datetime="2024-11-02">Nov 02 2024</time><a href="/tags/ai/" class="post-tag">ai</a><a href="/tags/rag/" class="post-tag">rag</a><a href="/tags/kernel-memory/" class="post-tag">kernel-memory</a><a href="/tags/khoj/" class="post-tag">khoj</a>
+
+<h3 id="local-rag%3F">Local RAG? <a class="direct-link" href="#local-rag%3F">#</a></h3>
+<p>I saw this question asked the other day. I was excited to see what people use and recommend. To my
+surprise the responses were few. After quickly looking at several of the proposed solutions none
+seemed to stand out. I thought about recommending <a href="https://github.com/microsoft/kernel-memory">Kernel
+Memory</a>, which I had briefly used in the past. I
+experimented with it further as I considered a response.</p>
+<h3 id="kernel-memory">Kernel Memory <a class="direct-link" href="#kernel-memory">#</a></h3>
+<p><a href="https://microsoft.github.io/kernel-memory/">Kernel Memory</a> is a way to perform RAG in .NET. It's
+easy to run locally, provides many configuration options as well as tools to interact with it. There
+are many ways to access Kernel Memory, I'm only running it locally as a service.</p>
+<h4 id="setup">Setup <a class="direct-link" href="#setup">#</a></h4>
+<p>There are a few ways to get started. I went to the repo and cloned the project: <code>git clone --depth 1 git@github.com:microsoft/kernel-memory.git</code></p>
+<p>To get going change directory to <code>cd service/Service/</code>. This contains the Kernel Memory service we can run and
+then interact with. There's a helpful configuration tool to walk through getting setup: <code>dotnet run setup</code>. I've recorded my answers of note for configuration. In particular I selected Qdrant as my
+vector DB. The builtin &quot;SimpleVectorDb&quot; works fine for experimenting too, I only picked Qdrant to
+try it out. Also, I'm using OpenAI for my models. You will need to have your OpenAI API key at the
+ready if you are going to use OpenAI as well.</p>
+<blockquote>
+<p>Web Service with Asynchronous Ingestion Handlers (better for retry logic and long operations)
+Which queue service will be used? SimpleQueues persistent (only for tests, data stored on disk)
+Where should the service store files? SimpleFileStorage persistent (only for tests, data stored on disk)
+Which service should be used to extract text from images? none
+When importing data, generate embeddings, or let the memory Db class take care of it? Yes, generate embeddings
+When searching for text and/or answers, which embedding generator should be used for vector search? OpenAI embedding model
+OpenAI &lt;text/chat model name&gt; gpt-4o-mini]: gpt-4o
+OpenAI <embedding model name> text-embedding-ada-002
+When searching for answers, which memory DB service contains the records to search? Qdrant
+Qdrant <endpoint>: <a href="http://127.0.0.1:6333">http://127.0.0.1:6333</a>
+No Qdrant key
+When generating answers and synthetic data, which LLM text generator should be used? OpenAI text/chat model</p>
+</blockquote>
+<p>Once configuration is finished start up the Kernel Memory service: <code>dotnet run</code></p>
+<h4 id="how-to-interact-with-kernel-memory">How to interact with Kernel Memory <a class="direct-link" href="#how-to-interact-with-kernel-memory">#</a></h4>
+<p>Now open a second terminal and navigate to the repo's tools directory: <code>cd tools</code>.</p>
+<p>If you already have docker installed and running then a bash script is provided to easily start up
+Qdrant: <code>./run-qdrant.sh</code>.</p>
+<p>Once the DB has been started you can view it in the browser:
+<code>http://localhost:6333/dashboard#/collections</code>.</p>
+<p>Everything is now ready to begin using Kernel Memory. Another simple bash script is provided to
+upload documents to Kernel Memory. I have a PDF on Semantic Kernel lying around to upload.</p>
+<pre class="language-shell"><code class="language-shell">./upload-file.sh -f ~/Downloads/semantic-kernel.pdf -i semantic-kernel -s http://127.0.0.1:9001</code></pre>
+<p>The document will now be in Qdrant, and can be seen in the <code>default</code> collection.</p>
+<p>Finally, there's another helpful script to query Kernel Memory. I'll ask a Semantic Kernel related
+question:</p>
+<pre class="language-shell"><code class="language-shell">./ask.sh -s http://127.0.0.1:9001 -q <span class="token string">'how do I configure a plugin for .NET'</span></code></pre>
+<p>I saved the response so I could parse the response with <a href="https://jqlang.github.io/jq/"><code>jq</code></a>.</p>
+<pre class="language-shell"><code class="language-shell">jq -r <span class="token string">'.question, .relevantSources[0].documentId, .relevantSources[0].sourceName, .text'</span> answer.json</code></pre>
+<p>Here's the abbreviated response</p>
+<blockquote>
+<p>how do I configure a plugin for .NET
+semantic-kernel
+semantic-kernel.pdf
+To configure a plugin for .NET in the context of Semantic Kernel, follow these steps: ...</p>
+</blockquote>
+<h4 id="thoughts">Thoughts <a class="direct-link" href="#thoughts">#</a></h4>
+<p>I found this easy to get up and going. I don't know how practical it is to use, at least not using
+the method I illustrated here. It provides a base level of functionality which can be built upon.
+Therefore, if you want a lot of control then this may be a great solution. If you want something out
+of the box then this may not be it. I'm a little surprised no one has taken these tools and created
+an open source product for this. All of the pieces are here, they just need a good UI on top of
+them.</p>
+<h3 id="khoj%3A-the-nice-ui-for-rag%3F">Khoj: the nice UI for RAG? <a class="direct-link" href="#khoj%3A-the-nice-ui-for-rag%3F">#</a></h3>
+<p>The one solution I saw come up a couple times in response to the original question about a local RAG
+solution was <a href="https://khoj.dev/">Khoj</a>. I had seen this product come up months prior but it is a
+commercial product, and I don't want another subscription at the moment. I believe I saw that it could
+be run locally for free, but at the time it seemed more effort than I wanted to spend. I, however,
+had a renewed motivation, so I looked at the documentation again. It seemed simple.</p>
+<h4 id="setup-1">Setup <a class="direct-link" href="#setup-1">#</a></h4>
+<p>Download the docker compose file, add your OpenAI API key and start it!</p>
+<pre class="language-shell"><code class="language-shell"><span class="token function">wget</span> https://raw.githubusercontent.com/khoj-ai/khoj/master/docker-compose.yml</code></pre>
+<p>Edit the <code>docker-compose.yml</code> and add your OpenAI API Key to the configuration value
+&quot;OPENAI_API_KEY&quot;. Then start it up:</p>
+<pre class="language-shell"><code class="language-shell">docker-compose up</code></pre>
+<p>I actually had several issues when I tried this, I couldn't access the images. But once that was
+sorted out it started up. Point a browser to <code>http://localhost:42110/</code> and you're greeted by a
+decent UI allowing you to perform a variety of actions, including uploading a document and then
+asking questions.</p>
+<h4 id="obsidian">Obsidian <a class="direct-link" href="#obsidian">#</a></h4>
+<p>What's extra nice about this solution is that there is a <a href="https://docs.khoj.dev/clients/obsidian">plugin for
+Obsidian</a>. It's as easy as installing the plugin in
+Obsidian. One plugin configuration value needs to be update, the Khoj server configuration value
+needs to be updated to the local running instance, <a href="http://127.0.0.1:42110">http://127.0.0.1:42110</a>. With that in place it
+began syncing my Obsidian notes. After it finished I could ask question about my documents. Nice!</p>
+<h4 id="thoughts-1">Thoughts <a class="direct-link" href="#thoughts-1">#</a></h4>
+<p>Even though both of these solutions were pretty simple to run locally I haven't found myself using
+them. Some things stick and some things do not. This has not. Most likely because I haven't felt a
+real need yet. Maybe that day will come. If so, I'm prepared, I think.</p>
+
+
+
+    </main>
+
+    <footer>
+      <ul>
+        <li class="nav-item">
+          <a href="https://bsky.app/profile/christopherlopes.bsky.social">💬 @christopherlopes</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://bookshelf.christopherlopes.com">📚 Bookshelf</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://ln.ht/~ciwchris">🔖 Links</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://rss.christopherlopes.com">📒 RSS Reader</a>
+        </li>
+      </ul>
+
+      ©
+      <time datetime="2024-11-23">2024</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
+
+    <!-- Current page: /posts/2024-11-02-local-rag/ -->
+
+
+
+  <script>
+
+function setTheme(theme, persist = false) {
+    const on = theme;
+    const off = theme === 'light' ? 'dark' : 'light'
+
+    const htmlEl = document.documentElement;
+    htmlEl.classList.add(on);
+    htmlEl.classList.remove(off);
+
+    if (persist) {
+        localStorage.setItem('preferred-theme', theme);
+    }
+}
+const toggle = document.getElementById('toggle-input');
+const lightIcon = document.getElementById('light-icon');
+const darkIcon = document.getElementById('dark-icon');
+
+function updateUI(theme) {
+    toggle.checked = theme === 'light';
+
+    if (theme === 'light') {
+        lightIcon.style.visibility = "hidden";
+        darkIcon.style.visibility = "visible";
+    } else {
+        darkIcon.style.visibility = "hidden";
+        lightIcon.style.visibility = "visible";
+    }
+}
+
+toggle.addEventListener('click', () => {
+    const theme = toggle.checked ? 'light' : 'dark';
+    setTheme(theme, true);
+    updateUI(theme);
+});
+const osPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferredTheme = localStorage.getItem('preferred-theme') || osPreference;
+
+setTheme(preferredTheme, false);
+updateUI(preferredTheme);
+  </script>
+  </body>
+</html>

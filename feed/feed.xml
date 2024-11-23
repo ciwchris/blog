@@ -223,6 +223,101 @@ convenient and helpful.&lt;/p&gt;
 	</entry>
 	
 	<entry>
+		<title>What do you use for local RAG</title>
+		<link href="https://blog.christopherlopes.com/posts/2024-11-02-local-rag/"/>
+		<updated>2024-11-02T00:00:00Z</updated>
+		<id>https://blog.christopherlopes.com/posts/2024-11-02-local-rag/</id>
+		<content type="html">&lt;h3 id=&quot;local-rag%3F&quot;&gt;Local RAG? &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#local-rag%3F&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;I saw this question asked the other day. I was excited to see what people use and recommend. To my
+surprise the responses were few. After quickly looking at several of the proposed solutions none
+seemed to stand out. I thought about recommending &lt;a href=&quot;https://github.com/microsoft/kernel-memory&quot;&gt;Kernel
+Memory&lt;/a&gt;, which I had briefly used in the past. I
+experimented with it further as I considered a response.&lt;/p&gt;
+&lt;h3 id=&quot;kernel-memory&quot;&gt;Kernel Memory &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#kernel-memory&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://microsoft.github.io/kernel-memory/&quot;&gt;Kernel Memory&lt;/a&gt; is a way to perform RAG in .NET. It&#39;s
+easy to run locally, provides many configuration options as well as tools to interact with it. There
+are many ways to access Kernel Memory, I&#39;m only running it locally as a service.&lt;/p&gt;
+&lt;h4 id=&quot;setup&quot;&gt;Setup &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#setup&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;There are a few ways to get started. I went to the repo and cloned the project: &lt;code&gt;git clone --depth 1 git@github.com:microsoft/kernel-memory.git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To get going change directory to &lt;code&gt;cd service/Service/&lt;/code&gt;. This contains the Kernel Memory service we can run and
+then interact with. There&#39;s a helpful configuration tool to walk through getting setup: &lt;code&gt;dotnet run setup&lt;/code&gt;. I&#39;ve recorded my answers of note for configuration. In particular I selected Qdrant as my
+vector DB. The builtin &amp;quot;SimpleVectorDb&amp;quot; works fine for experimenting too, I only picked Qdrant to
+try it out. Also, I&#39;m using OpenAI for my models. You will need to have your OpenAI API key at the
+ready if you are going to use OpenAI as well.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Web Service with Asynchronous Ingestion Handlers (better for retry logic and long operations)
+Which queue service will be used? SimpleQueues persistent (only for tests, data stored on disk)
+Where should the service store files? SimpleFileStorage persistent (only for tests, data stored on disk)
+Which service should be used to extract text from images? none
+When importing data, generate embeddings, or let the memory Db class take care of it? Yes, generate embeddings
+When searching for text and/or answers, which embedding generator should be used for vector search? OpenAI embedding model
+OpenAI &amp;lt;text/chat model name&amp;gt; gpt-4o-mini]: gpt-4o
+OpenAI &lt;embedding model=&quot;&quot; name=&quot;&quot;&gt; text-embedding-ada-002
+When searching for answers, which memory DB service contains the records to search? Qdrant
+Qdrant &lt;endpoint&gt;: &lt;a href=&quot;http://127.0.0.1:6333/&quot;&gt;http://127.0.0.1:6333&lt;/a&gt;
+No Qdrant key
+When generating answers and synthetic data, which LLM text generator should be used? OpenAI text/chat model&lt;/endpoint&gt;&lt;/embedding&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Once configuration is finished start up the Kernel Memory service: &lt;code&gt;dotnet run&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&quot;how-to-interact-with-kernel-memory&quot;&gt;How to interact with Kernel Memory &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#how-to-interact-with-kernel-memory&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Now open a second terminal and navigate to the repo&#39;s tools directory: &lt;code&gt;cd tools&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If you already have docker installed and running then a bash script is provided to easily start up
+Qdrant: &lt;code&gt;./run-qdrant.sh&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Once the DB has been started you can view it in the browser:
+&lt;code&gt;http://localhost:6333/dashboard#/collections&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Everything is now ready to begin using Kernel Memory. Another simple bash script is provided to
+upload documents to Kernel Memory. I have a PDF on Semantic Kernel lying around to upload.&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;./upload-file.sh -f ~/Downloads/semantic-kernel.pdf -i semantic-kernel -s http://127.0.0.1:9001&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The document will now be in Qdrant, and can be seen in the &lt;code&gt;default&lt;/code&gt; collection.&lt;/p&gt;
+&lt;p&gt;Finally, there&#39;s another helpful script to query Kernel Memory. I&#39;ll ask a Semantic Kernel related
+question:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;./ask.sh -s http://127.0.0.1:9001 -q &lt;span class=&quot;token string&quot;&gt;&#39;how do I configure a plugin for .NET&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I saved the response so I could parse the response with &lt;a href=&quot;https://jqlang.github.io/jq/&quot;&gt;&lt;code&gt;jq&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;jq -r &lt;span class=&quot;token string&quot;&gt;&#39;.question, .relevantSources[0].documentId, .relevantSources[0].sourceName, .text&#39;&lt;/span&gt; answer.json&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here&#39;s the abbreviated response&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;how do I configure a plugin for .NET
+semantic-kernel
+semantic-kernel.pdf
+To configure a plugin for .NET in the context of Semantic Kernel, follow these steps: ...&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;thoughts&quot;&gt;Thoughts &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#thoughts&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;I found this easy to get up and going. I don&#39;t know how practical it is to use, at least not using
+the method I illustrated here. It provides a base level of functionality which can be built upon.
+Therefore, if you want a lot of control then this may be a great solution. If you want something out
+of the box then this may not be it. I&#39;m a little surprised no one has taken these tools and created
+an open source product for this. All of the pieces are here, they just need a good UI on top of
+them.&lt;/p&gt;
+&lt;h3 id=&quot;khoj%3A-the-nice-ui-for-rag%3F&quot;&gt;Khoj: the nice UI for RAG? &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#khoj%3A-the-nice-ui-for-rag%3F&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The one solution I saw come up a couple times in response to the original question about a local RAG
+solution was &lt;a href=&quot;https://khoj.dev/&quot;&gt;Khoj&lt;/a&gt;. I had seen this product come up months prior but it is a
+commercial product, and I don&#39;t want another subscription at the moment. I believe I saw that it could
+be run locally for free, but at the time it seemed more effort than I wanted to spend. I, however,
+had a renewed motivation, so I looked at the documentation again. It seemed simple.&lt;/p&gt;
+&lt;h4 id=&quot;setup-1&quot;&gt;Setup &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#setup-1&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Download the docker compose file, add your OpenAI API key and start it!&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;wget&lt;/span&gt; https://raw.githubusercontent.com/khoj-ai/khoj/master/docker-compose.yml&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Edit the &lt;code&gt;docker-compose.yml&lt;/code&gt; and add your OpenAI API Key to the configuration value
+&amp;quot;OPENAI_API_KEY&amp;quot;. Then start it up:&lt;/p&gt;
+&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;docker-compose up&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I actually had several issues when I tried this, I couldn&#39;t access the images. But once that was
+sorted out it started up. Point a browser to &lt;code&gt;http://localhost:42110/&lt;/code&gt; and you&#39;re greeted by a
+decent UI allowing you to perform a variety of actions, including uploading a document and then
+asking questions.&lt;/p&gt;
+&lt;h4 id=&quot;obsidian&quot;&gt;Obsidian &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#obsidian&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;What&#39;s extra nice about this solution is that there is a &lt;a href=&quot;https://docs.khoj.dev/clients/obsidian&quot;&gt;plugin for
+Obsidian&lt;/a&gt;. It&#39;s as easy as installing the plugin in
+Obsidian. One plugin configuration value needs to be update, the Khoj server configuration value
+needs to be updated to the local running instance, &lt;a href=&quot;http://127.0.0.1:42110/&quot;&gt;http://127.0.0.1:42110&lt;/a&gt;. With that in place it
+began syncing my Obsidian notes. After it finished I could ask question about my documents. Nice!&lt;/p&gt;
+&lt;h4 id=&quot;thoughts-1&quot;&gt;Thoughts &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#thoughts-1&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Even though both of these solutions were pretty simple to run locally I haven&#39;t found myself using
+them. Some things stick and some things do not. This has not. Most likely because I haven&#39;t felt a
+real need yet. Maybe that day will come. If so, I&#39;m prepared, I think.&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
 		<title>Semantic Kernel exploration</title>
 		<link href="https://blog.christopherlopes.com/posts/2024-05-16-semantic-kernel-exploration/"/>
 		<updated>2024-05-16T00:00:00Z</updated>
