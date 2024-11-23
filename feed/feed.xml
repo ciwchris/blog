@@ -244,20 +244,7 @@ then interact with. There&#39;s a helpful configuration tool to walk through get
 vector DB. The builtin &amp;quot;SimpleVectorDb&amp;quot; works fine for experimenting too, I only picked Qdrant to
 try it out. Also, I&#39;m using OpenAI for my models. You will need to have your OpenAI API key at the
 ready if you are going to use OpenAI as well.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Web Service with Asynchronous Ingestion Handlers (better for retry logic and long operations)
-Which queue service will be used? SimpleQueues persistent (only for tests, data stored on disk)
-Where should the service store files? SimpleFileStorage persistent (only for tests, data stored on disk)
-Which service should be used to extract text from images? none
-When importing data, generate embeddings, or let the memory Db class take care of it? Yes, generate embeddings
-When searching for text and/or answers, which embedding generator should be used for vector search? OpenAI embedding model
-OpenAI &amp;lt;text/chat model name&amp;gt; gpt-4o-mini]: gpt-4o
-OpenAI &lt;embedding model=&quot;&quot; name=&quot;&quot;&gt; text-embedding-ada-002
-When searching for answers, which memory DB service contains the records to search? Qdrant
-Qdrant &lt;endpoint&gt;: &lt;a href=&quot;http://127.0.0.1:6333/&quot;&gt;http://127.0.0.1:6333&lt;/a&gt;
-No Qdrant key
-When generating answers and synthetic data, which LLM text generator should be used? OpenAI text/chat model&lt;/endpoint&gt;&lt;/embedding&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; Web Service with Asynchronous Ingestion Handlers (better for retry logic and long operations)&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; Which queue service will be used? SimpleQueues persistent (only for tests, data stored on disk)&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; Where should the service store files? SimpleFileStorage persistent (only for tests, data stored on disk)&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; Which service should be used to extract text from images? none&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; When importing data, generate embeddings, or let the memory Db class take care of it? Yes, generate embeddings&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; When searching for text and/or answers, which embedding generator should be used for vector search? OpenAI embedding model&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; OpenAI &amp;lt;text/chat model name&gt; gpt-4o-mini]: gpt-4o&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; OpenAI &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;embedding&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; text-embedding-ada-002&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; When searching for answers, which memory DB service contains the records to search? Qdrant&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; Qdrant &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;endpoint&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;: http://127.0.0.1:6333&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; No Qdrant key&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; When generating answers and synthetic data, which LLM text generator should be used? OpenAI text/chat model&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Once configuration is finished start up the Kernel Memory service: &lt;code&gt;dotnet run&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&quot;how-to-interact-with-kernel-memory&quot;&gt;How to interact with Kernel Memory &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#how-to-interact-with-kernel-memory&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;Now open a second terminal and navigate to the repo&#39;s tools directory: &lt;code&gt;cd tools&lt;/code&gt;.&lt;/p&gt;
@@ -275,12 +262,7 @@ question:&lt;/p&gt;
 &lt;p&gt;I saved the response so I could parse the response with &lt;a href=&quot;https://jqlang.github.io/jq/&quot;&gt;&lt;code&gt;jq&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;jq -r &lt;span class=&quot;token string&quot;&gt;&#39;.question, .relevantSources[0].documentId, .relevantSources[0].sourceName, .text&#39;&lt;/span&gt; answer.json&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Here&#39;s the abbreviated response&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;how do I configure a plugin for .NET
-semantic-kernel
-semantic-kernel.pdf
-To configure a plugin for .NET in the context of Semantic Kernel, follow these steps: ...&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; how do I configure a plugin for .NET&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; semantic-kernel&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; semantic-kernel.pdf&lt;br /&gt;&lt;span class=&quot;token list punctuation&quot;&gt;-&lt;/span&gt; To configure a plugin for .NET in the context of Semantic Kernel, follow these steps: ...&lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id=&quot;thoughts&quot;&gt;Thoughts &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-11-02-local-rag/#thoughts&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;I found this easy to get up and going. I don&#39;t know how practical it is to use, at least not using
 the method I illustrated here. It provides a base level of functionality which can be built upon.

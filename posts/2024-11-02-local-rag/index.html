@@ -57,20 +57,7 @@ then interact with. There's a helpful configuration tool to walk through getting
 vector DB. The builtin &quot;SimpleVectorDb&quot; works fine for experimenting too, I only picked Qdrant to
 try it out. Also, I'm using OpenAI for my models. You will need to have your OpenAI API key at the
 ready if you are going to use OpenAI as well.</p>
-<blockquote>
-<p>Web Service with Asynchronous Ingestion Handlers (better for retry logic and long operations)
-Which queue service will be used? SimpleQueues persistent (only for tests, data stored on disk)
-Where should the service store files? SimpleFileStorage persistent (only for tests, data stored on disk)
-Which service should be used to extract text from images? none
-When importing data, generate embeddings, or let the memory Db class take care of it? Yes, generate embeddings
-When searching for text and/or answers, which embedding generator should be used for vector search? OpenAI embedding model
-OpenAI &lt;text/chat model name&gt; gpt-4o-mini]: gpt-4o
-OpenAI <embedding model name> text-embedding-ada-002
-When searching for answers, which memory DB service contains the records to search? Qdrant
-Qdrant <endpoint>: <a href="http://127.0.0.1:6333">http://127.0.0.1:6333</a>
-No Qdrant key
-When generating answers and synthetic data, which LLM text generator should be used? OpenAI text/chat model</p>
-</blockquote>
+<pre class="language-markdown"><code class="language-markdown"><span class="token list punctuation">-</span> Web Service with Asynchronous Ingestion Handlers (better for retry logic and long operations)<br><span class="token list punctuation">-</span> Which queue service will be used? SimpleQueues persistent (only for tests, data stored on disk)<br><span class="token list punctuation">-</span> Where should the service store files? SimpleFileStorage persistent (only for tests, data stored on disk)<br><span class="token list punctuation">-</span> Which service should be used to extract text from images? none<br><span class="token list punctuation">-</span> When importing data, generate embeddings, or let the memory Db class take care of it? Yes, generate embeddings<br><span class="token list punctuation">-</span> When searching for text and/or answers, which embedding generator should be used for vector search? OpenAI embedding model<br><span class="token list punctuation">-</span> OpenAI &lt;text/chat model name> gpt-4o-mini]: gpt-4o<br><span class="token list punctuation">-</span> OpenAI <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>embedding</span> <span class="token attr-name">model</span> <span class="token attr-name">name</span><span class="token punctuation">></span></span> text-embedding-ada-002<br><span class="token list punctuation">-</span> When searching for answers, which memory DB service contains the records to search? Qdrant<br><span class="token list punctuation">-</span> Qdrant <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>endpoint</span><span class="token punctuation">></span></span>: http://127.0.0.1:6333<br><span class="token list punctuation">-</span> No Qdrant key<br><span class="token list punctuation">-</span> When generating answers and synthetic data, which LLM text generator should be used? OpenAI text/chat model</code></pre>
 <p>Once configuration is finished start up the Kernel Memory service: <code>dotnet run</code></p>
 <h4 id="how-to-interact-with-kernel-memory">How to interact with Kernel Memory <a class="direct-link" href="#how-to-interact-with-kernel-memory">#</a></h4>
 <p>Now open a second terminal and navigate to the repo's tools directory: <code>cd tools</code>.</p>
@@ -88,12 +75,7 @@ question:</p>
 <p>I saved the response so I could parse the response with <a href="https://jqlang.github.io/jq/"><code>jq</code></a>.</p>
 <pre class="language-shell"><code class="language-shell">jq -r <span class="token string">'.question, .relevantSources[0].documentId, .relevantSources[0].sourceName, .text'</span> answer.json</code></pre>
 <p>Here's the abbreviated response</p>
-<blockquote>
-<p>how do I configure a plugin for .NET
-semantic-kernel
-semantic-kernel.pdf
-To configure a plugin for .NET in the context of Semantic Kernel, follow these steps: ...</p>
-</blockquote>
+<pre class="language-markdown"><code class="language-markdown"><span class="token list punctuation">-</span> how do I configure a plugin for .NET<br><span class="token list punctuation">-</span> semantic-kernel<br><span class="token list punctuation">-</span> semantic-kernel.pdf<br><span class="token list punctuation">-</span> To configure a plugin for .NET in the context of Semantic Kernel, follow these steps: ...</code></pre>
 <h4 id="thoughts">Thoughts <a class="direct-link" href="#thoughts">#</a></h4>
 <p>I found this easy to get up and going. I don't know how practical it is to use, at least not using
 the method I illustrated here. It provides a base level of functionality which can be built upon.
