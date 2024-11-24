@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using ONNX to integrate local AI models into .NET </title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Figuring \w+ out">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Figuring \w+ out">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Figuring \w+ out</a></h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/">Pages</a>
+        </li>
+        <li class="nav-item">
+          <a href="/feed/feed.xml">RSS</a>
+        </li>
+      </ul>
+      <label class="toggle-switch" for="toggle-input">
+          <input id="toggle-input" type="checkbox">
+          <span id="dark-icon">🌘</span>
+          <span id="light-icon">☀️</span>
+      </label>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>Using ONNX to integrate local AI models into .NET </h1>
+
+<time datetime="2024-06-03">Jun 03 2024</time><a href="/tags/ai/" class="post-tag">ai</a><a href="/tags/onnx/" class="post-tag">onnx</a>
+
+<h3 id="about-the-example">About the example <a class="direct-link" href="#about-the-example">#</a></h3>
+<p><a href="https://onnxruntime.ai/docs/">ONNX</a> allows developers to integrate many different types of
+generated models into their application in a generic way.</p>
+<p>This content is essentially my experience replicating the content in the article <a href="https://build5nines.com/build-a-generative-ai-app-in-c-with-phi-3-mini-llm-and-onnx/">Build a Generative
+AI App in C# with Phi-3 SLM and ONNX written by Chris
+Pietschmann</a>.
+I originally recreated the example shortly after the article was written on a Windows device. <strong>On
+Linux I received an error</strong>. I am now able to recreate the example on Fedora Linux. Here are my
+steps.</p>
+<p>The example shows how to download a model and then use the model locally, within a .NET console
+application, demonstrated via a typical chat application.</p>
+<h3 id="getting-the-model">Getting the model <a class="direct-link" href="#getting-the-model">#</a></h3>
+<p>There are a couple ways to download the model. The article uses Git to clone it. When using this
+method <strong>you must have Git LFS installed</strong>. This is the route I went on both Windows and Linux. The
+other method is to use the
+<a href="https://huggingface.co/docs/huggingface_hub/en/guides/cli">huggingface-cli</a>. The CLI is a Python
+package. I did not want to set up Python, there I stick with Git.</p>
+<p>There are two installation paths for <a href="https://git-lfs.com/">Git LFS</a> for Linux. It seemed the
+simplest approach was using PackageCloud for installation, therefore I selected the <a href="https://packagecloud.io/github/git-lfs/install#bash-rpm">RPM package
+route on PackageCloud</a> and followed the
+step:</p>
+<pre class="language-shell"><code class="language-shell"><span class="token function">curl</span> -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span></code></pre>
+<p>This adds a new package source, which then allows installation:</p>
+<pre class="language-shell"><code class="language-shell"><span class="token function">sudo</span> dnf <span class="token function">install</span> git-lfs<br><span class="token function">git</span> lfs <span class="token function">install</span></code></pre>
+<p>Now we're reading to Git clone a model. The directory being cloned to will need to be used by the
+.NET console application we create next:</p>
+<pre class="language-shell"><code class="language-shell"><span class="token function">git</span> clone https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-onnx ~/projects/onnx/phi-mini-4k</code></pre>
+<h3 id="using-the-model">Using the model <a class="direct-link" href="#using-the-model">#</a></h3>
+<p>Create a new .NET Console application and add the following packages:</p>
+<pre class="language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PackageReference</span> <span class="token attr-name">Include</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Microsoft.ML.OnnxRuntime<span class="token punctuation">"</span></span> <span class="token attr-name">Version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1.19.1<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PackageReference</span> <span class="token attr-name">Include</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Microsoft.ML.OnnxRuntimeGenAI<span class="token punctuation">"</span></span> <span class="token attr-name">Version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0.4.0<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+<p><strong>On Linux these are the first versions of the libraries usable</strong>, before these versions I received
+errors stating the file could not be loaded. Looking through the GitHub issues I saw a comment on a
+similar error stating Linux was not supported yet, and so I assume was my issue with older versions
+of the library.</p>
+<p>First step is to load the model:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token class-name"><span class="token keyword">var</span></span> modelPath <span class="token operator">=</span> <span class="token string">"/home/username/projects/onnx/phi-mini-4k/cpu_and_mobile/cpu-int4-rtn-block-32"</span><span class="token punctuation">;</span><br><span class="token class-name"><span class="token keyword">var</span></span> model <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Model</span><span class="token punctuation">(</span>modelPath<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token class-name"><span class="token keyword">var</span></span> tokenizer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Tokenizer</span><span class="token punctuation">(</span>model<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Next up, create an agent using a system prompt:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token class-name"><span class="token keyword">var</span></span> systemPrompt <span class="token operator">=</span><br>    <span class="token string">"You are a knowledgeable and friendly assistant. Answer the following question as concisely as possible."</span><span class="token punctuation">;</span><br><br><span class="token class-name"><span class="token keyword">var</span></span> allPrompts <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">List<span class="token punctuation">&lt;</span><span class="token keyword">string</span><span class="token punctuation">></span></span><br><span class="token punctuation">{</span><br>    <span class="token interpolation-string"><span class="token string">$"&lt;|system|></span><span class="token interpolation"><span class="token punctuation">{</span><span class="token expression language-csharp">systemPrompt</span><span class="token punctuation">}</span></span><span class="token string">&lt;|end|>"</span></span><br><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>We then begin a loop for the interactive chat:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><br><span class="token punctuation">{</span><br><span class="token punctuation">}</span></code></pre>
+<p>Within the loop we ask the user to type their question and generate the full prompt to send to the
+model:</p>
+<pre class="language-csharp"><code class="language-csharp">Console<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token string">"Type Prompt then Press [Enter] or CTRL-C to Exit: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token class-name"><span class="token keyword">var</span></span> userPrompt <span class="token operator">=</span> Console<span class="token punctuation">.</span><span class="token function">ReadLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>Console<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token string">"Assistant:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>allPrompts<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token interpolation-string"><span class="token string">$"&lt;|user|></span><span class="token interpolation"><span class="token punctuation">{</span><span class="token expression language-csharp">userPrompt</span><span class="token punctuation">}</span></span><span class="token string">&lt;|end|>"</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>allPrompts<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token string">"&lt;|assistant|>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token class-name"><span class="token keyword">var</span></span> fullPrompt <span class="token operator">=</span> <span class="token keyword">string</span><span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span><span class="token keyword">string</span><span class="token punctuation">.</span>Empty<span class="token punctuation">,</span> allPrompts<span class="token punctuation">.</span><span class="token function">ToArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>We then set all the parameters for the model. <a href="https://onnxruntime.ai/docs/genai/reference/config.html#configuration">Reference the documentation for configuration
+parameters</a>:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token class-name"><span class="token keyword">var</span></span> tokens <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span><span class="token function">Encode</span><span class="token punctuation">(</span>fullPrompt<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token class-name"><span class="token keyword">var</span></span> generatorParams <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">GeneratorParams</span><span class="token punctuation">(</span>model<span class="token punctuation">)</span><span class="token punctuation">;</span><br>generatorParams<span class="token punctuation">.</span><span class="token function">SetSearchOption</span><span class="token punctuation">(</span><span class="token string">"max_length"</span><span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>generatorParams<span class="token punctuation">.</span><span class="token function">SetSearchOption</span><span class="token punctuation">(</span><span class="token string">"past_present_share_buffer"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>generatorParams<span class="token punctuation">.</span><span class="token function">SetInputSequences</span><span class="token punctuation">(</span>tokens<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token class-name"><span class="token keyword">var</span></span> fullResponse <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">System<span class="token punctuation">.</span>Text<span class="token punctuation">.</span>StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token class-name"><span class="token keyword">var</span></span> generator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Generator</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> generatorParams<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>We now read the response and output it:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>generator<span class="token punctuation">.</span><span class="token function">IsDone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br><span class="token punctuation">{</span><br>    generator<span class="token punctuation">.</span><span class="token function">ComputeLogits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    generator<span class="token punctuation">.</span><span class="token function">GenerateNextToken</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token class-name"><span class="token keyword">var</span></span> outputTokens <span class="token operator">=</span> generator<span class="token punctuation">.</span><span class="token function">GetSequence</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token class-name"><span class="token keyword">var</span></span> newToken <span class="token operator">=</span> outputTokens<span class="token punctuation">.</span><span class="token function">Slice</span><span class="token punctuation">(</span>outputTokens<span class="token punctuation">.</span>Length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token class-name"><span class="token keyword">var</span></span> output <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span><span class="token function">Decode</span><span class="token punctuation">(</span>newToken<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// build full response string as it's generated</span><br>    fullResponse<span class="token punctuation">.</span><span class="token function">Append</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    Console<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>Finally, we add the answer to our history, so the next question asked has the previous content to
+reference and build upon.</p>
+<pre class="language-csharp"><code class="language-csharp">allPrompts<span class="token punctuation">[</span>allPrompts<span class="token punctuation">.</span><span class="token function">Count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token interpolation-string"><span class="token string">$"&lt;|assistant|></span><span class="token interpolation"><span class="token punctuation">{</span><span class="token expression language-csharp">fullResponse<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span><span class="token punctuation">}</span></span><span class="token string">&lt;|end|>"</span></span><span class="token punctuation">;</span><br>Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h3 id="final-thoughts">Final thoughts <a class="direct-link" href="#final-thoughts">#</a></h3>
+<p>It's surprising how well this runs using the CPU on my 8 year old laptop. I wouldn't want to use it
+as a real life solution for even personal use, but useful to experiment with.</p>
+<p>I personally do not have reason to use this. But where it does become interesting is that <a href="https://onnxruntime.ai/docs/get-started/with-python.html#scikit-learn-cv">ONNX
+supports scikit-learn
+models</a>. Therefore, it's
+intriguing thinking about creating a custom model with scikit-learn and then using that custom model
+in an application.</p>
+
+
+
+    </main>
+
+    <footer>
+      <ul>
+        <li class="nav-item">
+          <a href="https://bsky.app/profile/christopherlopes.bsky.social">💬 @christopherlopes</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://bookshelf.christopherlopes.com">📚 Bookshelf</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://ln.ht/~ciwchris">🔖 Links</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://rss.christopherlopes.com">📒 RSS Reader</a>
+        </li>
+      </ul>
+
+      ©
+      <time datetime="2024-11-24">2024</time>
+      Chistopher Lopes. I speak only for myself.
+    </footer>
+
+    <!-- Current page: /posts/2024-08-23-using-onnx-to-integrate-models/ -->
+
+
+
+  <script>
+
+function setTheme(theme, persist = false) {
+    const on = theme;
+    const off = theme === 'light' ? 'dark' : 'light'
+
+    const htmlEl = document.documentElement;
+    htmlEl.classList.add(on);
+    htmlEl.classList.remove(off);
+
+    if (persist) {
+        localStorage.setItem('preferred-theme', theme);
+    }
+}
+const toggle = document.getElementById('toggle-input');
+const lightIcon = document.getElementById('light-icon');
+const darkIcon = document.getElementById('dark-icon');
+
+function updateUI(theme) {
+    toggle.checked = theme === 'light';
+
+    if (theme === 'light') {
+        lightIcon.style.visibility = "hidden";
+        darkIcon.style.visibility = "visible";
+    } else {
+        darkIcon.style.visibility = "hidden";
+        lightIcon.style.visibility = "visible";
+    }
+}
+
+toggle.addEventListener('click', () => {
+    const theme = toggle.checked ? 'light' : 'dark';
+    setTheme(theme, true);
+    updateUI(theme);
+});
+const osPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferredTheme = localStorage.getItem('preferred-theme') || osPreference;
+
+setTheme(preferredTheme, false);
+updateUI(preferredTheme);
+  </script>
+  </body>
+</html>
