@@ -5,12 +5,58 @@
 	
 	<link href="https://blog.christopherlopes.com/feed/feed.xml" rel="self"/>
 	<link href="https://blog.christopherlopes.com"/>
-	<updated>2024-11-16T00:00:00Z</updated>
+	<updated>2024-12-01T00:00:00Z</updated>
 	<id>https://blog.christopherlopes.com</id>
 	<author>
 		<name>Christopher Lopes</name>
 		<email></email>
 	</author>
+	
+	<entry>
+		<title>Blind spots: when medicine gets it wrong, and what it means for our health</title>
+		<link href="https://blog.christopherlopes.com/posts/2024-12-01-blind-spots/"/>
+		<updated>2024-12-01T00:00:00Z</updated>
+		<id>https://blog.christopherlopes.com/posts/2024-12-01-blind-spots/</id>
+		<content type="html">&lt;h3 id=&quot;about&quot;&gt;About &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-12-01-blind-spots/#about&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.bloomsbury.com/us/blind-spots-9781639735310/&quot;&gt;Blind spots&lt;/a&gt; by &lt;a href=&quot;https://www.martymd.com/&quot;&gt;Marty Makary
+MD&lt;/a&gt; provides many examples on how medicine has given the wrong guidance
+and how the guidance has become dogma, slow to change, costing many lives and diminished health of
+many.&lt;/p&gt;
+&lt;p&gt;What is contained within the book is shocking, but also seems one sided. This leaves me wondering,
+is the same offense of adamantly sticking to your beliefs being repeated by the author? Similar to
+when I come away from hearing or reading medical information and wondering to what extent to trust
+or question the information I wonder about some of the content of this book.&lt;/p&gt;
+&lt;h3 id=&quot;what-can-i-glean&quot;&gt;What can I glean &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-12-01-blind-spots/#what-can-i-glean&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The medical field is not special, not special in that they are also flawed people who make mistakes
+and struggle to figure out the path forward. But the medical field is special in the amount of money
+which flows through it, the amount &#39;s is tremendous. And so the temptation to take advantage or
+manipulate results, of what is communicated either for selfish reasons or for what it perceived to
+be beneficial for others, leads to great harm. The medical field is also special in the nobleness of
+the profession, to help people. Unfortunately in this discussion that raises the stakes higher, both
+to not follow the scientific process or to overlook issues, so what is believed to be help can
+immediately be given. This is referred to as a &amp;quot;parachute&amp;quot; in the book, it is argued it would be
+unethical to hold up treatment so that a proper study can be performed.&lt;/p&gt;
+&lt;p&gt;It&#39;s also discouraging in that the government, who I would expect to oversee this process and ensure
+steps are being followed properly has done the opposite. It is instead prone to mass lobbying and
+the establishment of processes which silence doctors and enforces flawed dogma.&lt;/p&gt;
+&lt;h3 id=&quot;what-does-this-mean&quot;&gt;What does this mean &lt;a class=&quot;direct-link&quot; href=&quot;https://blog.christopherlopes.com/posts/2024-12-01-blind-spots/#what-does-this-mean&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;I believe most people in the field are there because they want to help. I believe this is true of
+most humans. But they are also fallible. Life it tough. We each have our challenges and path to
+walk. No one is immune to this. This is why we need each other. There is no panacea. We must
+struggle forward together. It will continue to be messy. It will continue to be sad. I hope we can
+learn to do better.&lt;/p&gt;
+&lt;p&gt;The book includes the following quote by Evelyn Beatrice Hall:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I disapprove of what you say, but I will defend to the death your right to say it&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The fundamental right to communicate is crucial. This cannot be quashed. It must not be. Beyond this
+right it is also important for us to hear the other side. But it is tough to listen to viewpoints
+which challenge our own understanding. Not only this, but it&#39;s just not possible to listen to every
+voice, so how do we know what voice is speaking something unexpected that should be listened to?
+Perhaps one voice at a time raises the conversation, and so I add my voice. This book represents a
+minority side to be heard, to be wrestled with.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Using scikit-learn to create a model</title>
